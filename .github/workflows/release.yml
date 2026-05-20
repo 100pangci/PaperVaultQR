@@ -23,7 +23,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11' # 你可以改成你本地使用的 Python 版本，如 '3.10'
-          cache: 'pip'           # 缓存 pip 依赖，加快后续打包速度
 
       - name: 🔨 运行打包脚本 (build_gui_exe.bat)
         shell: cmd # 关键：你的脚本使用了 FOR /F 语法，必须指定 cmd 解释器
