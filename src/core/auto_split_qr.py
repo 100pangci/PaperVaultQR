@@ -149,7 +149,10 @@ def main():
 
     target_path = os.path.abspath(args.target)
     if os.path.isdir(target_path):
-        import scanner_decoder
+        try:
+            from core import scanner_decoder
+        except ImportError:
+            import scanner_decoder
         scanner_decoder.decode_folder(target_path, lang=lang)
     else:
         process_file(target_path, lang=lang)

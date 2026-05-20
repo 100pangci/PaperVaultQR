@@ -8,8 +8,7 @@ import webbrowser
 from tkinter import filedialog
 import customtkinter as ctk
 
-import auto_split_qr
-import scanner_decoder
+from core import auto_split_qr, scanner_decoder
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_POLL_MS = 100
@@ -204,7 +203,7 @@ class ModernGUI(ctk.CTk):
         self.clear_btn.configure(text=t["clear_log"])
         self.log_label.configure(text=t["log"])
         self.info_label.configure(text=t["info_tip"])
-        self.project_link_label.configure(text="PaperVaultQR")
+        self.project_link_label.configure(text="https://github.com/100pangci/PaperVaultQR")
         
         self.status_label.configure(text=t[self._status_key])
         self.path_label.configure(text=self._selected_path if self._selected_path else t["selected_none"])

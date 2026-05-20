@@ -21,17 +21,20 @@ echo Found customtkinter at: %CTK_PATH%
 
 echo.
 echo [3/4] Building PaperVaultQR GUI...
-REM 核心修复：带上 pyzbar 的 DLL 以及 customtkinter 的主题 JSON 和图标资源！
+REM 核心修复：将输出直接放到 release，避免 dist/release 双目录并存
+if not exist release mkdir release
 pyinstaller --onefile --windowed --clean ^
+  --name PaperVaultQR-GUI ^
+  --distpath release ^
+  --workpath build\pyinstaller ^
+  --specpath build\pyinstaller ^
   --add-binary "%PYZBAR_PATH%\*.dll;pyzbar" ^
   --add-data "%CTK_PATH%;customtkinter" ^
-  gui.py
+  src\gui.py
 
 echo.
 echo [4/4] Finalizing build...
-if exist dist\gui.exe (
-  if not exist release mkdir release
-  copy /Y dist\gui.exe release\PaperVaultQR-GUI.exe >nul
+if exist release\PaperVaultQR-GUI.exe (
   echo ========================================================
   echo  SUCCESS! Built: release\PaperVaultQR-GUI.exe
   echo ========================================================
