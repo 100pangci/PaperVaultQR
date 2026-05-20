@@ -91,17 +91,6 @@ python scanner_decoder.py --lang auto path/to/scanned_images_folder
 - Encoder: creates a printable Word document containing QR codes.
 - Decoder: writes a recovered text file to the parent directory of the scanned image folder.
 
-## Screenshots
-
-Below are the GUI screenshots included in the `Picture` folder:
-
-- Chinese UI: `Picture/PaperVaultQR_CN.png`
-- English UI: `Picture/PaperVaultQR_EN.png`
-
-![PaperVaultQR Chinese GUI](Picture/PaperVaultQR_CN.png)
-
-![PaperVaultQR English GUI](Picture/PaperVaultQR_EN.png)
-
 ## Default parameters
 
 - Characters per chunk: `500`
