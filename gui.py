@@ -4,6 +4,7 @@ import queue
 import sys
 import io
 import threading
+import webbrowser
 from tkinter import filedialog
 import customtkinter as ctk
 
@@ -12,9 +13,15 @@ import scanner_decoder
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_POLL_MS = 100
+UI_FONT_FAMILY = "Microsoft YaHei UI"
+PROJECT_URL = "https://github.com/100pangci/PaperVaultQR"
 
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
+
+
+def ui_font(size=12, weight="normal"):
+    return ctk.CTkFont(family=UI_FONT_FAMILY, size=size, weight=weight)
 
 UI_TEXT = {
     "zh": {
@@ -102,6 +109,7 @@ class ModernGUI(ctk.CTk):
         
         self.geometry("900x650")
         self.minsize(800, 600)
+        self.option_add("*Font", (UI_FONT_FAMILY, 12))
         
         self.lang_var = ctk.StringVar(value="auto")
         self.lang_var.trace_add("write", self.update_ui_texts)
@@ -115,39 +123,39 @@ class ModernGUI(ctk.CTk):
         self.header_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.header_frame.pack(fill="x", padx=20, pady=(20, 10))
         
-        self.title_label = ctk.CTkLabel(self.header_frame, text="", font=ctk.CTkFont(family="Microsoft YaHei UI", size=24, weight="bold"))
+        self.title_label = ctk.CTkLabel(self.header_frame, text="", font=ui_font(24, "bold"))
         self.title_label.pack(anchor="w")
         
-        self.subtitle_label = ctk.CTkLabel(self.header_frame, text="", text_color="gray60", font=ctk.CTkFont(size=14))
+        self.subtitle_label = ctk.CTkLabel(self.header_frame, text="", text_color="gray60", font=ui_font(14))
         self.subtitle_label.pack(anchor="w", pady=(2, 0))
 
         # --- 工具栏区域 ---
         self.toolbar_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.toolbar_frame.pack(fill="x", padx=20, pady=(10, 15))
         
-        self.lang_label = ctk.CTkLabel(self.toolbar_frame, text="", font=ctk.CTkFont(weight="bold"))
+        self.lang_label = ctk.CTkLabel(self.toolbar_frame, text="", font=ui_font(12, "bold"))
         self.lang_label.pack(side="left", padx=(0, 10))
         
         self.lang_combo = ctk.CTkOptionMenu(self.toolbar_frame, variable=self.lang_var, values=["auto", "zh", "en"], width=100)
         self.lang_combo.pack(side="left")
 
-        self.clear_btn = ctk.CTkButton(self.toolbar_frame, text="", width=100, fg_color="transparent", border_width=1, text_color=("gray10", "#DCE4EE"), command=self.clear_log)
+        self.clear_btn = ctk.CTkButton(self.toolbar_frame, text="", width=100, fg_color="transparent", border_width=1, text_color=("gray10", "#DCE4EE"), font=ui_font(12), command=self.clear_log)
         self.clear_btn.pack(side="right", padx=(10, 0))
         
-        self.folder_btn = ctk.CTkButton(self.toolbar_frame, text="", width=140, fg_color="#107C41", hover_color="#0B5D30", command=self.choose_folder)
+        self.folder_btn = ctk.CTkButton(self.toolbar_frame, text="", width=140, fg_color="#107C41", hover_color="#0B5D30", font=ui_font(12, "bold"), command=self.choose_folder)
         self.folder_btn.pack(side="right", padx=(10, 0))
 
-        self.file_btn = ctk.CTkButton(self.toolbar_frame, text="", width=140, command=self.choose_file)
+        self.file_btn = ctk.CTkButton(self.toolbar_frame, text="", width=140, font=ui_font(12, "bold"), command=self.choose_file)
         self.file_btn.pack(side="right", padx=(10, 0))
 
         # --- 状态与进度卡片 ---
         self.status_card = ctk.CTkFrame(self, corner_radius=10)
         self.status_card.pack(fill="x", padx=20, pady=5)
         
-        self.status_label = ctk.CTkLabel(self.status_card, text="", font=ctk.CTkFont(size=16, weight="bold"))
+        self.status_label = ctk.CTkLabel(self.status_card, text="", font=ui_font(16, "bold"))
         self.status_label.pack(anchor="w", padx=20, pady=(15, 2))
         
-        self.path_label = ctk.CTkLabel(self.status_card, text="", text_color="gray50", font=ctk.CTkFont(size=12))
+        self.path_label = ctk.CTkLabel(self.status_card, text="", text_color="gray50", font=ui_font(12))
         self.path_label.pack(anchor="w", padx=20, pady=(0, 10))
         
         self.progress = ctk.CTkProgressBar(self.status_card, height=4)
@@ -155,16 +163,29 @@ class ModernGUI(ctk.CTk):
         self.progress.set(0)
 
         # --- 日志区域 ---
-        self.log_label = ctk.CTkLabel(self, text="", font=ctk.CTkFont(weight="bold"))
+        self.log_label = ctk.CTkLabel(self, text="", font=ui_font(12, "bold"))
         self.log_label.pack(anchor="w", padx=20, pady=(15, 5))
         
-        self.log_text = ctk.CTkTextbox(self, corner_radius=10, font=ctk.CTkFont(family="Consolas", size=13))
+        self.log_text = ctk.CTkTextbox(self, corner_radius=10, font=ui_font(13))
         self.log_text.pack(fill="both", expand=True, padx=20, pady=(0, 10))
         self.log_text.configure(state="disabled")
 
         # --- 底部信息 ---
-        self.info_label = ctk.CTkLabel(self, text="", text_color="gray50", font=ctk.CTkFont(size=12))
-        self.info_label.pack(side="left", padx=20, pady=(0, 10))
+        self.footer_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.footer_frame.pack(fill="x", padx=20, pady=(0, 10))
+
+        self.info_label = ctk.CTkLabel(self.footer_frame, text="", text_color="gray50", font=ui_font(12))
+        self.info_label.pack(side="left")
+
+        self.project_link_label = ctk.CTkLabel(
+            self.footer_frame,
+            text="https://github.com/100pangci/PaperVaultQR",
+            text_color="#1f6aa5",
+            cursor="hand2",
+            font=ui_font(12, "bold"),
+        )
+        self.project_link_label.pack(side="right")
+        self.project_link_label.bind("<Button-1>", lambda e: self.open_project_link())
 
         self.update_ui_texts()
         self.after(LOG_POLL_MS, self._poll_log)
@@ -183,6 +204,7 @@ class ModernGUI(ctk.CTk):
         self.clear_btn.configure(text=t["clear_log"])
         self.log_label.configure(text=t["log"])
         self.info_label.configure(text=t["info_tip"])
+        self.project_link_label.configure(text="PaperVaultQR")
         
         self.status_label.configure(text=t[self._status_key])
         self.path_label.configure(text=self._selected_path if self._selected_path else t["selected_none"])
@@ -198,6 +220,9 @@ class ModernGUI(ctk.CTk):
         self.log_text.configure(state="normal")
         self.log_text.delete("1.0", "end")
         self.log_text.configure(state="disabled")
+
+    def open_project_link(self):
+        webbrowser.open_new_tab(PROJECT_URL)
 
     def _append_log(self, text):
         self.log_text.configure(state="normal")
