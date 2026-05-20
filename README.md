@@ -1,42 +1,47 @@
 # PaperVaultQR
 
-将文本切分为二维码并生成可打印 Word 文档，随后可通过扫描二维码恢复原始文本。
+English (default). For the Chinese version, see: [README.zh.md](README.zh.md)
 
-## 功能
+PaperVaultQR splits text into multiple QR codes, generates a printable Word document,
+and can recover the original text from scanned pages that contain these QR codes.
 
-- 将 `split_qr.json` 拆分为多个 QR 码
-- 生成适合打印的 Word 文档
-- 从扫描后的图片中识别 QR 码并恢复文本
-- 支持中文 / English 控制台输出
+## Features
 
-## 文件说明
+- Split `split_qr.json` into multiple QR codes
+- Generate a Word document suitable for printing
+- Decode scanned images to recover the original text
+- Console output supports Chinese and English
 
-- `auto_split_qr.py`：生成二维码打印文档
-- `scanner_decoder.py`：解析扫描图片并恢复文本
-- `split_qr.json`：输入原文
-- `scanned_pages/`：放扫描后的图片
-- `冷存储.docx` / `cold_storage.docx`：生成的打印文档
-- `decoder.json`：恢复出的文本
+## Files
 
-## 环境依赖
+- `auto_split_qr.py`: create printable QR pages
+- `scanner_decoder.py`: decode scanned pages and recover text
+- `split_qr.json`: input text to be split
+- `scanned_pages/`: folder for scanned images
+- `冷存储.docx` / `cold_storage.docx`: generated printable document
+- `decoder.json`: recovered output
+
+## Requirements
+
+Install the required Python packages:
 
 ```bash
 pip install segno python-docx pillow pyzbar
 ```
 
-> `pyzbar` 可能还需要系统安装 `zbar`。
+Note: `pyzbar` may require the system `zbar` library to be installed.
 
-## 用法
+## Usage
 
-### 1. 生成二维码打印文档
+1) Generate printable QR pages
 
-把待切分内容放到 `split_qr.json`，然后运行：
+Place the input text in `split_qr.json`, then run:
 
 ```bash
 python auto_split_qr.py
 ```
 
-指定语言：
+Language options:
 
 ```bash
 python auto_split_qr.py --lang zh
@@ -44,15 +49,15 @@ python auto_split_qr.py --lang en
 python auto_split_qr.py --lang auto
 ```
 
-### 2. 扫描并恢复文本
+2) Scan and recover text
 
-把扫描后的图片放入 `scanned_pages/`，然后运行：
+Place scanned images into `scanned_pages/`, then run:
 
 ```bash
 python scanner_decoder.py
 ```
 
-指定语言：
+Language options:
 
 ```bash
 python scanner_decoder.py --lang zh
@@ -60,19 +65,19 @@ python scanner_decoder.py --lang en
 python scanner_decoder.py --lang auto
 ```
 
-## 输出说明
+## Output
 
-- 生成端会输出 Word 文档
-- 解码端会输出 `decoder.json`
+- The generator produces a Word document for printing.
+- The decoder writes `decoder.json` with the recovered text.
 
-## 默认参数
+## Default parameters
 
-- 单块字符数：`500`
-- QR 纠错级别：`M`
-- 每页布局：`4 x 6`
-- 页边距：`1.0 cm`
+- Characters per chunk: `500`
+- QR error correction level: `M`
+- Page layout: `4 x 6` per page
+- Page margin: `1.0 cm`
 
-## 备注
+## Notes
 
-- `auto` 会根据系统语言自动选择中文或英文
-- 建议扫描使用 `300/600 DPI` 灰度模式，以提高识别率
+- `auto` chooses Chinese or English according to system language.
+- For best recognition, scan at 300 or 600 DPI in grayscale.
