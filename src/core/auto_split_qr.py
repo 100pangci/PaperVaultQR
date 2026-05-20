@@ -50,6 +50,22 @@ def setup_page(doc):
     section.left_margin, section.right_margin = Cm(PAGE_MARGIN), Cm(PAGE_MARGIN)
     section.top_margin, section.bottom_margin = Cm(PAGE_MARGIN), Cm(PAGE_MARGIN)
 
+def _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename, temp_dir):
+    if is_base64:
+        if idx == 1:
+            payload = f"[{idx}/{total_chunks}]<<FILENAME:{original_filename}>>{BASE64_TAG}{chunk_content}"
+        else:
+            payload = f"[{idx}/{total_chunks}]{chunk_content}"
+    else:
+        payload = f"[{idx}/{total_chunks}]{chunk_content}"
+        if idx == total_chunks:
+            payload += f"<<FILENAME:{original_filename}>>"
+
+    qr = segno.make(payload, error=QR_ERROR)
+    img_path = os.path.join(temp_dir, f"qr_{idx}.png")
+    qr.save(img_path, scale=10, border=1)
+    return idx, img_path
+
 def process_file(input_path: str, lang: str = "zh"):
     input_path = os.path.abspath(input_path)
     if not os.path.exists(input_path):
@@ -86,25 +102,13 @@ def process_file(input_path: str, lang: str = "zh"):
     current_table.autofit = False
 
     with tempfile.TemporaryDirectory() as temp_dir:
+        progress_step = max(1, total_chunks // 100)
+
         for i in range(total_chunks):
             idx = i + 1
             start = i * CHUNK_SIZE
             chunk_content = full_text[start : start + CHUNK_SIZE]
-
-            if is_base64:
-                if idx == 1:
-                    payload = f"[{idx}/{total_chunks}]<<FILENAME:{original_filename}>>{BASE64_TAG}{chunk_content}"
-                else:
-                    payload = f"[{idx}/{total_chunks}]{chunk_content}"
-            else:
-                payload = f"[{idx}/{total_chunks}]{chunk_content}"
-                # 🌟 在最后一个二维码末尾追加包含原文件名的隐藏标记
-                if idx == total_chunks:
-                    payload += f"<<FILENAME:{original_filename}>>"
-
-            qr = segno.make(payload, error=QR_ERROR)
-            img_path = os.path.join(temp_dir, f"qr_{idx}.png")
-            qr.save(img_path, scale=10, border=1)
+            _, img_path = _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename, temp_dir)
 
             row_idx = i // COLS_PER_PAGE
             col_idx = i % COLS_PER_PAGE
@@ -120,7 +124,8 @@ def process_file(input_path: str, lang: str = "zh"):
             p_img.alignment, p_img.paragraph_format.space_before, p_img.paragraph_format.space_after = WD_ALIGN_PARAGRAPH.CENTER, Pt(0), Pt(0)
             p_img.add_run().add_picture(img_path, width=Cm(QR_WIDTH_CM))
 
-            print(tr(lang, "progress", current=idx, total=total_chunks))
+            if idx % progress_step == 0 or idx == total_chunks:
+                print(tr(lang, "progress", current=idx, total=total_chunks))
 
         doc.save(output_doc)
         print(tr(lang, "saved", output_doc=output_doc))

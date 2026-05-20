@@ -306,6 +306,19 @@ class ModernGUI(ctk.CTk):
             self._update_progress(current, total)
             return
 
+        decode_summary_match = re.search(
+            r"(?:解码进度|Decode progress)\s*:\s*(\d+)\s*/\s*(\d+)",
+            line,
+        )
+        if decode_summary_match:
+            current = int(decode_summary_match.group(1))
+            total = int(decode_summary_match.group(2))
+            self._progress_mode = "decode"
+            self._progress_current = current
+            self._progress_total = total
+            self._update_progress(current, total)
+            return
+
         if self._progress_mode == "decode" and re.search(
             r"(?:扫描图片|Scanning image)\s*:",
             line,
@@ -322,7 +335,8 @@ class ModernGUI(ctk.CTk):
             while True:
                 line = self.log_q.get_nowait()
                 if line == "__DONE__":
-                    self.progress.set(1.0)
+                    if not self._task_failed:
+                        self.progress.set(1.0)
                     self._running = False
                     self._set_controls_enabled(True)
                     self._set_status(

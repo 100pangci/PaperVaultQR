@@ -3,7 +3,9 @@ import glob
 import re
 import base64
 import sys
-from PIL import Image
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import numpy as np
+from PIL import Image, ImageOps
 from pyzbar.pyzbar import decode
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -34,12 +36,176 @@ def _build_output_file(parent_dir: str, folder_name: str, lang: str, original_fi
     return os.path.join(parent_dir, f"{folder_name}{suffix}{'.bin' if is_base64 else '.txt'}")
 
 
+def _high_threshold_binary(img: Image.Image, threshold: int = 220) -> Image.Image:
+    gray = ImageOps.grayscale(img)
+    return gray.point(lambda p: 0 if p < threshold else 255, mode="L")
+
+
+def _expand_bbox(bbox: tuple[int, int, int, int], img_w: int, img_h: int, padding: int = 20) -> tuple[int, int, int, int]:
+    left, top, right, bottom = bbox
+    return (
+        max(0, left - padding),
+        max(0, top - padding),
+        min(img_w, right + padding),
+        min(img_h, bottom + padding),
+    )
+
+
+def _find_dark_component_bboxes(
+    binary_img: Image.Image,
+    min_area: int = 800,
+    min_side: int = 20,
+    downsample_max_side: int = 1200,
+    max_components: int = 80,
+) -> list[tuple[int, int, int, int]]:
+    """
+    在高阈值二值图中寻找黑色连通域，返回其 bbox 列表。
+    约定：黑像素为 0，白像素为 255。
+    """
+    orig_w, orig_h = binary_img.size
+    scale = 1.0
+    if max(orig_w, orig_h) > downsample_max_side:
+        scale = downsample_max_side / float(max(orig_w, orig_h))
+        work_img = binary_img.resize(
+            (max(1, int(orig_w * scale)), max(1, int(orig_h * scale))),
+            Image.NEAREST,
+        )
+    else:
+        work_img = binary_img
+
+    arr = np.array(work_img, dtype=np.uint8)
+    black = arr == 0
+    h, w = black.shape
+    visited = np.zeros((h, w), dtype=np.uint8)
+
+    bboxes = []
+    for y in range(h):
+        for x in range(w):
+            if not black[y, x] or visited[y, x]:
+                continue
+
+            stack = [(x, y)]
+            visited[y, x] = 1
+            min_x = max_x = x
+            min_y = max_y = y
+            area = 0
+
+            while stack:
+                cx, cy = stack.pop()
+                area += 1
+                if cx < min_x:
+                    min_x = cx
+                if cx > max_x:
+                    max_x = cx
+                if cy < min_y:
+                    min_y = cy
+                if cy > max_y:
+                    max_y = cy
+
+                for nx, ny in ((cx - 1, cy), (cx + 1, cy), (cx, cy - 1), (cx, cy + 1)):
+                    if 0 <= nx < w and 0 <= ny < h and black[ny, nx] and not visited[ny, nx]:
+                        visited[ny, nx] = 1
+                        stack.append((nx, ny))
+
+            bw = max_x - min_x + 1
+            bh = max_y - min_y + 1
+            if area >= min_area and bw >= min_side and bh >= min_side:
+                bboxes.append((min_x, min_y, max_x + 1, max_y + 1))
+                if len(bboxes) >= max_components:
+                    break
+        if len(bboxes) >= max_components:
+            break
+
+    if scale != 1.0:
+        inv = 1.0 / scale
+        scaled = []
+        for l, t, r, b in bboxes:
+            scaled.append(
+                (
+                    max(0, int(l * inv)),
+                    max(0, int(t * inv)),
+                    min(orig_w, int(r * inv)),
+                    min(orig_h, int(b * inv)),
+                )
+            )
+        bboxes = scaled
+
+    return bboxes
+
+
+def _parse_payloads(decoded_objects) -> list[tuple[int, int, str]]:
+    pattern = re.compile(r"^\[(\d+)/(\d+)\]([\s\S]*)$")
+    parsed_chunks = []
+    for obj in decoded_objects:
+        payload = obj.data.decode("utf-8")
+        match = pattern.match(payload)
+        if match:
+            idx, total, data = int(match.group(1)), int(match.group(2)), match.group(3)
+            parsed_chunks.append((idx, total, data))
+    return parsed_chunks
+
+
+def _decode_image_file(img_path: str):
+    with Image.open(img_path) as img:
+        img = img.convert("RGB")
+        img_w, img_h = img.size
+
+        all_decoded = []
+        seen_payloads = set()
+
+        # 1) 默认启用你的新算法：高阈值“全黑块”预处理
+        binary = _high_threshold_binary(img, threshold=220)
+
+        # 1.1 二值整图先解
+        for obj in decode(binary):
+            payload = obj.data
+            if payload not in seen_payloads:
+                seen_payloads.add(payload)
+                all_decoded.append(obj)
+
+        # 1.2 黑块连通域 -> 扩框20px -> 裁切解码（限量）
+        bboxes = _find_dark_component_bboxes(
+            binary,
+            min_area=800,
+            min_side=20,
+            downsample_max_side=1200,
+            max_components=80,
+        )
+        for bbox in bboxes:
+            ex_bbox = _expand_bbox(bbox, img_w, img_h, padding=20)
+            crop = binary.crop(ex_bbox)
+            for obj in decode(crop):
+                payload = obj.data
+                if payload not in seen_payloads:
+                    seen_payloads.add(payload)
+                    all_decoded.append(obj)
+
+        # 2) 原图轻量流程作为补充回退（提高召回）
+        full_variants = [
+            img,
+            ImageOps.grayscale(img),
+            ImageOps.autocontrast(ImageOps.grayscale(img)),
+        ]
+        for variant in full_variants:
+            for obj in decode(variant):
+                payload = obj.data
+                if payload not in seen_payloads:
+                    seen_payloads.add(payload)
+                    all_decoded.append(obj)
+
+    parsed_chunks = _parse_payloads(all_decoded)
+    return all_decoded, parsed_chunks
+
 def decode_folder(scan_dir: str, lang: str = "zh"):
     scan_dir = os.path.abspath(scan_dir)
     if not os.path.exists(scan_dir):
         return print(tr(lang, "missing_scan_dir", scan_dir=scan_dir))
 
-    image_files = glob.glob(os.path.join(scan_dir, "*.[pjJ][pnN][gG]"))
+    image_files = (
+        glob.glob(os.path.join(scan_dir, "*.[pP][nN][gG]"))
+        + glob.glob(os.path.join(scan_dir, "*.[jJ][pP][gG]"))
+        + glob.glob(os.path.join(scan_dir, "*.[jJ][pP][eE][gG]"))
+    )
     if not image_files:
         return print(tr(lang, "no_images", scan_dir=scan_dir))
 
@@ -52,26 +218,25 @@ def decode_folder(scan_dir: str, lang: str = "zh"):
     print("=" * 50)
     print(tr(lang, "start"))
 
-    pattern = re.compile(r"^\[(\d+)/(\d+)\]([\s\S]*)$")
+    cpu_count = max(1, os.cpu_count() or 1)
+    max_workers = min(8, max(2, cpu_count // 2))
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_path = {executor.submit(_decode_image_file, img_path): img_path for img_path in image_files}
 
-    for img_path in image_files:
-        print(tr(lang, "scanning", filename=os.path.basename(img_path)))
-        try:
-            with Image.open(img_path) as img:
-                decoded_objects = decode(img)
+        for future in as_completed(future_to_path):
+            img_path = future_to_path[future]
+            print(tr(lang, "scanning", filename=os.path.basename(img_path)))
+            try:
+                decoded_objects, parsed_chunks = future.result()
 
-            for obj in decoded_objects:
-                payload = obj.data.decode("utf-8")
-                match = pattern.match(payload)
-                if match:
-                    idx, total, data = int(match.group(1)), int(match.group(2)), match.group(3)
+                for idx, total, data in parsed_chunks:
                     if expected_total is None:
                         expected_total = total
                     chunks_data[idx] = data
 
-            print(tr(lang, "fragments", count=len(decoded_objects)))
-        except Exception as e:
-            print(tr(lang, "scan_error", error=e))
+                print(tr(lang, "fragments", count=len(decoded_objects)))
+            except Exception as e:
+                print(tr(lang, "scan_error", error=e))
 
     print("=" * 50)
     if not expected_total:
