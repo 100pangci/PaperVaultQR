@@ -38,5 +38,3 @@ if exist dist\gui.exe (
 ) else (
   echo ERROR: Build failed. Check the logs above.
 )
-
-pause
