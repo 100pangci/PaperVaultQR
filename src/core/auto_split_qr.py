@@ -1,4 +1,5 @@
 import argparse
+import base64
 import locale
 import math
 import os
@@ -21,12 +22,15 @@ FONT_SIZE_LABEL = 10
 
 COLS_PER_PAGE = 4
 PAGE_MARGIN = 1.0
+TARGET_ENCODING = "utf-8"
+BASE64_TAG = "<<BASE64>>"
 # ==============================================================================
 
 MESSAGES = {
     "zh": {
         "missing_input": "❌ 找不到文件 '{input_file}'",
-        "data_loaded": "📄 数据加载完毕 (纯净切片模式)",
+        "data_loaded_text": "📄 数据加载完毕 (UTF-8 文本模式)",
+        "data_loaded_base64": "📄 数据加载完毕 (base64 兼容模式)",
         "original_chars": "   - 原始字符数: {total_chars}",
         "generated_count": "   - 生成数量: {total_chunks} 个二维码",
         "progress": "✅ 处理进度: {current} / {total}",
@@ -36,7 +40,8 @@ MESSAGES = {
     },
     "en": {
         "missing_input": "❌ File not found: '{input_file}'",
-        "data_loaded": "📄 Data loaded (plain slicing mode)",
+        "data_loaded_text": "📄 Data loaded (UTF-8 text mode)",
+        "data_loaded_base64": "📄 Data loaded (base64-compatible mode)",
         "original_chars": "   - Total characters: {total_chars}",
         "generated_count": "   - Generated: {total_chunks} QR codes",
         "progress": "✅ Progress: {current} / {total}",
@@ -62,6 +67,12 @@ def detect_lang(explicit_lang: str | None = None) -> str:
 def tr(lang: str, key: str, **kwargs) -> str:
     return MESSAGES[lang][key].format(**kwargs)
 
+def _encode_input_data(raw_data: bytes) -> tuple[str, bool]:
+    try:
+        return raw_data.decode(TARGET_ENCODING), False
+    except UnicodeDecodeError:
+        return base64.b64encode(raw_data).decode("ascii"), True
+
 def setup_page(doc):
     section = doc.sections[0]
     section.page_height = Cm(29.7)
@@ -78,14 +89,15 @@ def process_file(input_path: str, lang: str = "zh"):
     base_name, _ = os.path.splitext(input_path)
     output_doc = f"{base_name}{tr(lang, 'suffix')}.docx"
 
-    with open(input_path, "r", encoding="utf-8") as f:
-        full_text = f.read().strip()
+    with open(input_path, "rb") as f:
+        raw_data = f.read()
 
+    full_text, is_base64 = _encode_input_data(raw_data)
     total_chars = len(full_text)
     total_chunks = math.ceil(total_chars / CHUNK_SIZE)
 
     print("="*50)
-    print(tr(lang, "data_loaded"))
+    print(tr(lang, "data_loaded_base64" if is_base64 else "data_loaded_text"))
     print(tr(lang, "original_chars", total_chars=total_chars))
     print(tr(lang, "generated_count", total_chunks=total_chunks))
     print("="*50)
@@ -109,10 +121,16 @@ def process_file(input_path: str, lang: str = "zh"):
             start = i * CHUNK_SIZE
             chunk_content = full_text[start : start + CHUNK_SIZE]
 
-            payload = f"[{idx}/{total_chunks}]{chunk_content}"
-            # 🌟 在最后一个二维码末尾追加包含原文件名的隐藏标记
-            if idx == total_chunks:
-                payload += f"<<FILENAME:{original_filename}>>"
+            if is_base64:
+                if idx == 1:
+                    payload = f"[{idx}/{total_chunks}]<<FILENAME:{original_filename}>>{BASE64_TAG}{chunk_content}"
+                else:
+                    payload = f"[{idx}/{total_chunks}]{chunk_content}"
+            else:
+                payload = f"[{idx}/{total_chunks}]{chunk_content}"
+                # 🌟 在最后一个二维码末尾追加包含原文件名的隐藏标记
+                if idx == total_chunks:
+                    payload += f"<<FILENAME:{original_filename}>>"
 
             qr = segno.make(payload, error=QR_ERROR)
             img_path = os.path.join(temp_dir, f"qr_{idx}.png")

@@ -1,10 +1,13 @@
 import os
 import glob
 import re
+import base64
 import locale
 import ctypes
 from PIL import Image
 from pyzbar.pyzbar import decode
+
+BASE64_TAG = "<<BASE64>>"
 
 MESSAGES = {
     "zh": {
@@ -50,6 +53,18 @@ def detect_lang(explicit_lang: str | None = None) -> str:
 
 def tr(lang, key, **kwargs):
     return MESSAGES[lang][key].format(**kwargs)
+
+def _build_output_file(parent_dir: str, folder_name: str, lang: str, original_filename: str | None, is_base64: bool) -> str:
+    suffix = tr(lang, "suffix")
+    if original_filename:
+        original_filename = os.path.basename(original_filename)
+        name, ext = os.path.splitext(original_filename)
+        if is_base64 and not ext:
+            ext = ".bin"
+        elif not is_base64 and not ext:
+            ext = ".txt"
+        return os.path.join(parent_dir, f"{name}{suffix}{ext}")
+    return os.path.join(parent_dir, f"{folder_name}{suffix}{'.bin' if is_base64 else '.txt'}")
 
 def decode_folder(scan_dir: str, lang: str = "zh"):
     scan_dir = os.path.abspath(scan_dir)
@@ -102,21 +117,35 @@ def decode_folder(scan_dir: str, lang: str = "zh"):
     # 完全拼接文本
     original_text = "".join([chunks_data[i] for i in range(1, expected_total + 1)])
 
-    # 🌟 尝试通过正则寻找尾部附加的文件名标记
-    filename_match = re.search(r"<<FILENAME:(.+?)>>$", original_text)
-    if filename_match:
-        original_filename = filename_match.group(1)
-        # 将文本中属于文件名的标记去除，只保留真正的内容
-        original_text = original_text[:filename_match.start()]
-        
-        name, ext = os.path.splitext(original_filename)
-        output_file = os.path.join(parent_dir, f"{name}{tr(lang, 'suffix')}{ext}")
-    else:
-        # 兼容旧版本生成的二维码（没有内置文件名）
-        output_file = os.path.join(parent_dir, f"{folder_name}{tr(lang, 'suffix')}.txt")
+    original_filename = None
+    is_base64 = False
 
-    with open(output_file, "w", encoding="utf-8") as f:
-        f.write(original_text)
+    # 新版：首块头部携带文件名与 base64 标记
+    header_match = re.match(r"^<<FILENAME:(.+?)>>" + re.escape(BASE64_TAG), original_text)
+    if header_match:
+        original_filename = header_match.group(1)
+        original_text = original_text[header_match.end():]
+        is_base64 = True
+    else:
+        # 兼容旧版本生成的二维码（尾部隐藏文件名）
+        filename_match = re.search(r"<<FILENAME:(.+?)>>$", original_text)
+        if filename_match:
+            original_filename = filename_match.group(1)
+            # 将文本中属于文件名的标记去除，只保留真正的内容
+            original_text = original_text[:filename_match.start()]
+
+    output_file = _build_output_file(parent_dir, folder_name, lang, original_filename, is_base64)
+
+    if is_base64:
+        try:
+            decoded_bytes = base64.b64decode(original_text.encode("ascii"), validate=True)
+        except Exception as e:
+            return print(tr(lang, "scan_error", error=e))
+        with open(output_file, "wb") as f:
+            f.write(decoded_bytes)
+    else:
+        with open(output_file, "w", encoding="utf-8") as f:
+            f.write(original_text)
 
     print(tr(lang, "saved", output_file=output_file))
 
