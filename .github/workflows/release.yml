@@ -1,0 +1,37 @@
+name: Build and Release EXE
+
+# 触发条件：当你推送 v 打头的 tag 时（比如 v1.0.0）
+on:
+  push:
+    tags:
+      - 'v*'
+
+# 赋予 GitHub Actions 创建 Release 和上传文件的权限
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and Publish
+    runs-on: windows-latest # 必须使用 Windows 系统来运行你的 bat 和构建 exe
+
+    steps:
+      - name: 📥 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 🐍 配置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # 你可以改成你本地使用的 Python 版本，如 '3.10'
+          cache: 'pip'           # 缓存 pip 依赖，加快后续打包速度
+
+      - name: 🔨 运行打包脚本 (build_gui_exe.bat)
+        shell: cmd # 关键：你的脚本使用了 FOR /F 语法，必须指定 cmd 解释器
+        run: |
+          call build_gui_exe.bat
+
+      - name: 🚀 创建 Release 并上传 EXE
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/PaperVaultQR-GUI.exe # 指向你脚本最后 copy 出来的成品文件
+          generate_release_notes: true        # GitHub 自动帮你生成本版本的更新日志
