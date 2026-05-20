@@ -8,7 +8,7 @@ PaperVaultQR は任意のテキストファイルを複数の QR コードに分
 
 以下はソフトウェアの画面例です。画像は `Picture` ディレクトリにあります。
 
-- 英語 UI: `Picture/PaperVaultQR_EN.png`
+- 日本語 UI: `Picture/PaperVaultQR_JP.png`
 
 ![PaperVaultQR Japanese GUI](Picture/PaperVaultQR_JP.png)
 
