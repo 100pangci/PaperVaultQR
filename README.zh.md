@@ -36,6 +36,18 @@ pip install segno python-docx pillow pyzbar
 python auto_split_qr.py
 ```
 
+你也可以将文件拖拽到脚本上（或把文件路径作为参数传入）来对该文件生成二维码：
+
+```bash
+python auto_split_qr.py path/to/input.txt
+```
+
+如果你拖拽或传入的是一个文件夹路径，脚本会对该文件夹运行解码流程（适用于已将扫描图片保存到某个文件夹的场景）：
+
+```bash
+python auto_split_qr.py path/to/scanned_images_folder/
+```
+
 指定语言：
 
 ```bash
@@ -59,6 +71,22 @@ python scanner_decoder.py --lang zh
 python scanner_decoder.py --lang en
 python scanner_decoder.py --lang auto
 ```
+
+你也可以直接指定文件夹调用解码函数：
+
+```bash
+python -c "import scanner_decoder; scanner_decoder.decode_folder('scanned_pages', lang='zh')"
+```
+
+### 3）图形界面（GUI） — 拖拽支持（Windows）
+
+项目提供了一个简单的 Tkinter GUI，支持在 Windows 上将文件或文件夹直接拖拽到窗口：
+
+```bash
+python gui.py
+```
+
+拖入文件会对其进行编码（生成打印文档），拖入文件夹会对该文件夹运行解码流程。若平台不支持原生拖拽，可使用窗口中的按钮选择文件或文件夹。
 
 ## 输出说明
 

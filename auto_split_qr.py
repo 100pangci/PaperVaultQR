@@ -88,6 +88,11 @@ def parse_args() -> argparse.Namespace:
         default="auto",
         help="Language for console output and generated labels.",
     )
+    parser.add_argument(
+        "target",
+        nargs="?",
+        help="(Optional) Path to a file to encode or a folder to decode (drag-and-drop supported).",
+    )
     return parser.parse_args()
 
 
@@ -104,10 +109,23 @@ def main():
     lang = detect_lang(None if args.lang == "auto" else args.lang)
     output_doc = OUTPUT_DOCS[lang]
 
-    if not os.path.exists(INPUT_FILE):
-        return print(tr(lang, "missing_input", input_file=INPUT_FILE))
+    # support optional drag-and-drop or positional argument
+    input_path = args.target if getattr(args, "target", None) else INPUT_FILE
 
-    with open(INPUT_FILE, "r", encoding="utf-8") as f:
+    # if a directory is provided, delegate to the decoder (reverse operation)
+    if os.path.isdir(input_path):
+        try:
+            import scanner_decoder
+
+            scanner_decoder.decode_folder(input_path, lang=lang)
+            return
+        except Exception as e:
+            return print(f"❌ 调用解码器失败: {e}")
+
+    if not os.path.exists(input_path):
+        return print(tr(lang, "missing_input", input_file=input_path))
+
+    with open(input_path, "r", encoding="utf-8") as f:
         full_text = f.read().strip()
 
     total_chars = len(full_text)

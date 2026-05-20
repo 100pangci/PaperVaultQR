@@ -78,14 +78,19 @@ def parse_args():
 def main():
     args = parse_args()
     lang = detect_lang(None if args.lang == "auto" else args.lang)
+    decode_folder(SCAN_DIR, lang=lang)
 
-    if not os.path.exists(SCAN_DIR):
-        os.makedirs(SCAN_DIR)
-        return print(tr(lang, "missing_scan_dir", scan_dir=SCAN_DIR))
 
-    image_files = glob.glob(os.path.join(SCAN_DIR, "*.[pjJ][pnN][gG]"))
+def decode_folder(scan_dir: str, lang: str = "zh", output_file: str = OUTPUT_FILE):
+    """Decode QR images in `scan_dir` and write reconstructed text to `output_file`.
+    This function is callable from other modules (e.g. when a user drags a folder)."""
+    if not os.path.exists(scan_dir):
+        os.makedirs(scan_dir)
+        return print(tr(lang, "missing_scan_dir", scan_dir=scan_dir))
+
+    image_files = glob.glob(os.path.join(scan_dir, "*.[pjJ][pnN][gG]"))
     if not image_files:
-        return print(tr(lang, "no_images", scan_dir=SCAN_DIR))
+        return print(tr(lang, "no_images", scan_dir=scan_dir))
 
     chunks_data = {}
     expected_total = None
@@ -128,10 +133,10 @@ def main():
     # 简单粗暴地按顺序拼接纯文本，没有任何花里胡哨的转换！
     original_text = "".join([chunks_data[i] for i in range(1, expected_total + 1)])
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write(original_text)
 
-    print(tr(lang, "saved", output_file=OUTPUT_FILE))
+    print(tr(lang, "saved", output_file=output_file))
 
 
 if __name__ == "__main__":

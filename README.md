@@ -41,6 +41,28 @@ Place the input text in `split_qr.json`, then run:
 python auto_split_qr.py
 ```
 
+You can also drag-and-drop a file onto the script (or pass a file path) to encode that file into QR pages:
+
+```bash
+python auto_split_qr.py path/to/input.txt
+```
+
+If you drag or pass a folder path, the script will run the decoder on that folder (useful when you have scanned images saved in a folder):
+
+```bash
+python auto_split_qr.py path/to/scanned_images_folder/
+```
+
+3) GUI (drag-and-drop)
+
+On Windows you can use the provided GUI which accepts native drag-and-drop of files or folders. It will run encoding for files and decoding for folders in background threads:
+
+```bash
+python gui.py
+```
+
+Use the buttons if your platform doesn't support native drag-and-drop.
+
 Language options:
 
 ```bash
@@ -63,6 +85,14 @@ Language options:
 python scanner_decoder.py --lang zh
 python scanner_decoder.py --lang en
 python scanner_decoder.py --lang auto
+```
+
+You can also call the decoder programmatically or point it at a specific folder:
+
+```bash
+python scanner_decoder.py --lang en
+# or
+python -c "import scanner_decoder; scanner_decoder.decode_folder('scanned_pages', lang='en')"
 ```
 
 ## Output
