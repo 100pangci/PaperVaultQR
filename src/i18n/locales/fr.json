@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "Français"
+  },
+  "gui": {
+    "title": "PaperVaultQR — Stockage à froid",
+    "subtitle": "Utilisez les boutons à droite pour sauvegarder ou restaurer.",
+    "language": "Langue",
+    "choose_file": "Coder un fichier (vers QR)",
+    "choose_folder": "Décoder un dossier (depuis des images)",
+    "clear_log": "Vider la console",
+    "status_ready": "🟢 Système prêt",
+    "status_processing_file": "⚡ Génération des tranches d'impression...",
+    "status_processing_folder": "⚡ Analyse des données sous-jacentes...",
+    "status_done": "✅ Tâche terminée",
+    "status_failed": "❌ Tâche échouée",
+    "selected_none": "Aucun chemin cible sélectionné",
+    "log": "Journal d'exécution du terminal",
+    "info_tip": "💡 Veuillez utiliser les boutons ci-dessus pour sélectionner un fichier ou un dossier",
+    "busy": "Une autre tâche est en cours, veuillez patienter...\n",
+    "file_dialog": "Sélectionner le fichier source pour la sauvegarde physique",
+    "folder_dialog": "Sélectionner le dossier contenant les images scannées",
+    "invalid_path": "Le chemin n'existe pas : {path}",
+    "unhandled_error": "ERROR: Exception non gérée : {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ Fichier introuvable : '{input_file}'",
+    "data_loaded_text": "📄 Données chargées (mode texte UTF-8)",
+    "data_loaded_base64": "📄 Données chargées (mode compatible base64)",
+    "original_chars": "   - Nombre total de caractères : {total_chars}",
+    "generated_count": "   - Généré : {total_chunks} QR codes",
+    "progress": "✅ Progression : {current} / {total}",
+    "saved": "\n💾 Document d'impression généré avec succès : {output_doc}",
+    "part_label": "Partie {current} / {total}",
+    "suffix": "_StockageFroid"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ Dossier introuvable : '{scan_dir}'",
+    "no_images": "❌ Aucune image trouvée dans le dossier '{scan_dir}'.",
+    "start": "🔍 Début du décodage des pages scannées...",
+    "scanning": "👉 Analyse de l'image : {filename}",
+    "fragments": "   - {count} fragment(s) détecté(s).",
+    "scan_error": "   ⚠️ Erreur de décodage : {error}",
+    "no_qr": "❌ Échec du scan : aucun QR code valide détecté. Essayez des scans en niveaux de gris à 300/600 DPI.",
+    "progress": "📊 Progression : {collected} / {expected_total} morceaux collectés.",
+    "missing": "❌ Morceaux manquants : {missing_chunks}",
+    "saved": "\n🎉 Reconstruction terminée ! Enregistré dans '{output_file}'",
+    "suffix": "_Récupéré"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "עברית"
+  },
+  "gui": {
+    "title": "PaperVaultQR — אחסון קר",
+    "subtitle": "השתמשו בכפתורים מימין לגיבוי או לשחזור.",
+    "language": "שפה",
+    "choose_file": "קידוד קובץ (ל־QR)",
+    "choose_folder": "פענוח תיקייה (מתמונות)",
+    "clear_log": "נקה מסוף",
+    "status_ready": "🟢 המערכת מוכנה",
+    "status_processing_file": "⚡ יוצר מקטעי הדפסה...",
+    "status_processing_folder": "⚡ מנתח נתונים בסיסיים...",
+    "status_done": "✅ המשימה הושלמה",
+    "status_failed": "❌ המשימה נכשלה",
+    "selected_none": "לא נבחר נתיב יעד",
+    "log": "יומן הרצת מסוף",
+    "info_tip": "💡 אנא השתמשו בכפתורים למעלה כדי לבחור קובץ או תיקייה",
+    "busy": "משימה אחרת כבר רצה, נא להמתין...\n",
+    "file_dialog": "בחרו קובץ מקור לגיבוי פיזי",
+    "folder_dialog": "בחרו תיקייה עם תמונות סרוקות",
+    "invalid_path": "הנתיב לא קיים: {path}",
+    "unhandled_error": "ERROR: חריגה שלא טופלה: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ הקובץ לא נמצא: '{input_file}'",
+    "data_loaded_text": "📄 הנתונים נטענו (מצב טקסט UTF-8)",
+    "data_loaded_base64": "📄 הנתונים נטענו (מצב תואם base64)",
+    "original_chars": "   - סך התווים: {total_chars}",
+    "generated_count": "   - נוצרו: {total_chunks} קודי QR",
+    "progress": "✅ התקדמות: {current} / {total}",
+    "saved": "\n💾 מסמך ההדפסה נוצר בהצלחה: {output_doc}",
+    "part_label": "חלק {current} / {total}",
+    "suffix": "_אחסוןקר"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ התיקייה לא נמצאה: '{scan_dir}'",
+    "no_images": "❌ לא נמצאו תמונות בתיקייה '{scan_dir}'.",
+    "start": "🔍 מתחיל פענוח דפים סרוקים...",
+    "scanning": "👉 סורק תמונה: {filename}",
+    "fragments": "   - זוהו {count} מקטעים.",
+    "scan_error": "   ⚠️ שגיאת פענוח: {error}",
+    "no_qr": "❌ הסריקה נכשלה: לא זוהה קוד QR תקין. נסו סריקה בגווני אפור ב־300/600 DPI.",
+    "progress": "📊 התקדמות: נאספו {collected} מתוך {expected_total} מקטעים.",
+    "missing": "❌ מקטעים חסרים: {missing_chunks}",
+    "saved": "\n🎉 השחזור הושלם! נשמר אל '{output_file}'",
+    "suffix": "_שוחזר"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "हिन्दी"
+  },
+  "gui": {
+    "title": "PaperVaultQR — शीत भंडारण",
+    "subtitle": "बैकअप या पुनर्स्थापन के लिए दाईं ओर के बटन इस्तेमाल करें।",
+    "language": "भाषा",
+    "choose_file": "फ़ाइल एन्कोड करें (QR में)",
+    "choose_folder": "फ़ोल्डर डिकोड करें (छवियों से)",
+    "clear_log": "कंसोल साफ़ करें",
+    "status_ready": "🟢 सिस्टम तैयार",
+    "status_processing_file": "⚡ प्रिंट स्लाइस बनाए जा रहे हैं...",
+    "status_processing_folder": "⚡ अंतर्निहित डेटा का विश्लेषण किया जा रहा है...",
+    "status_done": "✅ कार्य पूर्ण",
+    "status_failed": "❌ कार्य विफल",
+    "selected_none": "कोई लक्ष्य पथ चयनित नहीं है",
+    "log": "टर्मिनल निष्पादन लॉग",
+    "info_tip": "💡 कृपया फ़ाइल या फ़ोल्डर चुनने के लिए ऊपर के बटन उपयोग करें",
+    "busy": "एक और कार्य चल रहा है, कृपया प्रतीक्षा करें...\n",
+    "file_dialog": "भौतिक बैकअप के लिए स्रोत फ़ाइल चुनें",
+    "folder_dialog": "स्कैन की गई छवियों वाला फ़ोल्डर चुनें",
+    "invalid_path": "पथ मौजूद नहीं है: {path}",
+    "unhandled_error": "ERROR: अनहैंडल्ड अपवाद: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ फ़ाइल नहीं मिली: '{input_file}'",
+    "data_loaded_text": "📄 डेटा लोड हो गया (UTF-8 टेक्स्ट मोड)",
+    "data_loaded_base64": "📄 डेटा लोड हो गया (base64-संगत मोड)",
+    "original_chars": "   - कुल वर्ण: {total_chars}",
+    "generated_count": "   - उत्पन्न: {total_chunks} QR कोड",
+    "progress": "✅ प्रगति: {current} / {total}",
+    "saved": "\n💾 प्रिंट दस्तावेज़ सफलतापूर्वक बनाया गया: {output_doc}",
+    "part_label": "भाग {current} / {total}",
+    "suffix": "_शीतभंडारण"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ फ़ोल्डर नहीं मिला: '{scan_dir}'",
+    "no_images": "❌ फ़ोल्डर '{scan_dir}' में कोई छवियाँ नहीं मिलीं।",
+    "start": "🔍 स्कैन किए गए पृष्ठों का डिकोड शुरू किया जा रहा है...",
+    "scanning": "👉 छवि स्कैन हो रही है: {filename}",
+    "fragments": "   - {count} खंड पहचाने गए।",
+    "scan_error": "   ⚠️ डिकोड त्रुटि: {error}",
+    "no_qr": "❌ स्कैन विफल: कोई मान्य QR कोड नहीं मिला। 300/600 DPI ग्रेस्केल स्कैन आज़माएँ।",
+    "progress": "📊 प्रगति: {collected} / {expected_total} खंड एकत्र किए गए।",
+    "missing": "❌ गायब खंड: {missing_chunks}",
+    "saved": "\n🎉 पुनर्निर्माण पूर्ण! '{output_file}' में सहेजा गया",
+    "suffix": "_पुनर्स्थापित"
+  }
+}

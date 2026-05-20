@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "ภาษาไทย"
+  },
+  "gui": {
+    "title": "PaperVaultQR — ที่เก็บข้อมูลแบบเย็น",
+    "subtitle": "ใช้ปุ่มทางขวาสำหรับสำรองข้อมูลหรือกู้คืน",
+    "language": "ภาษา",
+    "choose_file": "เข้ารหัสไฟล์ (เป็น QR)",
+    "choose_folder": "ถอดรหัสโฟลเดอร์ (จากรูปภาพ)",
+    "clear_log": "ล้างคอนโซล",
+    "status_ready": "🟢 ระบบพร้อม",
+    "status_processing_file": "⚡ กำลังสร้างชิ้นงานสำหรับพิมพ์...",
+    "status_processing_folder": "⚡ กำลังวิเคราะห์ข้อมูลต้นทาง...",
+    "status_done": "✅ งานเสร็จสิ้น",
+    "status_failed": "❌ งานล้มเหลว",
+    "selected_none": "ยังไม่ได้เลือกพาธเป้าหมาย",
+    "log": "บันทึกการทำงานของเทอร์มินัล",
+    "info_tip": "💡 โปรดใช้ปุ่มด้านบนเพื่อเลือกไฟล์หรือโฟลเดอร์",
+    "busy": "มีงานอื่นกำลังทำงานอยู่ โปรดรอสักครู่...\n",
+    "file_dialog": "เลือกไฟล์ต้นทางสำหรับการสำรองข้อมูลเชิงกายภาพ",
+    "folder_dialog": "เลือกโฟลเดอร์ที่มีภาพสแกน",
+    "invalid_path": "พาธไม่มีอยู่จริง: {path}",
+    "unhandled_error": "ERROR: เกิดข้อยกเว้นที่ไม่ได้จัดการ: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ ไม่พบไฟล์: '{input_file}'",
+    "data_loaded_text": "📄 โหลดข้อมูลแล้ว (โหมดข้อความ UTF-8)",
+    "data_loaded_base64": "📄 โหลดข้อมูลแล้ว (โหมดรองรับ base64)",
+    "original_chars": "   - จำนวนอักขระทั้งหมด: {total_chars}",
+    "generated_count": "   - สร้างแล้ว: {total_chunks} QR code",
+    "progress": "✅ ความคืบหน้า: {current} / {total}",
+    "saved": "\n💾 สร้างเอกสารสำหรับพิมพ์สำเร็จ: {output_doc}",
+    "part_label": "ส่วน {current} / {total}",
+    "suffix": "_ที่เก็บเย็น"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ ไม่พบโฟลเดอร์: '{scan_dir}'",
+    "no_images": "❌ ไม่พบรูปภาพในโฟลเดอร์ '{scan_dir}'.",
+    "start": "🔍 เริ่มถอดรหัสหน้าที่สแกน...",
+    "scanning": "👉 กำลังสแกนรูปภาพ: {filename}",
+    "fragments": "   - ตรวจพบ {count} ชิ้นส่วน",
+    "scan_error": "   ⚠️ ข้อผิดพลาดในการถอดรหัส: {error}",
+    "no_qr": "❌ สแกนไม่สำเร็จ: ไม่พบ QR code ที่ถูกต้อง ลองสแกนแบบภาพขาวดำที่ 300/600 DPI",
+    "progress": "📊 ความคืบหน้า: เก็บได้ {collected} / {expected_total} ชิ้นส่วน",
+    "missing": "❌ ชิ้นส่วนที่ขาดหาย: {missing_chunks}",
+    "saved": "\n🎉 กู้คืนสำเร็จ! บันทึกไว้ที่ '{output_file}'",
+    "suffix": "_กู้คืน"
+  }
+}

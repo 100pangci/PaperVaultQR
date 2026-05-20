@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "Türkçe"
+  },
+  "gui": {
+    "title": "PaperVaultQR — Soğuk Depolama",
+    "subtitle": "Yedekleme veya kurtarma için sağdaki düğmeleri kullanın.",
+    "language": "Dil",
+    "choose_file": "Dosyayı kodla (QR'a)",
+    "choose_folder": "Klasörü çöz (görüntülerden)",
+    "clear_log": "Konsolu temizle",
+    "status_ready": "🟢 Sistem hazır",
+    "status_processing_file": "⚡ Yazdırma dilimleri oluşturuluyor...",
+    "status_processing_folder": "⚡ Temel veriler ayrıştırılıyor...",
+    "status_done": "✅ Görev tamamlandı",
+    "status_failed": "❌ Görev başarısız",
+    "selected_none": "Hedef yolu seçilmedi",
+    "log": "Terminal yürütme günlüğü",
+    "info_tip": "💡 Lütfen bir dosya veya klasör seçmek için yukarıdaki düğmeleri kullanın",
+    "busy": "Başka bir görev çalışıyor, lütfen bekleyin...\n",
+    "file_dialog": "Fiziksel yedekleme için kaynak dosyayı seçin",
+    "folder_dialog": "Taranan görüntülerin bulunduğu klasörü seçin",
+    "invalid_path": "Yol mevcut değil: {path}",
+    "unhandled_error": "ERROR: Yakalanmamış istisna: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ Dosya bulunamadı: '{input_file}'",
+    "data_loaded_text": "📄 Veri yüklendi (UTF-8 metin modu)",
+    "data_loaded_base64": "📄 Veri yüklendi (base64 uyumlu mod)",
+    "original_chars": "   - Toplam karakter: {total_chars}",
+    "generated_count": "   - Oluşturulan: {total_chunks} QR kodu",
+    "progress": "✅ İlerleme: {current} / {total}",
+    "saved": "\n💾 Yazdırma belgesi başarıyla oluşturuldu: {output_doc}",
+    "part_label": "Parça {current} / {total}",
+    "suffix": "_SoğukDepolama"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ Klasör bulunamadı: '{scan_dir}'",
+    "no_images": "❌ '{scan_dir}' klasöründe görüntü bulunamadı.",
+    "start": "🔍 Taranan sayfalar çözümleniyor...",
+    "scanning": "👉 Görüntü taranıyor: {filename}",
+    "fragments": "   - {count} parça algılandı.",
+    "scan_error": "   ⚠️ Çözümleme hatası: {error}",
+    "no_qr": "❌ Tarama başarısız: geçerli QR kodu bulunamadı. 300/600 DPI gri tonlamalı tarama deneyin.",
+    "progress": "📊 İlerleme: {collected} / {expected_total} parça toplandı.",
+    "missing": "❌ Eksik parçalar: {missing_chunks}",
+    "saved": "\n🎉 Yeniden oluşturma tamamlandı! '{output_file}' olarak kaydedildi",
+    "suffix": "_Kurtarıldı"
+  }
+}

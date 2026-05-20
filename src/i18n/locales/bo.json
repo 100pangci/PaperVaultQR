@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "བོད་ཡིག"
+  },
+  "gui": {
+    "title": "PaperVaultQR — གྲང་ཉར",
+    "subtitle": "གཡས་ཕྱོགས་ཀྱི་མཐེབ་མོ་སྤྱད་དེ་རྒྱབ་ཉར་ཡང་ན་སླར་གསོ་བྱོས།",
+    "language": "སྐད་ཡིག",
+    "choose_file": "ཡིག་ཆ་ཨང་སྒྲིག (QR ལ)",
+    "choose_folder": "ཡིག་ཁུག་ཨང་བཤིག (པར་རིས་ནས)",
+    "clear_log": "ཀོན་སོལ་གསལ་བཟོ",
+    "status_ready": "🟢 ལག་ལེན་བརྩམས་ཆོག",
+    "status_processing_file": "⚡ དཔར་གཅོད་སྒྲིག་བཟོ་བཞིན་པ...",
+    "status_processing_folder": "⚡ གཞི་གྲངས་ལེན་བཤེར་བཞིན་པ...",
+    "status_done": "✅ ལས་འགན་ལེགས་པར་འགྲུབ་སོང་",
+    "status_failed": "❌ ལས་འགན་མ་འགྲུབ་",
+    "selected_none": "དམིགས་ཡུལ་ལམ་མ་འདེམས་",
+    "log": "ཊེར་མི་ནལ་ལག་ལེན་ཟིན་ཐོ",
+    "info_tip": "💡 ཡིག་ཆ་ཡང་ན་ཡིག་ཁུག་འདེམས་པར་གོང་གི་མཐེབ་མོ་སྤྱོད་རོགས",
+    "busy": "ལས་འགན་གཞན་ཞིག་ལས་ཀྱི་སྟེང་ཡོད་པས་སྒུག་རོགས...\n",
+    "file_dialog": "རྒྱབ་ཉར་ཆེད་རྩ་བའི་ཡིག་ཆ་འདེམས",
+    "folder_dialog": "པར་རིས་བཤེར་མ་བྱས་པའི་ཡིག་ཁུག་འདེམས",
+    "invalid_path": "ལམ་དེ་མེད་པ: {path}",
+    "unhandled_error": "ERROR: ཚབས་ཆེའི་ནོར་འཁྲུལ: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ ཡིག་ཆ་མ་རྙེད་: '{input_file}'",
+    "data_loaded_text": "📄 གཞི་གྲངས་བླུགས་ཟིན (UTF-8 ཡི་གེ་རྣམ་པ)",
+    "data_loaded_base64": "📄 གཞི་གྲངས་བླུགས་ཟིན (base64 མཐུན་སྦྱོར་རྣམ་པ)",
+    "original_chars": "   - ཡི་གེ་ཡོངས་སྡོམ: {total_chars}",
+    "generated_count": "   - བཟོས་པ: {total_chunks} QR ཨང་སྒྲིག",
+    "progress": "✅ འཕེལ་རིམ: {current} / {total}",
+    "saved": "\n💾 དཔར་ཡིག་ཆ་ལེགས་པར་བཟོས: {output_doc}",
+    "part_label": "ཆ་ཤས {current} / {total}",
+    "suffix": "_གྲང་ཉར"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ ཡིག་ཁུག་མ་རྙེད་: '{scan_dir}'",
+    "no_images": "❌ '{scan_dir}' ནང་དུ་པར་རིས་མ་རྙེད།",
+    "start": "🔍 བཤེར་བྱས་པའི་ཤོག་ངོས་ཨང་བཤིག་འགོ་བཙུགས...",
+    "scanning": "👉 པར་རིས་བཤེར་བཞིན་པ: {filename}",
+    "fragments": "   - {count} ཆ་ཤས་རྙེད་པ།",
+    "scan_error": "   ⚠️ ཨང་བཤིག་ནོར་འཁྲུལ: {error}",
+    "no_qr": "❌ བཤེར་མ་ལེགས: ནུས་ལྡན QR མ་རྙེད། 300/600 DPI སྐྱ་ཚོན་བཤེར་ལག་ལེན་བྱོས།",
+    "progress": "📊 འཕེལ་རིམ: {collected} / {expected_total} ཆ་ཤས་བསྡུས་པ།",
+    "missing": "❌ ཆ་ཤས་མ་ཚང་: {missing_chunks}",
+    "saved": "\n🎉 སླར་གསོ་ལེགས་པར་འགྲུབ! '{output_file}' ལ་བསྲུངས་ཟིན།",
+    "suffix": "_སླར་གསོ"
+  }
+}

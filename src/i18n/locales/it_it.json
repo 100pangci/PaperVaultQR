@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "Italiano"
+  },
+  "gui": {
+    "title": "PaperVaultQR — Archiviazione a freddo",
+    "subtitle": "Usa i pulsanti a destra per backup o ripristino.",
+    "language": "Lingua",
+    "choose_file": "Codifica file (in QR)",
+    "choose_folder": "Decodifica cartella (da immagini)",
+    "clear_log": "Pulisci console",
+    "status_ready": "🟢 Sistema pronto",
+    "status_processing_file": "⚡ Generazione delle sezioni di stampa...",
+    "status_processing_folder": "⚡ Analisi dei dati sottostanti...",
+    "status_done": "✅ Operazione completata",
+    "status_failed": "❌ Operazione fallita",
+    "selected_none": "Nessun percorso di destinazione selezionato",
+    "log": "Registro esecuzione terminale",
+    "info_tip": "💡 Usa i pulsanti sopra per selezionare un file o una cartella",
+    "busy": "Un'altra attività è in corso, attendi...\n",
+    "file_dialog": "Seleziona il file sorgente per il backup fisico",
+    "folder_dialog": "Seleziona la cartella contenente le immagini scansionate",
+    "invalid_path": "Percorso inesistente: {path}",
+    "unhandled_error": "ERROR: Eccezione non gestita: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ File non trovato: '{input_file}'",
+    "data_loaded_text": "📄 Dati caricati (modalità testo UTF-8)",
+    "data_loaded_base64": "📄 Dati caricati (modalità compatibile base64)",
+    "original_chars": "   - Caratteri totali: {total_chars}",
+    "generated_count": "   - Generati: {total_chunks} codici QR",
+    "progress": "✅ Progresso: {current} / {total}",
+    "saved": "\n💾 Documento di stampa generato con successo: {output_doc}",
+    "part_label": "Parte {current} / {total}",
+    "suffix": "_ArchiviazioneFredda"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ Cartella non trovata: '{scan_dir}'",
+    "no_images": "❌ Nessuna immagine trovata nella cartella '{scan_dir}'.",
+    "start": "🔍 Avvio della decodifica delle pagine scansionate...",
+    "scanning": "👉 Scansione immagine: {filename}",
+    "fragments": "   - Rilevati {count} frammenti.",
+    "scan_error": "   ⚠️ Errore di decodifica: {error}",
+    "no_qr": "❌ Scansione fallita: nessun codice QR valido rilevato. Prova scansioni in scala di grigi a 300/600 DPI.",
+    "progress": "📊 Progresso: raccolti {collected} di {expected_total} frammenti.",
+    "missing": "❌ Frammenti mancanti: {missing_chunks}",
+    "saved": "\n🎉 Ricostruzione completata! Salvato in '{output_file}'",
+    "suffix": "_Ripristinato"
+  }
+}

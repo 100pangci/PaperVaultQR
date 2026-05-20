@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "Português"
+  },
+  "gui": {
+    "title": "PaperVaultQR — Armazenamento a frio",
+    "subtitle": "Use os botões à direita para backup ou recuperação.",
+    "language": "Idioma",
+    "choose_file": "Codificar arquivo (para QR)",
+    "choose_folder": "Decodificar pasta (a partir de imagens)",
+    "clear_log": "Limpar console",
+    "status_ready": "🟢 Sistema pronto",
+    "status_processing_file": "⚡ Gerando fatias de impressão...",
+    "status_processing_folder": "⚡ Analisando os dados subjacentes...",
+    "status_done": "✅ Tarefa concluída",
+    "status_failed": "❌ Tarefa falhou",
+    "selected_none": "Nenhum caminho de destino selecionado",
+    "log": "Registro de execução do terminal",
+    "info_tip": "💡 Use os botões acima para selecionar um arquivo ou pasta",
+    "busy": "Outra tarefa está em execução, aguarde...\n",
+    "file_dialog": "Selecione o arquivo de origem para backup físico",
+    "folder_dialog": "Selecione a pasta com imagens digitalizadas",
+    "invalid_path": "O caminho não existe: {path}",
+    "unhandled_error": "ERROR: Exceção não tratada: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ Arquivo não encontrado: '{input_file}'",
+    "data_loaded_text": "📄 Dados carregados (modo de texto UTF-8)",
+    "data_loaded_base64": "📄 Dados carregados (modo compatível com base64)",
+    "original_chars": "   - Total de caracteres: {total_chars}",
+    "generated_count": "   - Gerados: {total_chunks} códigos QR",
+    "progress": "✅ Progresso: {current} / {total}",
+    "saved": "\n💾 Documento de impressão gerado com sucesso: {output_doc}",
+    "part_label": "Parte {current} / {total}",
+    "suffix": "_ArmazenamentoFrio"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ Pasta não encontrada: '{scan_dir}'",
+    "no_images": "❌ Nenhuma imagem encontrada na pasta '{scan_dir}'.",
+    "start": "🔍 Iniciando a decodificação das páginas digitalizadas...",
+    "scanning": "👉 Digitalizando imagem: {filename}",
+    "fragments": "   - {count} fragmento(s) detectado(s).",
+    "scan_error": "   ⚠️ Erro de decodificação: {error}",
+    "no_qr": "❌ Falha na leitura: nenhum QR code válido foi detectado. Tente digitalizações em tons de cinza a 300/600 DPI.",
+    "progress": "📊 Progresso: {collected} / {expected_total} fragmentos coletados.",
+    "missing": "❌ Fragmentos ausentes: {missing_chunks}",
+    "saved": "\n🎉 Restauração concluída! Salvo em '{output_file}'",
+    "suffix": "_Recuperado"
+  }
+}

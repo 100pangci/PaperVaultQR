@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "Deutsch"
+  },
+  "gui": {
+    "title": "PaperVaultQR — Kältespeicher",
+    "subtitle": "Verwenden Sie die Schaltflächen rechts für Sicherung oder Wiederherstellung.",
+    "language": "Sprache",
+    "choose_file": "Datei codieren (zu QR)",
+    "choose_folder": "Ordner dekodieren (aus Bildern)",
+    "clear_log": "Konsole leeren",
+    "status_ready": "🟢 System bereit",
+    "status_processing_file": "⚡ Druckschnitte werden erstellt...",
+    "status_processing_folder": "⚡ Zugehörige Daten werden analysiert...",
+    "status_done": "✅ Aufgabe abgeschlossen",
+    "status_failed": "❌ Aufgabe fehlgeschlagen",
+    "selected_none": "Kein Zielpfad ausgewählt",
+    "log": "Terminal-Ausführungsprotokoll",
+    "info_tip": "💡 Bitte verwenden Sie die Schaltflächen oben, um eine Datei oder einen Ordner auszuwählen",
+    "busy": "Eine andere Aufgabe läuft bereits, bitte warten...\n",
+    "file_dialog": "Quelldatei für physische Sicherung auswählen",
+    "folder_dialog": "Ordner mit gescannten Bildern auswählen",
+    "invalid_path": "Pfad existiert nicht: {path}",
+    "unhandled_error": "ERROR: Nicht abgefangene Ausnahme: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ Datei nicht gefunden: '{input_file}'",
+    "data_loaded_text": "📄 Daten geladen (UTF-8-Textmodus)",
+    "data_loaded_base64": "📄 Daten geladen (base64-kompatibler Modus)",
+    "original_chars": "   - Gesamtzeichen: {total_chars}",
+    "generated_count": "   - Erzeugt: {total_chunks} QR-Codes",
+    "progress": "✅ Fortschritt: {current} / {total}",
+    "saved": "\n💾 Druckdokument erfolgreich erstellt: {output_doc}",
+    "part_label": "Teil {current} / {total}",
+    "suffix": "_KaltSpeicher"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ Ordner nicht gefunden: '{scan_dir}'",
+    "no_images": "❌ Im Ordner '{scan_dir}' wurden keine Bilder gefunden.",
+    "start": "🔍 Gescannte Seiten werden dekodiert...",
+    "scanning": "👉 Bild wird gescannt: {filename}",
+    "fragments": "   - {count} Fragment(e) erkannt.",
+    "scan_error": "   ⚠️ Dekodierungsfehler: {error}",
+    "no_qr": "❌ Scan fehlgeschlagen: Kein gültiger QR-Code erkannt. Versuchen Sie Graustufen-Scans mit 300/600 DPI.",
+    "progress": "📊 Fortschritt: {collected} / {expected_total} Fragmente gesammelt.",
+    "missing": "❌ Fehlende Fragmente: {missing_chunks}",
+    "saved": "\n🎉 Wiederherstellung abgeschlossen! Gespeichert unter '{output_file}'",
+    "suffix": "_Wiederhergestellt"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "Tiếng Việt"
+  },
+  "gui": {
+    "title": "PaperVaultQR — Lưu trữ lạnh",
+    "subtitle": "Sử dụng các nút bên phải để sao lưu hoặc khôi phục.",
+    "language": "Ngôn ngữ",
+    "choose_file": "Mã hóa tệp (sang QR)",
+    "choose_folder": "Giải mã thư mục (từ hình ảnh)",
+    "clear_log": "Xóa bảng điều khiển",
+    "status_ready": "🟢 Hệ thống sẵn sàng",
+    "status_processing_file": "⚡ Đang tạo các lát in...",
+    "status_processing_folder": "⚡ Đang phân tích dữ liệu nền...",
+    "status_done": "✅ Hoàn tất tác vụ",
+    "status_failed": "❌ Tác vụ thất bại",
+    "selected_none": "Chưa chọn đường dẫn mục tiêu",
+    "log": "Nhật ký thực thi terminal",
+    "info_tip": "💡 Vui lòng dùng các nút bên trên để chọn tệp hoặc thư mục",
+    "busy": "Một tác vụ khác đang chạy, vui lòng đợi...\n",
+    "file_dialog": "Chọn tệp nguồn để sao lưu vật lý",
+    "folder_dialog": "Chọn thư mục chứa ảnh đã quét",
+    "invalid_path": "Đường dẫn không tồn tại: {path}",
+    "unhandled_error": "ERROR: Ngoại lệ chưa được xử lý: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ Không tìm thấy tệp: '{input_file}'",
+    "data_loaded_text": "📄 Đã tải dữ liệu (chế độ văn bản UTF-8)",
+    "data_loaded_base64": "📄 Đã tải dữ liệu (chế độ tương thích base64)",
+    "original_chars": "   - Tổng số ký tự: {total_chars}",
+    "generated_count": "   - Đã tạo: {total_chunks} mã QR",
+    "progress": "✅ Tiến độ: {current} / {total}",
+    "saved": "\n💾 Đã tạo tài liệu in thành công: {output_doc}",
+    "part_label": "Phần {current} / {total}",
+    "suffix": "_LuuTruLanh"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ Không tìm thấy thư mục: '{scan_dir}'",
+    "no_images": "❌ Không tìm thấy hình ảnh trong thư mục '{scan_dir}'.",
+    "start": "🔍 Bắt đầu giải mã các trang đã quét...",
+    "scanning": "👉 Đang quét hình ảnh: {filename}",
+    "fragments": "   - Đã phát hiện {count} mảnh.",
+    "scan_error": "   ⚠️ Lỗi giải mã: {error}",
+    "no_qr": "❌ Quét thất bại: không phát hiện mã QR hợp lệ. Hãy thử quét thang độ xám ở 300/600 DPI.",
+    "progress": "📊 Tiến độ: đã thu thập {collected} / {expected_total} mảnh.",
+    "missing": "❌ Thiếu các mảnh: {missing_chunks}",
+    "saved": "\n🎉 Khôi phục hoàn tất! Đã lưu vào '{output_file}'",
+    "suffix": "_DaKhoiPhuc"
+  }
+}
