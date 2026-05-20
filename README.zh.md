@@ -1,106 +1,107 @@
 # PaperVaultQR
 
-将文本切分为二维码并生成可打印 Word 文档，随后可通过扫描二维码恢复原始文本。
+PaperVaultQR 将任意文本文件切分为多个二维码，并生成适合打印的 Word 文档；同时可以从扫描后的二维码图片目录中恢复出原始文本。该项目特别适合用于保护高熵加密数据的离线纸质备份。
 
-## 功能
+## 📷 界面截图
 
-- 将 `split_qr.json` 拆分为多个 QR 码
-- 生成适合打印的 Word 文档
-- 从扫描后的图片中识别 QR 码并恢复文本
-- 支持中文 / English 控制台输出
+以下为软件界面截图，图片位于 `Picture` 目录：
 
-## 文件说明
+- 中文界面：`Picture/PaperVaultQR_CN.png`
 
-- `auto_split_qr.py`：生成二维码打印文档
-- `scanner_decoder.py`：解析扫描图片并恢复文本
-- `split_qr.json`：输入原文
-- `scanned_pages/`：放扫描后的图片
-- `冷存储.docx` / `cold_storage.docx`：生成的打印文档
-- `decoder.json`：恢复出的文本
+![PaperVaultQR 中文界面](Picture/PaperVaultQR_CN.png)
 
-## 环境依赖
+## 🌟 核心功能
+
+- 将任意 UTF-8 文本文件按 `500` 字符切片，并生成二维码
+- 生成页边距为 `1.0 cm`、`4 x 6` 布局的可打印 Word 文档
+- 自动在最后一个二维码内嵌原始文件名，恢复时可输出原文件名
+- 从包含扫描图片的目录中解析二维码，并按序还原文本
+- 支持命令行和 Windows GUI，两端均可选择中文或英文
+
+## 📌 重要说明
+
+- 本项目不会对输入文本进行压缩或 Base64 转码，采用最纯净的“文本切片+二维码”方式。
+- 使用 QR 码内建的 `M` 级纠错，可在轻微污损、折痕、洇墨等情况下提高识别成功率。
+- 纸质备份适合存储已加密的密文，例如 Bitwarden 导出库、加密钱包助记词、GPG/PGP 密文等。
+
+## 📂 文件说明
+
+- `auto_split_qr.py`：将文本文件编码为二维码并生成打印文档
+- `scanner_decoder.py`：解析扫描图片目录并恢复原始文本
+- `gui.py`：Windows GUI，支持拖放文件或文件夹执行编码/解码
+- `build_gui_exe.bat`：辅助打包 GUI 可执行文件
+
+## ⚙️ 安装依赖
 
 ```bash
-pip install segno python-docx pillow pyzbar
+pip install segno python-docx pillow pyzbar customtkinter
 ```
 
-> `pyzbar` 可能还需要系统安装 `zbar`。
+> 💡 Linux 需要额外安装系统层面的 `zbar` 驱动（例如 `sudo apt-get install libzbar0`）。
 
-## 用法
+## 🚀 使用方式
 
-### 1. 生成二维码打印文档
-
-把待切分内容放到 `split_qr.json`，然后运行：
-
-```bash
-python auto_split_qr.py
-```
-
-你也可以将文件拖拽到脚本上（或把文件路径作为参数传入）来对该文件生成二维码：
+### 1. 命令行生成打印文档
 
 ```bash
 python auto_split_qr.py path/to/input.txt
 ```
 
-如果你拖拽或传入的是一个文件夹路径，脚本会对该文件夹运行解码流程（适用于已将扫描图片保存到某个文件夹的场景）：
+- 输出文件为同目录下的 `input_冷存储.docx`。
+- 脚本会读取 UTF-8 文本并按 500 字符切分为二维码。
+- 最后一个二维码中包含原始文件名，恢复时可还原输出文件名。
+
+### 2. 命令行恢复扫描内容
 
 ```bash
-python auto_split_qr.py path/to/scanned_images_folder/
+python scanner_decoder.py path/to/scanned_images_folder
 ```
 
-指定语言：
+- 默认会扫描目录中的 `jpg`、`jpeg`、`png` 图片。
+- 如果未指定目录，则默认使用 `scanned_pages` 文件夹。
+- 恢复后会生成 `原始文件名_恢复.ext`，如果二维码中没有原文件名，则生成 `文件夹名_Recovered.txt`。
 
-```bash
-python auto_split_qr.py --lang zh
-python auto_split_qr.py --lang en
-python auto_split_qr.py --lang auto
-```
-
-### 2. 扫描并恢复文本
-
-把扫描后的图片放入 `scanned_pages/`，然后运行：
-
-```bash
-python scanner_decoder.py
-```
-
-指定语言：
-
-```bash
-python scanner_decoder.py --lang zh
-python scanner_decoder.py --lang en
-python scanner_decoder.py --lang auto
-```
-
-你也可以直接指定文件夹调用解码函数：
-
-```bash
-python -c "import scanner_decoder; scanner_decoder.decode_folder('scanned_pages', lang='zh')"
-```
-
-### 3）图形界面（GUI） — 拖拽支持（Windows）
-
-项目提供了一个简单的 Tkinter GUI，支持在 Windows 上将文件或文件夹直接拖拽到窗口：
+### 3. 直接运行 Windows GUI
 
 ```bash
 python gui.py
 ```
 
-拖入文件会对其进行编码（生成打印文档），拖入文件夹会对该文件夹运行解码流程。若平台不支持原生拖拽，可使用窗口中的按钮选择文件或文件夹。
+GUI 支持：
 
-## 输出说明
+- 拖放或点击 “编码文件 (转二维码)” 来处理文本文件
+- 拖放或点击 “解码恢复 (从图片)” 来处理图片目录
+- 选择语言 `auto` / `zh` / `en`
 
-- 生成端会输出 Word 文档
-- 解码端会输出 `decoder.json`
+### 4. 指定语言
 
-## 默认参数
+```bash
+python auto_split_qr.py --lang zh path/to/input.txt
+python auto_split_qr.py --lang en path/to/input.txt
+python auto_split_qr.py --lang auto path/to/input.txt
+```
 
-- 单块字符数：`500`
+```bash
+python scanner_decoder.py --lang zh path/to/scanned_images_folder
+python scanner_decoder.py --lang en path/to/scanned_images_folder
+python scanner_decoder.py --lang auto path/to/scanned_images_folder
+```
+
+## 📄 默认参数
+
+- 字符数切片：`500`
 - QR 纠错级别：`M`
 - 每页布局：`4 x 6`
-- 页边距：`1.0 cm`
+- 页面边距：`1.0 cm`
 
-## 备注
+## 🔧 扫描建议
 
-- `auto` 会根据系统语言自动选择中文或英文
-- 建议扫描使用 `300/600 DPI` 灰度模式，以提高识别率
+- 推荐使用 `300 DPI` 或 `600 DPI` 扫描
+- 优先使用 `灰度` 或 `黑白文档` 模式
+- 单页图片请尽量保持二维码完整、边缘清晰
+
+## ⚠️ 安全建议
+
+- 喷墨打印纸张不防水，请使用防水自封袋或过塑保存。
+- 纸质备份仅保护已加密后的密文；如果未加密，纸质内容仍可被读取。
+- 恢复所需的原密码必须妥善保管，否则即便二维码完好，也无法还原加密内容。
