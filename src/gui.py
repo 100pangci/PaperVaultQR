@@ -24,6 +24,7 @@ from i18n.ui_texts import (
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_POLL_MS = 100
 UI_FONT_FAMILY = "Microsoft YaHei UI"
+DEFAULT_GUI_TEXTS = get_gui_texts("en_us")
 
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
@@ -238,21 +239,28 @@ class ModernGUI(ctk.CTk):
     def _texts(self):
         return get_gui_texts(self._ui_lang())
 
+    def _text(self, key, default=""):
+        texts = self._texts()
+        if key in texts:
+            return texts[key]
+        if key in DEFAULT_GUI_TEXTS:
+            return DEFAULT_GUI_TEXTS[key]
+        return default if default else key
+
     def update_ui_texts(self, *args):
-        t = self._texts()
-        self.title(t["title"])
-        self.title_label.configure(text=t["title"])
-        self.subtitle_label.configure(text=t["subtitle"])
-        self.lang_label.configure(text=t["language"])
-        self.file_btn.configure(text=t["choose_file"])
-        self.folder_btn.configure(text=t["choose_folder"])
-        self.clear_btn.configure(text=t["clear_log"])
-        self.log_label.configure(text=t["log"])
-        self.info_label.configure(text=t["info_tip"])
+        self.title(self._text("title", "PaperVaultQR"))
+        self.title_label.configure(text=self._text("title", "PaperVaultQR"))
+        self.subtitle_label.configure(text=self._text("subtitle"))
+        self.lang_label.configure(text=self._text("language"))
+        self.file_btn.configure(text=self._text("choose_file"))
+        self.folder_btn.configure(text=self._text("choose_folder"))
+        self.clear_btn.configure(text=self._text("clear_log"))
+        self.log_label.configure(text=self._text("log"))
+        self.info_label.configure(text=self._text("info_tip"))
         self.project_link_label.configure(text=PROJECT_URL)
-        self.status_label.configure(text=t[self._status_key])
+        self.status_label.configure(text=self._text(self._status_key))
         self.path_label.configure(
-            text=self._selected_path if self._selected_path else t["selected_none"]
+            text=self._selected_path if self._selected_path else self._text("selected_none")
         )
 
     def _set_controls_enabled(self, enabled):
@@ -279,7 +287,7 @@ class ModernGUI(ctk.CTk):
     def _set_status(self, key, is_error=False):
         self._status_key = key
         color = "#fa505a" if is_error else ("gray10", "#DCE4EE")
-        self.status_label.configure(text=self._texts()[key], text_color=color)
+        self.status_label.configure(text=self._text(key), text_color=color)
 
     def _update_progress(self, current, total):
         if total <= 0:
@@ -332,18 +340,17 @@ class ModernGUI(ctk.CTk):
         self.after(LOG_POLL_MS, self._poll_log)
 
     def choose_file(self):
-        p = filedialog.askopenfilename(title=self._texts()["file_dialog"])
+        p = filedialog.askopenfilename(title=self._text("file_dialog"))
         if p:
             self.handle_path(p)
 
     def choose_folder(self):
-        p = filedialog.askdirectory(title=self._texts()["folder_dialog"])
+        p = filedialog.askdirectory(title=self._text("folder_dialog"))
         if p:
             self.handle_path(p)
 
     def handle_path(self, path):
         path = os.path.abspath(os.fspath(path))
-        t = self._texts()
 
         if not os.path.exists(path):
             self._task_failed = True
@@ -354,7 +361,7 @@ class ModernGUI(ctk.CTk):
             return
 
         if self._running:
-            self._append_log(t["busy"])
+            self._append_log(self._text("busy"))
             return
 
         self._selected_path = path

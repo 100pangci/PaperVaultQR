@@ -1,9 +1,9 @@
 import json
-import os
+import sys
 from functools import lru_cache
+from pathlib import Path
 
 DEFAULT_LOCALE = "en_us"
-LOCALES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "locales")
 
 LANG_ALIASES = {
     "auto": DEFAULT_LOCALE,
@@ -27,8 +27,50 @@ def normalize_lang(lang: str | None) -> str:
     return LANG_ALIASES.get(normalized, normalized)
 
 
-def _locale_path(locale_code: str) -> str:
-    return os.path.join(LOCALES_DIR, f"{locale_code}.json")
+def _candidate_locales_dirs() -> list[Path]:
+    package_dir = Path(__file__).resolve().parent
+    candidates: list[Path] = []
+
+    meipass = getattr(sys, "_MEIPASS", None)
+    if meipass:
+        bundle_root = Path(meipass)
+        candidates.extend(
+            [
+                bundle_root / "i18n" / "locales",
+                bundle_root / "src" / "i18n" / "locales",
+                bundle_root / "locales",
+            ]
+        )
+
+    candidates.extend(
+        [
+            package_dir / "locales",
+            package_dir.parent / "locales",
+        ]
+    )
+
+    unique_candidates: list[Path] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        key = str(candidate)
+        if key not in seen:
+            seen.add(key)
+            unique_candidates.append(candidate)
+    return unique_candidates
+
+
+def _resolve_locales_dir() -> Path:
+    for candidate in _candidate_locales_dirs():
+        if candidate.is_dir():
+            return candidate
+    return _candidate_locales_dirs()[0]
+
+
+LOCALES_DIR = _resolve_locales_dir()
+
+
+def _locale_path(locale_code: str) -> Path:
+    return LOCALES_DIR / f"{locale_code}.json"
 
 
 @lru_cache(maxsize=None)
@@ -36,20 +78,20 @@ def _load_locale_data(locale_code: str) -> dict:
     locale_code = normalize_lang(locale_code)
     locale_path = _locale_path(locale_code)
 
-    if os.path.exists(locale_path):
-        with open(locale_path, "r", encoding="utf-8") as f:
+    if locale_path.exists():
+        with locale_path.open("r", encoding="utf-8") as f:
             return json.load(f)
 
     return {}
 
 
 def available_locale_codes() -> list[str]:
-    if not os.path.isdir(LOCALES_DIR):
+    if not LOCALES_DIR.is_dir():
         return []
+
     codes = []
-    for filename in os.listdir(LOCALES_DIR):
-        if filename.lower().endswith(".json"):
-            codes.append(normalize_lang(os.path.splitext(filename)[0]))
+    for file_path in LOCALES_DIR.glob("*.json"):
+        codes.append(normalize_lang(file_path.stem))
     return sorted(set(codes))
 
 

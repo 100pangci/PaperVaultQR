@@ -6,6 +6,8 @@ python -m pip install --upgrade pip
 pip install pyinstaller pyzbar Pillow segno python-docx customtkinter
 
 echo.
+set "SCRIPT_DIR=%~dp0"
+
 echo [2/4] Locating DLL and UI dependencies...
 FOR /F "tokens=*" %%g IN ('python -c "import os, pyzbar; print(os.path.dirname(pyzbar.__file__))"') do (SET PYZBAR_PATH=%%g)
 FOR /F "tokens=*" %%g IN ('python -c "import os, customtkinter; print(os.path.dirname(customtkinter.__file__))"') do (SET CTK_PATH=%%g)
@@ -30,6 +32,7 @@ pyinstaller --onefile --windowed --clean ^
   --specpath build\pyinstaller ^
   --add-binary "%PYZBAR_PATH%\*.dll;pyzbar" ^
   --add-data "%CTK_PATH%;customtkinter" ^
+  --add-data "%SCRIPT_DIR%src\i18n\locales;i18n\locales" ^
   src\gui.py
 
 echo.

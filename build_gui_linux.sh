@@ -6,6 +6,9 @@ python3 -m pip install --upgrade pip
 python3 -m pip install pyinstaller pyzbar Pillow segno python-docx customtkinter
 
 echo
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$ROOT_DIR"
+
 echo "[2/4] Checking system library requirements..."
 if ! python3 - <<'PY'
 import ctypes.util
@@ -29,7 +32,8 @@ pyinstaller --onefile --windowed --clean \
   --workpath build/pyinstaller \
   --specpath build/pyinstaller \
   --collect-all customtkinter \
-  src/gui.py
+  --add-data "$ROOT_DIR/src/i18n/locales:i18n/locales" \
+  "$ROOT_DIR/src/gui.py"
 
 echo
 echo "[4/4] Finalizing build..."
