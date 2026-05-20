@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "简体中文"
+  },
+  "gui": {
+    "title": "PaperVaultQR — 赛博冷存储",
+    "subtitle": "使用右侧按钮选择文件进行物理备份或恢复操作。",
+    "language": "界面语言",
+    "choose_file": "编码文件 (转二维码)",
+    "choose_folder": "解码恢复 (从图片)",
+    "clear_log": "清空控制台",
+    "status_ready": "🟢 系统就绪",
+    "status_processing_file": "⚡ 正在生成打印切片...",
+    "status_processing_folder": "⚡ 正在解析底层数据...",
+    "status_done": "✅ 任务完成",
+    "status_failed": "❌ 任务失败",
+    "selected_none": "尚未选择目标路径",
+    "log": "终端运行日志",
+    "info_tip": "💡 请使用上方按钮选择要处理的文件或文件夹",
+    "busy": "另一个任务正在运行，请稍候...\n",
+    "file_dialog": "选择要进行物理备份的源文件",
+    "folder_dialog": "选择包含扫描图片的文件夹",
+    "invalid_path": "路径不存在：{path}",
+    "unhandled_error": "ERROR: 发生未捕获的错误: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ 找不到文件 '{input_file}'",
+    "data_loaded_text": "📄 数据加载完毕 (UTF-8 文本模式)",
+    "data_loaded_base64": "📄 数据加载完毕 (base64 兼容模式)",
+    "original_chars": "   - 原始字符数: {total_chars}",
+    "generated_count": "   - 生成数量: {total_chunks} 个二维码",
+    "progress": "✅ 处理进度: {current} / {total}",
+    "saved": "\n💾 成功生成打印文档: {output_doc}",
+    "part_label": "Part {current} / {total}",
+    "suffix": "_冷存储"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ 找不到文件夹 '{scan_dir}'",
+    "no_images": "❌ 文件夹 '{scan_dir}' 中没有找到图片。",
+    "start": "🔍 开始解析扫描件...",
+    "scanning": "👉 扫描图片: {filename}",
+    "fragments": "   - 识别出 {count} 个碎片。",
+    "scan_error": "   ⚠️ 识别错误: {error}",
+    "no_qr": "❌ 扫描失败：未检测到有效二维码。建议使用300/600 DPI 灰度扫描。",
+    "progress": "📊 进度：共需 {expected_total} 块，已收集 {collected} 块。",
+    "missing": "❌ 缺少以下碎片，请检查重新扫描：{missing_chunks}",
+    "saved": "\n🎉 完美还原！已保存至 '{output_file}'",
+    "suffix": "_恢复"
+  }
+}

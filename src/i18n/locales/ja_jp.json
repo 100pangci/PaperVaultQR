@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "日本語"
+  },
+  "gui": {
+    "title": "PaperVaultQR — サイバーコールドストレージ",
+    "subtitle": "右側のボタンから、ファイルのバックアップまたは復元を行います。",
+    "language": "UI 言語",
+    "choose_file": "ファイルをエンコード (QRへ)",
+    "choose_folder": "フォルダを復元 (画像から)",
+    "clear_log": "コンソールをクリア",
+    "status_ready": "🟢 準備完了",
+    "status_processing_file": "⚡ 印刷用スライスを生成中...",
+    "status_processing_folder": "⚡ データを解析中...",
+    "status_done": "✅ 完了",
+    "status_failed": "❌ 失敗",
+    "selected_none": "対象パスが未選択です",
+    "log": "実行ログ",
+    "info_tip": "💡 上のボタンから処理するファイルまたはフォルダを選択してください",
+    "busy": "別のタスクが実行中です。しばらくお待ちください...\n",
+    "file_dialog": "物理バックアップする元ファイルを選択",
+    "folder_dialog": "スキャン画像を含むフォルダを選択",
+    "invalid_path": "パスが存在しません: {path}",
+    "unhandled_error": "ERROR: 未処理のエラーが発生しました: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ ファイルが見つかりません: '{input_file}'",
+    "data_loaded_text": "📄 データを読み込みました (UTF-8 テキストモード)",
+    "data_loaded_base64": "📄 データを読み込みました (base64 互換モード)",
+    "original_chars": "   - 文字数: {total_chars}",
+    "generated_count": "   - 生成数: QRコード {total_chunks} 個",
+    "progress": "✅ 進捗: {current} / {total}",
+    "saved": "\n💾 印刷用ドキュメントの生成に成功しました: {output_doc}",
+    "part_label": "パート {current} / {total}",
+    "suffix": "_コールドストレージ"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ フォルダが見つかりません: '{scan_dir}'",
+    "no_images": "❌ フォルダ '{scan_dir}' に画像が見つかりません。",
+    "start": "🔍 スキャン画像の解析を開始します...",
+    "scanning": "👉 画像をスキャン中: {filename}",
+    "fragments": "   - {count} 個の断片を検出しました。",
+    "scan_error": "   ⚠️ 読み取りエラー: {error}",
+    "no_qr": "❌ スキャン失敗: 有効な QR コードが検出されませんでした。300/600 DPI のグレースケールスキャンを試してください。",
+    "progress": "📊 進捗: {expected_total} 個中 {collected} 個を収集しました。",
+    "missing": "❌ 不足している断片があります: {missing_chunks}",
+    "saved": "\n🎉 復元に成功しました！保存先: '{output_file}'",
+    "suffix": "_復元"
+  }
+}

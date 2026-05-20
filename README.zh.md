@@ -122,6 +122,7 @@ python scanner_decoder.py --lang auto path/to/scanned_images_folder
 - 推荐使用 `300 DPI` 或 `600 DPI` 扫描
 - 优先使用 `灰度` 或 `黑白文档` 模式
 - 单页图片请尽量保持二维码完整、边缘清晰
+- 如果解码扫不出来，请单独截图那一张扫不出来的二维码，放在同文件夹内即可。
 
 ## ⚠️ 安全建议
 

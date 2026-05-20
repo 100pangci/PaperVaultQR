@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "English"
+  },
+  "gui": {
+    "title": "PaperVaultQR — Cold Storage",
+    "subtitle": "Use the buttons on the right for backup or recovery.",
+    "language": "Language",
+    "choose_file": "Encode File (to QR)",
+    "choose_folder": "Decode Folder (from Image)",
+    "clear_log": "Clear Console",
+    "status_ready": "🟢 System Ready",
+    "status_processing_file": "⚡ Generating print slices...",
+    "status_processing_folder": "⚡ Parsing underlying data...",
+    "status_done": "✅ Task Completed",
+    "status_failed": "❌ Task Failed",
+    "selected_none": "No target path selected",
+    "log": "Terminal Execution Log",
+    "info_tip": "💡 Please use the buttons above to select a file or folder",
+    "busy": "Another task is running, please wait...\n",
+    "file_dialog": "Select source file for physical backup",
+    "folder_dialog": "Select folder containing scanned images",
+    "invalid_path": "Path does not exist: {path}",
+    "unhandled_error": "ERROR: Unhandled exception: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ File not found: '{input_file}'",
+    "data_loaded_text": "📄 Data loaded (UTF-8 text mode)",
+    "data_loaded_base64": "📄 Data loaded (base64-compatible mode)",
+    "original_chars": "   - Total characters: {total_chars}",
+    "generated_count": "   - Generated: {total_chunks} QR codes",
+    "progress": "✅ Progress: {current} / {total}",
+    "saved": "\n💾 Print document generated successfully: {output_doc}",
+    "part_label": "Part {current} / {total}",
+    "suffix": "_ColdStorage"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ Folder not found: '{scan_dir}'",
+    "no_images": "❌ No images found in folder '{scan_dir}'.",
+    "start": "🔍 Start decoding scanned pages...",
+    "scanning": "👉 Scanning image: {filename}",
+    "fragments": "   - Detected {count} fragment(s).",
+    "scan_error": "   ⚠️ Decode error: {error}",
+    "no_qr": "❌ Scan failed: no valid QR code detected. Try grayscale scans at 300/600 DPI.",
+    "progress": "📊 Progress: {collected} / {expected_total} chunks collected.",
+    "missing": "❌ Missing chunks: {missing_chunks}",
+    "saved": "\n🎉 Reconstruction complete! Saved to '{output_file}'",
+    "suffix": "_Recovered"
+  }
+}

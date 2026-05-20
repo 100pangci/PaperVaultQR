@@ -1,6 +1,6 @@
 # PaperVaultQR
 
-> 中文文档 [README.zh.md](README.zh.md)
+> 中文文档 [README.zh.md](README.zh.md) | 日本語 [README_jp.md](README_jp.md)
 
 PaperVaultQR converts any text file into multiple QR codes, generates a printable Word document, and restores the original content from a folder of scanned QR images. It is designed for offline paper backup of high-entropy encrypted data.
 
@@ -20,7 +20,7 @@ The interface screenshot is located in the `Picture` folder:
 - Embed the original filename in the final QR for filename-preserving recovery
 - Decode `png`, `jpg`, and `jpeg` images from a scanned folder and restore the original data in order
 - Auto-detect base64-marked content during recovery and restore the original bytes if needed
-- Supports both CLI and Windows GUI, with language options for `auto`, `zh`, and `en`
+- Supports both CLI and Windows GUI, with language options for `auto`, `zh`, `jp`, and `en`
 
 ## Important Notes
 
@@ -103,18 +103,20 @@ The GUI supports:
 - encoding a file to printable QR pages
 - decoding a scanned image folder to recover data
 - drag-and-drop input for files and folders
-- selecting language mode: `auto`, `zh`, or `en`
+- selecting language mode: `auto`, `zh`, `jp`, or `en`
 
 ### 4) Language options
 
 ```bash
 python auto_split_qr.py --lang zh path/to/input.txt
+python auto_split_qr.py --lang jp path/to/input.txt
 python auto_split_qr.py --lang en path/to/input.txt
 python auto_split_qr.py --lang auto path/to/input.txt
 ```
 
 ```bash
 python scanner_decoder.py --lang zh path/to/scanned_images_folder
+python scanner_decoder.py --lang jp path/to/scanned_images_folder
 python scanner_decoder.py --lang en path/to/scanned_images_folder
 python scanner_decoder.py --lang auto path/to/scanned_images_folder
 ```
@@ -131,6 +133,7 @@ python scanner_decoder.py --lang auto path/to/scanned_images_folder
 - Use `300 DPI` or `600 DPI` for scanning
 - Prefer grayscale or black-and-white modes
 - Keep QR edges clear and avoid cutting off any part of the code
+- If decoding fails for one QR, take a separate screenshot of that unreadable QR and place it in the same folder.
 
 ## Security Tips
 
