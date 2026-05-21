@@ -17,9 +17,9 @@ PaperVaultQR は任意のテキストファイルを複数の QR コードに分
 - ライトモード / ダーク文字: `Picture/LOGO_dark_white.png`
 - ダークモード / ライト文字: `Picture/LOGO_white_dark.png`
 
-<img src="Picture/LOGO_dark_white.png" alt="PaperVaultQR Logo (light background)" width="320" />
+<img src="Picture/LOGO_dark_white.png" alt="PaperVaultQR Logo (light background)" width="200" />
 
-<img src="Picture/LOGO_white_dark.png" alt="PaperVaultQR Logo (dark background)" width="320" />
+<img src="Picture/LOGO_white_dark.png" alt="PaperVaultQR Logo (dark background)" width="200" />
 
 ## 🌟 主な機能
 
