@@ -7,12 +7,13 @@ import re
 import sys
 import threading
 import webbrowser
-from tkinter import filedialog
+from tkinter import filedialog, PhotoImage
 
 import customtkinter as ctk
 
 from core import auto_split_qr, scanner_decoder
 from i18n import normalize_lang
+from app_version import get_app_version
 from i18n.ui_texts import (
     AUTO_LANGUAGE_VALUE,
     PROJECT_URL,
@@ -25,6 +26,12 @@ APP_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_POLL_MS = 100
 UI_FONT_FAMILY = "Microsoft YaHei UI"
 DEFAULT_GUI_TEXTS = get_gui_texts("en_us")
+
+
+def resource_path(*parts):
+    base_dir = getattr(sys, "_MEIPASS", APP_DIR)
+    return os.path.join(base_dir, *parts)
+
 
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
@@ -125,6 +132,12 @@ class ModernGUI(ctk.CTk):
         self._progress_mode = None  # "encode" | "decode"
         self._progress_total = 0
         self._progress_current = 0
+
+        self._window_icon_mode = None
+        self._window_icons = {}
+        self._load_window_icons()
+        self._update_window_icon()
+        self.after(1000, self._sync_window_icon)
 
         self.header_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.header_frame.pack(fill="x", padx=20, pady=(20, 10))
@@ -255,9 +268,36 @@ class ModernGUI(ctk.CTk):
             return DEFAULT_GUI_TEXTS[key]
         return default if default else key
 
+    def _load_window_icons(self):
+        self._window_icons = {}
+        for mode, filename in {
+            "Light": "icon_dark.png",
+            "Dark": "icon_white.png",
+        }.items():
+            icon_path = resource_path("icon", filename)
+            try:
+                self._window_icons[mode] = PhotoImage(file=icon_path)
+            except Exception:
+                self._window_icons[mode] = None
+
+    def _update_window_icon(self):
+        mode = ctk.get_appearance_mode().strip().lower()
+        mode = "Dark" if mode == "dark" else "Light"
+        if mode == self._window_icon_mode:
+            return
+        self._window_icon_mode = mode
+        icon = self._window_icons.get(mode)
+        if icon is not None:
+            self.iconphoto(True, icon)
+
+    def _sync_window_icon(self):
+        self._update_window_icon()
+        self.after(1000, self._sync_window_icon)
+
     def update_ui_texts(self, *args):
-        self.title(self._text("title", "PaperVaultQR"))
-        self.title_label.configure(text=self._text("title", "PaperVaultQR"))
+        base_title = self._text("title", "PaperVaultQR")
+        self.title(f"{base_title} — {get_app_version()}")
+        self.title_label.configure(text=base_title)
         self.subtitle_label.configure(text=self._text("subtitle"))
         self.lang_label.configure(text=self._text("language"))
         self.file_btn.configure(text=self._text("choose_file"))

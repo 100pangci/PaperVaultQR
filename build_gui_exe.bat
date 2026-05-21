@@ -7,6 +7,12 @@ pip install pyinstaller pyzbar Pillow segno python-docx customtkinter
 
 echo.
 set "SCRIPT_DIR=%~dp0"
+set "VERSION_SUFFIX="
+if not "%PAPERVAULTQR_VERSION%"=="" set "VERSION_SUFFIX=-%PAPERVAULTQR_VERSION%"
+if not exist build\pyinstaller mkdir build\pyinstaller
+set "BUNDLE_VERSION=%PAPERVAULTQR_VERSION%"
+if "%BUNDLE_VERSION%"=="" set "BUNDLE_VERSION=dev"
+> build\pyinstaller\version.txt echo %BUNDLE_VERSION%
 
 echo [2/4] Locating DLL and UI dependencies...
 FOR /F "tokens=*" %%g IN ('python -c "import os, pyzbar; print(os.path.dirname(pyzbar.__file__))"') do (SET PYZBAR_PATH=%%g)
@@ -26,20 +32,22 @@ echo [3/4] Building PaperVaultQR GUI...
 REM 核心修复：将输出直接放到 release，避免 dist/release 双目录并存
 if not exist release mkdir release
 pyinstaller --onefile --windowed --clean ^
-  --name PaperVaultQR-GUI ^
+  --name PaperVaultQR-GUI%VERSION_SUFFIX% ^
   --distpath release ^
   --workpath build\pyinstaller ^
   --specpath build\pyinstaller ^
   --add-binary "%PYZBAR_PATH%\*.dll;pyzbar" ^
   --add-data "%CTK_PATH%;customtkinter" ^
   --add-data "%SCRIPT_DIR%src\i18n\locales;i18n\locales" ^
+  --add-data "build\pyinstaller\version.txt;." ^
+  --add-data "%SCRIPT_DIR%src\icon;icon" ^
   src\gui.py
 
 echo.
 echo [4/4] Finalizing build...
-if exist release\PaperVaultQR-GUI.exe (
+if exist release\PaperVaultQR-GUI%VERSION_SUFFIX%.exe (
   echo ========================================================
-  echo  SUCCESS! Built: release\PaperVaultQR-GUI.exe
+  echo  SUCCESS! Built: release\PaperVaultQR-GUI%VERSION_SUFFIX%.exe
   echo ========================================================
 ) else (
   echo ERROR: Build failed. Check the logs above.

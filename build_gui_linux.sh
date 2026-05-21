@@ -9,6 +9,14 @@ echo
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
+VERSION_SUFFIX=""
+if [ -n "${PAPERVAULTQR_VERSION:-}" ]; then
+  VERSION_SUFFIX="-${PAPERVAULTQR_VERSION}"
+fi
+mkdir -p build/pyinstaller
+BUNDLE_VERSION="${PAPERVAULTQR_VERSION:-dev}"
+printf '%s\n' "$BUNDLE_VERSION" > build/pyinstaller/version.txt
+
 echo "[2/4] Checking system library requirements..."
 if ! python3 - <<'PY'
 import ctypes.util
@@ -27,19 +35,21 @@ echo "[3/4] Building PaperVaultQR GUI..."
 mkdir -p release build/pyinstaller
 
 pyinstaller --onefile --windowed --clean \
-  --name PaperVaultQR-GUI \
+  --name "PaperVaultQR-GUI${VERSION_SUFFIX}" \
   --distpath release \
   --workpath build/pyinstaller \
   --specpath build/pyinstaller \
   --collect-all customtkinter \
+  --add-data "$ROOT_DIR/build/pyinstaller/version.txt:." \
   --add-data "$ROOT_DIR/src/i18n/locales:i18n/locales" \
+  --add-data "$ROOT_DIR/src/icon:icon" \
   "$ROOT_DIR/src/gui.py"
 
 echo
 echo "[4/4] Finalizing build..."
-if [ -f "release/PaperVaultQR-GUI" ]; then
+if [ -f "release/PaperVaultQR-GUI${VERSION_SUFFIX}" ]; then
   echo "========================================================"
-  echo "SUCCESS! Built: release/PaperVaultQR-GUI"
+  echo "SUCCESS! Built: release/PaperVaultQR-GUI${VERSION_SUFFIX}"
   echo "========================================================"
 else
   echo "ERROR: Build failed. Check the logs above."

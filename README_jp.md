@@ -12,6 +12,15 @@ PaperVaultQR は任意のテキストファイルを複数の QR コードに分
 
 ![PaperVaultQR Japanese GUI](Picture/PaperVaultQR_JP.png)
 
+## 🖼️ ロゴ
+
+- ライトモード / ダーク文字: `Picture/LOGO_dark_white.png`
+- ダークモード / ライト文字: `Picture/LOGO_white_dark.png`
+
+![PaperVaultQR Logo (light background)](Picture/LOGO_dark_white.png)
+
+![PaperVaultQR Logo (dark background)](Picture/LOGO_white_dark.png)
+
 ## 🌟 主な機能
 
 - 任意の UTF-8 テキストファイルを `500` 文字ごとに分割して QR コード化

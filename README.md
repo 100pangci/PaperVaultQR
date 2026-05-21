@@ -12,6 +12,15 @@ The interface screenshot is located in the `Picture` folder:
 
 ![PaperVaultQR English GUI](Picture/PaperVaultQR_EN.png)
 
+## Logo
+
+- Light mode / dark text: `Picture/LOGO_dark_white.png`
+- Dark mode / light text: `Picture/LOGO_white_dark.png`
+
+![PaperVaultQR logo (light background)](Picture/LOGO_dark_white.png)
+
+![PaperVaultQR logo (dark background)](Picture/LOGO_white_dark.png)
+
 ## Features
 
 - Split any UTF-8 text file into 500-character QR chunks and encode them

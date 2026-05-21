@@ -8,6 +8,9 @@ on:
 permissions:
   contents: write
 
+env:
+  PAPERVAULTQR_VERSION: ${{ github.ref_name }}
+
 jobs:
   build-windows:
     name: Build Windows
@@ -36,8 +39,8 @@ jobs:
       - name: 上传 Windows 构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: PaperVaultQR-Windows
-          path: release/PaperVaultQR-GUI.exe
+          name: PaperVaultQR-Windows-${{ github.ref_name }}
+          path: release/PaperVaultQR-GUI-${{ github.ref_name }}.exe
 
   build-linux:
     name: Build Linux
@@ -70,8 +73,8 @@ jobs:
       - name: 上传 Linux 构建产物
         uses: actions/upload-artifact@v4
         with:
-          name: PaperVaultQR-Linux
-          path: release/PaperVaultQR-GUI
+          name: PaperVaultQR-Linux-${{ github.ref_name }}
+          path: release/PaperVaultQR-GUI-${{ github.ref_name }}
 
   release:
     name: Create Release
@@ -90,6 +93,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            artifacts/PaperVaultQR-Windows/PaperVaultQR-GUI.exe
-            artifacts/PaperVaultQR-Linux/PaperVaultQR-GUI
+            artifacts/PaperVaultQR-Windows-${{ github.ref_name }}/PaperVaultQR-GUI-${{ github.ref_name }}.exe
+            artifacts/PaperVaultQR-Linux-${{ github.ref_name }}/PaperVaultQR-GUI-${{ github.ref_name }}
           generate_release_notes: true
