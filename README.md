@@ -17,9 +17,9 @@ The interface screenshot is located in the `Picture` folder:
 - Light mode / dark text: `Picture/LOGO_dark_white.png`
 - Dark mode / light text: `Picture/LOGO_white_dark.png`
 
-![PaperVaultQR logo (light background)](Picture/LOGO_dark_white.png)
+<img src="Picture/LOGO_dark_white.png" alt="PaperVaultQR logo (light background)" width="320" />
 
-![PaperVaultQR logo (dark background)](Picture/LOGO_white_dark.png)
+<img src="Picture/LOGO_white_dark.png" alt="PaperVaultQR logo (dark background)" width="320" />
 
 ## Features
 
