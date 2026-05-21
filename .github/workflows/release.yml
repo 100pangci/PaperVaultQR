@@ -8,8 +8,12 @@ on:
 permissions:
   contents: write
 
+# ==================== 修改区 ====================
 env:
   PAPERVAULTQR_VERSION: ${{ github.ref_name }}
+  # 强制让 GitHub Actions 使用 Node.js 24 引擎运行插件，消除老版本弃用警告
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+# ================================================
 
 jobs:
   build-windows:
