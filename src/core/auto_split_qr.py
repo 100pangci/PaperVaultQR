@@ -1,9 +1,9 @@
 import argparse
 import base64
+import io
 import math
 import os
 import sys
-import tempfile
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.dirname(CURRENT_DIR)
@@ -50,7 +50,7 @@ def setup_page(doc):
     section.left_margin, section.right_margin = Cm(PAGE_MARGIN), Cm(PAGE_MARGIN)
     section.top_margin, section.bottom_margin = Cm(PAGE_MARGIN), Cm(PAGE_MARGIN)
 
-def _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename, temp_dir):
+def _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename):
     if is_base64:
         if idx == 1:
             payload = f"[{idx}/{total_chunks}]<<FILENAME:{original_filename}>>{BASE64_TAG}{chunk_content}"
@@ -62,9 +62,10 @@ def _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filenam
             payload += f"<<FILENAME:{original_filename}>>"
 
     qr = segno.make(payload, error=QR_ERROR)
-    img_path = os.path.join(temp_dir, f"qr_{idx}.png")
-    qr.save(img_path, scale=10, border=1)
-    return idx, img_path
+    img_stream = io.BytesIO()
+    qr.save(img_stream, kind="png", scale=10, border=1)
+    img_stream.seek(0)
+    return idx, img_stream
 
 def process_file(input_path: str, lang: str = "zh"):
     input_path = os.path.abspath(input_path)
@@ -101,37 +102,37 @@ def process_file(input_path: str, lang: str = "zh"):
     current_table = doc.add_table(rows=total_rows, cols=COLS_PER_PAGE)
     current_table.autofit = False
 
-    with tempfile.TemporaryDirectory() as temp_dir:
-        progress_step = max(1, total_chunks // 100)
+    progress_step = max(1, total_chunks // 100)
 
-        for i in range(total_chunks):
-            idx = i + 1
-            start = i * CHUNK_SIZE
-            chunk_content = full_text[start : start + CHUNK_SIZE]
-            _, img_path = _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename, temp_dir)
+    for i in range(total_chunks):
+        idx = i + 1
+        start = i * CHUNK_SIZE
+        chunk_content = full_text[start : start + CHUNK_SIZE]
+        _, img_stream = _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename)
 
-            row_idx = i // COLS_PER_PAGE
-            col_idx = i % COLS_PER_PAGE
-            cell = current_table.cell(row_idx, col_idx)
-            cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+        row_idx = i // COLS_PER_PAGE
+        col_idx = i % COLS_PER_PAGE
+        cell = current_table.cell(row_idx, col_idx)
+        cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
 
-            p_label = cell.paragraphs[0]
-            p_label.alignment, p_label.paragraph_format.space_before, p_label.paragraph_format.space_after = WD_ALIGN_PARAGRAPH.CENTER, Pt(0), Pt(0)
-            run_label = p_label.add_run(tr(lang, "part_label", current=idx, total=total_chunks))
-            run_label.font.bold, run_label.font.size = True, Pt(FONT_SIZE_LABEL)
+        p_label = cell.paragraphs[0]
+        p_label.alignment, p_label.paragraph_format.space_before, p_label.paragraph_format.space_after = WD_ALIGN_PARAGRAPH.CENTER, Pt(0), Pt(0)
+        run_label = p_label.add_run(tr(lang, "part_label", current=idx, total=total_chunks))
+        run_label.font.bold, run_label.font.size = True, Pt(FONT_SIZE_LABEL)
 
-            p_img = cell.add_paragraph()
-            p_img.alignment, p_img.paragraph_format.space_before, p_img.paragraph_format.space_after = WD_ALIGN_PARAGRAPH.CENTER, Pt(0), Pt(0)
-            p_img.add_run().add_picture(img_path, width=Cm(QR_WIDTH_CM))
+        p_img = cell.add_paragraph()
+        p_img.alignment, p_img.paragraph_format.space_before, p_img.paragraph_format.space_after = WD_ALIGN_PARAGRAPH.CENTER, Pt(0), Pt(0)
+        p_img.add_run().add_picture(img_stream, width=Cm(QR_WIDTH_CM))
+        img_stream.close()
 
-            if idx % progress_step == 0 or idx == total_chunks:
-                # 1. 发送 GUI 控制指令
-                print(f"__PROGRESS__::{idx}::{total_chunks}")
-                # 2. 输出多语言日志
-                print(tr(lang, "progress", current=idx, total=total_chunks))
+        if idx % progress_step == 0 or idx == total_chunks:
+            # 1. 发送 GUI 控制指令
+            print(f"__PROGRESS__::{idx}::{total_chunks}")
+            # 2. 输出多语言日志
+            print(tr(lang, "progress", current=idx, total=total_chunks))
 
-        doc.save(output_doc)
-        print(tr(lang, "saved", output_doc=output_doc))
+    doc.save(output_doc)
+    print(tr(lang, "saved", output_doc=output_doc))
 
 
 def process_files(input_paths, lang: str = "zh"):
