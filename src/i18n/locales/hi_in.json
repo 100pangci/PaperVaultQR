@@ -42,7 +42,7 @@
     "fragments": "   - {count} खंड पहचाने गए।",
     "scan_error": "   ⚠️ डिकोड त्रुटि: {error}",
     "no_qr": "❌ स्कैन विफल: कोई मान्य QR कोड नहीं मिला। 300/600 DPI ग्रेस्केल स्कैन आज़माएँ।",
-    "progress": "📊 प्रगति: {collected} / {expected_total} खंड एकत्र किए गए।",
+    "progress": "📊 प्रगति: {current} / {total} खंड एकत्र किए गए।",
     "missing": "❌ गायब खंड: {missing_chunks}",
     "saved": "\n🎉 पुनर्निर्माण पूर्ण! '{output_file}' में सहेजा गया",
     "suffix": "_पुनर्स्थापित"

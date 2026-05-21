@@ -42,7 +42,7 @@
     "fragments": "   - 识别出 {count} 个碎片。",
     "scan_error": "   ⚠️ 识别错误: {error}",
     "no_qr": "❌ 扫描失败：未检测到有效二维码。建议使用300/600 DPI 灰度扫描。",
-    "progress": "📊 进度：共需 {expected_total} 块，已收集 {collected} 块。",
+    "progress": "📊 进度：共需 {total} 块，已收集 {current} 块。",
     "missing": "❌ 缺少以下碎片，请检查重新扫描：{missing_chunks}",
     "saved": "\n🎉 完美还原！已保存至 '{output_file}'",
     "suffix": "_恢复"

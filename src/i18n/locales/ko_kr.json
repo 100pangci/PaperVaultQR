@@ -42,7 +42,7 @@
     "fragments": "   - {count}개 조각 감지됨.",
     "scan_error": "   ⚠️ 디코딩 오류: {error}",
     "no_qr": "❌ 스캔 실패: 유효한 QR 코드를 찾지 못했습니다. 300/600 DPI 그레이스케일 스캔을 시도하세요.",
-    "progress": "📊 진행률: {collected} / {expected_total} 조각 수집됨.",
+    "progress": "📊 진행률: {current} / {total} 조각 수집됨.",
     "missing": "❌ 누락된 조각: {missing_chunks}",
     "saved": "\n🎉 복구 완료! '{output_file}'에 저장되었습니다",
     "suffix": "_복구됨"

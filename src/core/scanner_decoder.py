@@ -214,6 +214,8 @@ def decode_folder(scan_dir: str, lang: str = "zh"):
 
     chunks_data = {}
     expected_total = None
+    processed_files = 0
+    total_files = len(image_files)
 
     print("=" * 50)
     print(tr(lang, "start"))
@@ -229,21 +231,31 @@ def decode_folder(scan_dir: str, lang: str = "zh"):
             try:
                 decoded_objects, parsed_chunks = future.result()
 
-                for idx, total, data in parsed_chunks:
+                # ⚠️ 修复 Bug 2：把循环里的叫 chunk_total，把外面的叫 expected_total，泾渭分明
+                for idx, chunk_total, data in parsed_chunks:
                     if expected_total is None:
-                        expected_total = total
+                        expected_total = chunk_total
                     chunks_data[idx] = data
 
                 print(tr(lang, "fragments", count=len(decoded_objects)))
             except Exception as e:
                 print(tr(lang, "scan_error", error=e))
+            finally:
+                processed_files += 1
+                display_total = expected_total if expected_total is not None else "?"
+                
+                # 1. 发送 GUI 控制指令（控制平面）
+                print(f"__PROGRESS__::{len(chunks_data)}::{display_total}")
+                
+                # 2. 输出多语言日志（数据平面）
+                print(tr(lang, "progress", total=display_total, current=len(chunks_data)))
 
     print("=" * 50)
     if not expected_total:
         return print(tr(lang, "no_qr"))
 
     missing_chunks = [i for i in range(1, expected_total + 1) if i not in chunks_data]
-    print(tr(lang, "progress", expected_total=expected_total, collected=len(chunks_data)))
+    print(tr(lang, "progress", total=expected_total, current=len(chunks_data)))
 
     if missing_chunks:
         return print(tr(lang, "missing", missing_chunks=missing_chunks))

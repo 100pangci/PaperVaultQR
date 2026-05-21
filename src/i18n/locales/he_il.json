@@ -42,7 +42,7 @@
     "fragments": "   - זוהו {count} מקטעים.",
     "scan_error": "   ⚠️ שגיאת פענוח: {error}",
     "no_qr": "❌ הסריקה נכשלה: לא זוהה קוד QR תקין. נסו סריקה בגווני אפור ב־300/600 DPI.",
-    "progress": "📊 התקדמות: נאספו {collected} מתוך {expected_total} מקטעים.",
+    "progress": "📊 התקדמות: נאספו {current} מתוך {total} מקטעים.",
     "missing": "❌ מקטעים חסרים: {missing_chunks}",
     "saved": "\n🎉 השחזור הושלם! נשמר אל '{output_file}'",
     "suffix": "_שוחזר"

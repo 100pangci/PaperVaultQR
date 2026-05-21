@@ -42,7 +42,7 @@
     "fragments": "   - Đã phát hiện {count} mảnh.",
     "scan_error": "   ⚠️ Lỗi giải mã: {error}",
     "no_qr": "❌ Quét thất bại: không phát hiện mã QR hợp lệ. Hãy thử quét thang độ xám ở 300/600 DPI.",
-    "progress": "📊 Tiến độ: đã thu thập {collected} / {expected_total} mảnh.",
+    "progress": "📊 Tiến độ: đã thu thập {current} / {total} mảnh.",
     "missing": "❌ Thiếu các mảnh: {missing_chunks}",
     "saved": "\n🎉 Khôi phục hoàn tất! Đã lưu vào '{output_file}'",
     "suffix": "_DaKhoiPhuc"

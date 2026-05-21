@@ -42,7 +42,7 @@
     "fragments": "   - {count} ཆ་ཤས་རྙེད་པ།",
     "scan_error": "   ⚠️ ཨང་བཤིག་ནོར་འཁྲུལ: {error}",
     "no_qr": "❌ བཤེར་མ་ལེགས: ནུས་ལྡན QR མ་རྙེད། 300/600 DPI སྐྱ་ཚོན་བཤེར་ལག་ལེན་བྱོས།",
-    "progress": "📊 འཕེལ་རིམ: {collected} / {expected_total} ཆ་ཤས་བསྡུས་པ།",
+    "progress": "📊 འཕེལ་རིམ: {current} / {total} ཆ་ཤས་བསྡུས་པ།",
     "missing": "❌ ཆ་ཤས་མ་ཚང་: {missing_chunks}",
     "saved": "\n🎉 སླར་གསོ་ལེགས་པར་འགྲུབ! '{output_file}' ལ་བསྲུངས་ཟིན།",
     "suffix": "_སླར་གསོ"

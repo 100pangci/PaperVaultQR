@@ -42,7 +42,7 @@
     "fragments": "   - {count} Fragment(e) erkannt.",
     "scan_error": "   ⚠️ Dekodierungsfehler: {error}",
     "no_qr": "❌ Scan fehlgeschlagen: Kein gültiger QR-Code erkannt. Versuchen Sie Graustufen-Scans mit 300/600 DPI.",
-    "progress": "📊 Fortschritt: {collected} / {expected_total} Fragmente gesammelt.",
+    "progress": "📊 Fortschritt: {current} / {total} Fragmente gesammelt.",
     "missing": "❌ Fehlende Fragmente: {missing_chunks}",
     "saved": "\n🎉 Wiederherstellung abgeschlossen! Gespeichert unter '{output_file}'",
     "suffix": "_Wiederhergestellt"

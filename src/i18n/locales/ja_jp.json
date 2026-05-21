@@ -42,7 +42,7 @@
     "fragments": "   - {count} 個の断片を検出しました。",
     "scan_error": "   ⚠️ 読み取りエラー: {error}",
     "no_qr": "❌ スキャン失敗: 有効な QR コードが検出されませんでした。300/600 DPI のグレースケールスキャンを試してください。",
-    "progress": "📊 進捗: {expected_total} 個中 {collected} 個を収集しました。",
+    "progress": "📊 進捗: {total} 個中 {current} 個を収集しました。",
     "missing": "❌ 不足している断片があります: {missing_chunks}",
     "saved": "\n🎉 復元に成功しました！保存先: '{output_file}'",
     "suffix": "_復元"

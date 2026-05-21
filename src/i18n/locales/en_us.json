@@ -42,7 +42,7 @@
     "fragments": "   - Detected {count} fragment(s).",
     "scan_error": "   ⚠️ Decode error: {error}",
     "no_qr": "❌ Scan failed: no valid QR code detected. Try grayscale scans at 300/600 DPI.",
-    "progress": "📊 Progress: {collected} / {expected_total} chunks collected.",
+    "progress": "📊 Progress: {current} / {total} chunks current.",
     "missing": "❌ Missing chunks: {missing_chunks}",
     "saved": "\n🎉 Reconstruction complete! Saved to '{output_file}'",
     "suffix": "_Recovered"

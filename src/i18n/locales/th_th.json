@@ -42,7 +42,7 @@
     "fragments": "   - ตรวจพบ {count} ชิ้นส่วน",
     "scan_error": "   ⚠️ ข้อผิดพลาดในการถอดรหัส: {error}",
     "no_qr": "❌ สแกนไม่สำเร็จ: ไม่พบ QR code ที่ถูกต้อง ลองสแกนแบบภาพขาวดำที่ 300/600 DPI",
-    "progress": "📊 ความคืบหน้า: เก็บได้ {collected} / {expected_total} ชิ้นส่วน",
+    "progress": "📊 ความคืบหน้า: เก็บได้ {current} / {total} ชิ้นส่วน",
     "missing": "❌ ชิ้นส่วนที่ขาดหาย: {missing_chunks}",
     "saved": "\n🎉 กู้คืนสำเร็จ! บันทึกไว้ที่ '{output_file}'",
     "suffix": "_กู้คืน"

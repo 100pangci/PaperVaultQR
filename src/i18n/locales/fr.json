@@ -42,7 +42,7 @@
     "fragments": "   - {count} fragment(s) détecté(s).",
     "scan_error": "   ⚠️ Erreur de décodage : {error}",
     "no_qr": "❌ Échec du scan : aucun QR code valide détecté. Essayez des scans en niveaux de gris à 300/600 DPI.",
-    "progress": "📊 Progression : {collected} / {expected_total} morceaux collectés.",
+    "progress": "📊 Progression : {current} / {total} morceaux collectés.",
     "missing": "❌ Morceaux manquants : {missing_chunks}",
     "saved": "\n🎉 Reconstruction terminée ! Enregistré dans '{output_file}'",
     "suffix": "_Récupéré"

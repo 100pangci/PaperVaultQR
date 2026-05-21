@@ -388,46 +388,15 @@ class ModernGUI(ctk.CTk):
         percent = max(0.0, min(1.0, current / total))
         self.progress.set(percent)
 
-    def _try_update_progress_from_log(self, line):
-        encode_match = re.search(r"(?:处理进度|Progress)\s*:\s*(\d+)\s*/\s*(\d+)", line)
-        if encode_match:
-            current = int(encode_match.group(1))
-            total = int(encode_match.group(2))
-            self._progress_mode = "encode"
-            self._progress_current = current
-            self._progress_total = total
-            self._update_progress(current, total)
-            return
-
-        decode_summary_match = re.search(
-            r"(?:解码进度|Decode progress)\s*:\s*(\d+)\s*/\s*(\d+)",
-            line,
-        )
-        if decode_summary_match:
-            current = int(decode_summary_match.group(1))
-            total = int(decode_summary_match.group(2))
-            self._progress_mode = "decode"
-            self._progress_current = current
-            self._progress_total = total
-            self._update_progress(current, total)
-            return
-
-        if self._progress_mode == "decode" and re.search(
-            r"(?:扫描图片|Scanning image)\s*:",
-            line,
-        ):
-            if self._progress_total > 0:
-                self._progress_current = min(
-                    self._progress_current + 1,
-                    self._progress_total,
-                )
-                self._update_progress(self._progress_current, self._progress_total)
-
     def _poll_log(self):
         try:
             while True:
                 line = self.log_q.get_nowait()
-                if line == "__DONE__":
+                
+                # 去除换行符，防止解析异常
+                clean_line = line.strip() 
+
+                if clean_line == "__DONE__":
                     if not self._task_failed:
                         self.progress.set(1.0)
                     self._running = False
@@ -439,19 +408,32 @@ class ModernGUI(ctk.CTk):
                     self.path_label.configure(
                         text=self._selected_path if self._selected_path else self._text("selected_none")
                     )
-                elif line.startswith("__FILE_START__::"):
-                    current_path = line.split("::", 1)[1]
+                    
+                elif clean_line.startswith("__FILE_START__::"):
+                    current_path = clean_line.split("::", 1)[1]
                     self.progress.set(0)
                     self._progress_mode = None
                     self._progress_total = 0
                     self._progress_current = 0
                     self.path_label.configure(text=current_path)
-                elif line.startswith("ERROR:") or line.startswith("❌"):
+                    
+                # 🌟 新增：拦截底层发来的纯净进度指令，绝不打印到屏幕上！
+                elif clean_line.startswith("__PROGRESS__::"):
+                    parts = clean_line.split("::")
+                    if len(parts) >= 3:
+                        current = int(parts[1])
+                        total_str = parts[2]
+                        if total_str != "?":  # 忽略未知总数的进度条更新
+                            self._update_progress(current, int(total_str))
+                            
+                elif clean_line.startswith("ERROR:") or clean_line.startswith("❌"):
                     self._task_failed = True
-                    self._append_log(line)
+                    self._append_log(line) # 注意：这里保留原始 line 以保留换行符
+                    
                 else:
-                    self._try_update_progress_from_log(line)
+                    # 只有真正的业务文本，才会走到这里显示在 GUI 上
                     self._append_log(line)
+                    
         except queue.Empty:
             pass
         self.after(LOG_POLL_MS, self._poll_log)

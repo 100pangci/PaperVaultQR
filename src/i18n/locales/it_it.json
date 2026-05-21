@@ -42,7 +42,7 @@
     "fragments": "   - Rilevati {count} frammenti.",
     "scan_error": "   ⚠️ Errore di decodifica: {error}",
     "no_qr": "❌ Scansione fallita: nessun codice QR valido rilevato. Prova scansioni in scala di grigi a 300/600 DPI.",
-    "progress": "📊 Progresso: raccolti {collected} di {expected_total} frammenti.",
+    "progress": "📊 Progresso: raccolti {current} di {total} frammenti.",
     "missing": "❌ Frammenti mancanti: {missing_chunks}",
     "saved": "\n🎉 Ricostruzione completata! Salvato in '{output_file}'",
     "suffix": "_Ripristinato"

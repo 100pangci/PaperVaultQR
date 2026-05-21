@@ -2,17 +2,17 @@
 
 > 中文文档 [README.zh.md](README.zh.md) | 日本語 [README_jp.md](README_jp.md)
 
-PaperVaultQR converts any text file into multiple QR codes, generates a printable Word document, and restores the original content from a folder of scanned QR images. It is designed for offline paper backup of high-entropy encrypted data.
+PaperVaultQR splits text files into multiple QR codes, generates a printable Word document, and restores the original content from a folder of scanned QR images. It is designed for offline paper backups of high-entropy encrypted data.
 
-## Screenshots
+## 📷 Screenshots
 
-The interface screenshot is located in the `Picture` folder:
+The interface screenshots are stored in the `Picture` folder:
 
 - English UI: `Picture/PaperVaultQR_EN.png`
 
 ![PaperVaultQR English GUI](Picture/PaperVaultQR_EN.png)
 
-## Logo
+## 🖼️ Logo
 
 - Light mode / dark text: `Picture/LOGO_dark_white.png`
 - Dark mode / light text: `Picture/LOGO_white_dark.png`
@@ -28,43 +28,46 @@ The interface screenshot is located in the `Picture` folder:
   </tr>
 </table>
 
-## Features
+## 🌟 Features
 
-- Split any UTF-8 text file into 500-character QR chunks and encode them
-- Auto-detect non-UTF-8 input and convert it to base64 before encoding
-- Generate a printable Word document with a `4 x 6` QR layout and `1.0 cm` page margins
-- Embed the original filename in the final QR for filename-preserving recovery
-- Decode `png`, `jpg`, and `jpeg` images from a scanned folder and restore the original data in order
-- Auto-detect base64-marked content during recovery and restore the original bytes if needed
-- Supports both CLI and Windows GUI, with language options for `auto`, `zh`, `jp`, and `en`
+- Split input files into `500`-character QR chunks
+- Automatically convert non-UTF-8 input to `base64` before encoding, and restore it during recovery
+- Generate a printable Word document with A4 paper, `1.0 cm` margins, and a `4`-column table layout
+- Preserve the original filename in the QR sequence for filename-aware recovery
+- Decode `png`, `jpg`, and `jpeg` images from a scanned folder in filename order and restore text or binary data
+- Support both desktop GUI and CLI, with `auto` plus all built-in locales
 
-## Important Notes
+## 📌 Notes
 
-- UTF-8 input is processed with direct text slicing and QR encoding.
-- Non-UTF-8 files are converted to base64 before slicing and encoding.
+- UTF-8 input uses direct text slicing and QR encoding.
+- Non-UTF-8 files are converted to `base64` first, then sliced with the same flow.
 - QR codes use error correction level `M` to improve recognition under light damage, stains, or folds.
-- This tool is intended for storing already-encrypted ciphertext, such as exported Bitwarden vaults, encrypted wallet seeds, or GPG/PGP encrypted text.
+- Encoding output files use localized suffixes such as `_ColdStorage`, `_冷存储`, and `_コールドストレージ`.
+- Recovered files are saved in the parent directory of the scan folder; if the original filename is detected, it is preserved with the recovery suffix.
+- This tool is intended for already-encrypted content, such as exported Bitwarden vaults, encrypted wallet seeds, or GPG/PGP ciphertext.
 
-## Files
+## 📂 Files
 
-- `auto_split_qr.py`: encode text/binary input into QR codes and produce printable Word pages
-- `scanner_decoder.py`: decode scanned image folders and recover original text or bytes
-- `gui.py`: Windows GUI with drag-and-drop file and folder support
+- `src/core/auto_split_qr.py`: encode text/binary input into QR codes and generate printable Word pages
+- `src/core/scanner_decoder.py`: decode scanned image folders and restore original text or bytes
+- `src/gui.py`: desktop GUI for choosing files or folders to encode/decode
 - `build_gui_exe.bat`: Windows helper script to build the GUI executable
 - `build_gui_linux.sh`: Linux helper script to build the GUI executable
 - `.github/workflows/build-linux.yml`: GitHub Actions workflow for Linux builds
 
-## Requirements
+## ⚙️ Requirements
 
 Install the required Python packages:
 
 ```bash
-pip install segno python-docx pillow pyzbar customtkinter
+pip install segno python-docx pillow pyzbar customtkinter numpy
 ```
 
-> Note: `pyzbar` may require the system `zbar` library. On Linux, install `zbar` using your package manager.
+> Note: `pyzbar` requires the system `zbar` library on Linux (for example, `sudo apt-get install libzbar0`).
+>
+> Note: install `pyinstaller` as well if you want to build the GUI locally.
 
-## Build
+## 🔨 Build
 
 ### Windows
 
@@ -81,78 +84,79 @@ chmod +x build_gui_linux.sh
 
 ### GitHub Actions
 
-The Linux build workflow runs on every push/PR to `main`/`master`, and can also be started manually from Actions.
+A `v*` tag push or a manual `workflow_dispatch` trigger builds the Linux artifact and publishes it to `release/`.
 
-## Usage
+## 🚀 Usage
 
-### 1) Generate printable QR pages
+### 1. Generate printable QR pages
 
 ```bash
-python auto_split_qr.py path/to/input.txt
+python src/core/auto_split_qr.py path/to/input.txt
 ```
 
-- Output is created in the same directory as the input file.
-- The script attempts to read the input as UTF-8 and encodes it in chunks.
-- If UTF-8 decoding fails, the file is converted to base64 before encoding.
-- The final QR code includes the original filename for recovery.
+- Multiple files can be passed at once.
+- Output is saved next to the input file, with a localized suffix appended to the filename.
+- Examples: `input_ColdStorage.docx`, `input_冷存储.docx`, `input_コールドストレージ.docx`.
 
-### 2) Decode scanned images and recover content
+### 2. Restore scanned content
 
 ```bash
-python scanner_decoder.py path/to/scanned_images_folder
+python src/core/scanner_decoder.py path/to/scanned_images_folder
 ```
 
-- Scans `png`, `jpg`, and `jpeg` files in the specified directory.
-- If no folder is given, it defaults to `scanned_pages`.
-- If the QR stream contains an embedded filename, the recovered output is saved as `originalname_Recovered.ext`.
-- Otherwise the result is saved as `foldername_Recovered.txt`.
-- If the content was base64-encoded before encoding, it will be decoded back to original bytes.
+- Defaults to the `scanned_pages` folder if no path is given.
+- Reads `png`, `jpg`, and `jpeg` files from the target directory.
+- Recovered output is saved in the parent directory of the scan folder.
+- If the original filename is detected, the recovered file keeps it; otherwise it uses the folder name.
+- If the content was converted to `base64`, it is automatically restored to the original bytes.
 
-### 3) Run the Windows GUI
+### 3. Run the desktop GUI
 
 ```bash
-python gui.py
+python src/gui.py
 ```
 
 The GUI supports:
 
-- encoding a file to printable QR pages
-- decoding a scanned image folder to recover data
-- drag-and-drop input for files and folders
-- selecting language mode: `auto`, `zh`, `jp`, or `en`
+- choosing one or more files to encode
+- choosing a folder to decode
+- `auto` plus the built-in locales
 
-### 4) Language options
+### 4. Language options
+
+The CLI accepts actual locale codes such as `zh_cn`, `en_us`, `ja_jp`, and `ko_kr`; `auto` enables automatic detection.
 
 ```bash
-python auto_split_qr.py --lang zh path/to/input.txt
-python auto_split_qr.py --lang jp path/to/input.txt
-python auto_split_qr.py --lang en path/to/input.txt
-python auto_split_qr.py --lang auto path/to/input.txt
+python src/core/auto_split_qr.py --lang zh_cn path/to/input.txt
+python src/core/auto_split_qr.py --lang en_us path/to/input.txt
+python src/core/auto_split_qr.py --lang ja_jp path/to/input.txt
+python src/core/auto_split_qr.py --lang auto path/to/input.txt
 ```
 
 ```bash
-python scanner_decoder.py --lang zh path/to/scanned_images_folder
-python scanner_decoder.py --lang jp path/to/scanned_images_folder
-python scanner_decoder.py --lang en path/to/scanned_images_folder
-python scanner_decoder.py --lang auto path/to/scanned_images_folder
+python src/core/scanner_decoder.py --lang zh_cn path/to/scanned_images_folder
+python src/core/scanner_decoder.py --lang en_us path/to/scanned_images_folder
+python src/core/scanner_decoder.py --lang ja_jp path/to/scanned_images_folder
+python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
 ```
 
-## Default Parameters
+## 📄 Default Parameters
 
 - Characters per chunk: `500`
 - QR error correction level: `M`
-- Page layout: `4 x 6`
 - Page margin: `1.0 cm`
+- Page size: `A4`
+- Layout: `4` columns, with Word flowing rows across pages automatically
 
-## Scanning Recommendations
+## 🔧 Scanning Recommendations
 
-- Use `300 DPI` or `600 DPI` for scanning
-- Prefer grayscale or black-and-white modes
-- Keep QR edges clear and avoid cutting off any part of the code
-- If decoding fails for one QR, take a separate screenshot of that unreadable QR and place it in the same folder.
+- Use `300 DPI` or `600 DPI` when scanning
+- Prefer grayscale or black-and-white mode
+- Keep the QR code complete and avoid cutting off the edges
+- If one QR fails, crop that single unreadable QR and try again
 
-## Security Tips
+## ⚠️ Security Tips
 
-- Printed ink is not waterproof; store pages in sealed protective sleeves.
-- Paper backups should only contain encrypted ciphertext; unencrypted data can still be read.
-- Keep the original decryption secret secure; if it is lost, recovery is not possible even if the QR pages remain intact.
+- Inkjet prints are not waterproof; use sealed sleeves or lamination.
+- Paper backups should contain only encrypted data; unencrypted content can still be read.
+- Keep the original decryption secret safe; recovery is impossible without it, even if the QR pages remain intact.

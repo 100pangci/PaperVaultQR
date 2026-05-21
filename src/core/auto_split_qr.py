@@ -125,6 +125,9 @@ def process_file(input_path: str, lang: str = "zh"):
             p_img.add_run().add_picture(img_path, width=Cm(QR_WIDTH_CM))
 
             if idx % progress_step == 0 or idx == total_chunks:
+                # 1. 发送 GUI 控制指令
+                print(f"__PROGRESS__::{idx}::{total_chunks}")
+                # 2. 输出多语言日志
                 print(tr(lang, "progress", current=idx, total=total_chunks))
 
         doc.save(output_doc)

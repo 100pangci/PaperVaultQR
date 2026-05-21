@@ -42,7 +42,7 @@
     "fragments": "   - {count} parça algılandı.",
     "scan_error": "   ⚠️ Çözümleme hatası: {error}",
     "no_qr": "❌ Tarama başarısız: geçerli QR kodu bulunamadı. 300/600 DPI gri tonlamalı tarama deneyin.",
-    "progress": "📊 İlerleme: {collected} / {expected_total} parça toplandı.",
+    "progress": "📊 İlerleme: {current} / {total} parça toplandı.",
     "missing": "❌ Eksik parçalar: {missing_chunks}",
     "saved": "\n🎉 Yeniden oluşturma tamamlandı! '{output_file}' olarak kaydedildi",
     "suffix": "_Kurtarıldı"
