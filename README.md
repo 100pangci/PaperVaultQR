@@ -155,6 +155,11 @@ python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
 - Keep the QR code complete and avoid cutting off the edges
 - If one QR fails, crop that single unreadable QR and try again
 
+## 🧪 Test Result
+
+- Verified with a `313 KB` payload encoded into `642` QR codes.
+- After printing and scanning in order, only `2` QR codes failed to decode; the problematic ones were saved as separate screenshots in the same folder.
+
 ## ⚠️ Security Tips
 
 - Inkjet prints are not waterproof; use sealed sleeves or lamination.
