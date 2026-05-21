@@ -7,12 +7,14 @@ pip install pyinstaller pyzbar Pillow segno python-docx customtkinter
 
 echo.
 set "SCRIPT_DIR=%~dp0"
+set "BUILD_DIR=%SCRIPT_DIR%build\pyinstaller"
+set "VERSION_FILE=%BUILD_DIR%\version.txt"
 set "VERSION_SUFFIX="
 if not "%PAPERVAULTQR_VERSION%"=="" set "VERSION_SUFFIX=-%PAPERVAULTQR_VERSION%"
-if not exist build\pyinstaller mkdir build\pyinstaller
+if not exist "%BUILD_DIR%" mkdir "%BUILD_DIR%"
 set "BUNDLE_VERSION=%PAPERVAULTQR_VERSION%"
 if "%BUNDLE_VERSION%"=="" set "BUNDLE_VERSION=dev"
-> build\pyinstaller\version.txt echo %BUNDLE_VERSION%
+> "%VERSION_FILE%" echo %BUNDLE_VERSION%
 
 echo [2/4] Locating DLL and UI dependencies...
 FOR /F "tokens=*" %%g IN ('python -c "import os, pyzbar; print(os.path.dirname(pyzbar.__file__))"') do (SET PYZBAR_PATH=%%g)
@@ -34,12 +36,12 @@ if not exist release mkdir release
 pyinstaller --onefile --windowed --clean ^
   --name PaperVaultQR-GUI%VERSION_SUFFIX% ^
   --distpath release ^
-  --workpath build\pyinstaller ^
-  --specpath build\pyinstaller ^
+  --workpath "%BUILD_DIR%" ^
+  --specpath "%BUILD_DIR%" ^
   --add-binary "%PYZBAR_PATH%\*.dll;pyzbar" ^
   --add-data "%CTK_PATH%;customtkinter" ^
   --add-data "%SCRIPT_DIR%src\i18n\locales;i18n\locales" ^
-  --add-data "build\pyinstaller\version.txt;." ^
+  --add-data "%VERSION_FILE%;." ^
   --add-data "%SCRIPT_DIR%src\icon;icon" ^
   src\gui.py
 

@@ -7,9 +7,10 @@ import re
 import sys
 import threading
 import webbrowser
-from tkinter import filedialog, PhotoImage
+from tkinter import filedialog
 
 import customtkinter as ctk
+from PIL import Image, ImageTk
 
 from core import auto_split_qr, scanner_decoder
 from i18n import normalize_lang
@@ -135,6 +136,7 @@ class ModernGUI(ctk.CTk):
 
         self._window_icon_mode = None
         self._window_icons = {}
+        self._window_icon_paths = {}
         self._load_window_icons()
         self._update_window_icon()
         self.after(1000, self._sync_window_icon)
@@ -270,15 +272,30 @@ class ModernGUI(ctk.CTk):
 
     def _load_window_icons(self):
         self._window_icons = {}
-        for mode, filename in {
-            "Light": "icon_dark.png",
-            "Dark": "icon_white.png",
-        }.items():
-            icon_path = resource_path("icon", filename)
+        self._window_icon_paths = {}
+        icon_defs = {
+            "Light": {"png": "icon_dark.png", "ico": "icon_dark.ico"},
+            "Dark": {"png": "icon_white.png", "ico": "icon_white.ico"},
+        }
+        sizes = (16, 24, 32, 48, 64, 128)
+        for mode, files in icon_defs.items():
+            png_path = resource_path("icon", files["png"])
+            ico_path = resource_path("icon", files["ico"])
+            self._window_icon_paths[mode] = {"png": png_path, "ico": ico_path}
             try:
-                self._window_icons[mode] = PhotoImage(file=icon_path)
+                source = Image.open(png_path).convert("RGBA")
+                square = min(source.size)
+                left = (source.width - square) // 2
+                top = (source.height - square) // 2
+                source = source.crop((left, top, left + square, top + square))
+                self._window_icons[mode] = [
+                    ImageTk.PhotoImage(
+                        source.resize((size, size), Image.Resampling.LANCZOS)
+                    )
+                    for size in sizes
+                ]
             except Exception:
-                self._window_icons[mode] = None
+                self._window_icons[mode] = []
 
     def _update_window_icon(self):
         mode = ctk.get_appearance_mode().strip().lower()
@@ -286,9 +303,23 @@ class ModernGUI(ctk.CTk):
         if mode == self._window_icon_mode:
             return
         self._window_icon_mode = mode
-        icon = self._window_icons.get(mode)
-        if icon is not None:
-            self.iconphoto(True, icon)
+
+        paths = self._window_icon_paths.get(mode, {})
+        if os.name == "nt":
+            ico_path = paths.get("ico", "")
+            if ico_path and os.path.exists(ico_path):
+                try:
+                    self.iconbitmap(ico_path)
+                    return
+                except Exception:
+                    pass
+
+        icons = self._window_icons.get(mode, [])
+        if icons:
+            try:
+                self.iconphoto(True, *icons)
+            except Exception:
+                pass
 
     def _sync_window_icon(self):
         self._update_window_icon()
