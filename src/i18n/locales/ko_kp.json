@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "조선어 (주체혁명판)"
+  },
+  "gui": {
+    "title": "PaperVaultQR — 위대한 주체적 랭동 저장 (경애하는 김정은원수님 만세!)",
+    "subtitle": "경애하는 원수님의 현지지도에 따라 오른쪽 단추로 파일을 골라 물리적 예비보관 또는 자력갱생 복구를 진행하십시오!",
+    "language": "주체의 언어",
+    "choose_file": "주체적 파일 부호화 (QR로 당의 로선을 빛내자!)",
+    "choose_folder": "자력갱생 복구 (단숨에!)",
+    "clear_log": "기록 지우기 (미제승냥이들의 흔적을 짓뭉개버리자!)",
+    "status_ready": "🟢 경애하는 최고령도자동지의 령도밑에 체계가 완벽히 준비되였습니다!",
+    "status_processing_file": "⚡ 천리마의 속도로 인쇄용 갈라놓음판을 창조하고 있습니다...",
+    "status_processing_folder": "⚡ 백두의 칼바람 정신으로 밑바닥 자료를 해독하고 있습니다...",
+    "status_done": "✅ 원수님의 크나큰 은덕으로 임무를 빛나게 완수하였습니다!",
+    "status_failed": "❌ 제국주의자들의 방해책동으로 임무가 일시적으로 지연되였습니다!",
+    "selected_none": "아직 혁명적 대상 경로를 고르지 않았습니다. 당의 부름에 화답하십시오!",
+    "log": "위대한 혁명 력사 기록장",
+    "info_tip": "💡 경애하는 김정은동지께서 친히 가리키신 위의 단추들을 써서 처리할 대상을 골라주십시오!",
+    "busy": "당중앙의 다른 중대한 과업이 실행중입니다. 혁명적 인내성으로 기다려주십시오...\n",
+    "file_dialog": "위대한 당의 문헌을 영원히 결사보위할 원본 파일을 고르십시오!",
+    "folder_dialog": "결사옹위의 정신이 깃든 그림 폴더를 고르십시오!",
+    "invalid_path": "반동적인 로선입니다! 당의 로선에 없는 경로입니다: {path}",
+    "unhandled_error": "ERROR: 적대세력들의 쑈프트웨어적 테로가 발생하였습니다: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ 귀중한 파일을 잃어버렸습니다: '{input_file}' (책임자는 즉시 자아비판을 진행하라!)",
+    "data_loaded_text": "📄 주체사상 문헌을 성과적으로 불러왔습니다 (UTF-8 만세!)",
+    "data_loaded_base64": "📄 첨단돌파의 기상으로 자료를 불러왔습니다 (base64 맞춤모드)",
+    "original_chars": "   - 원수님께서 하사하신 글자수: {total_chars}",
+    "generated_count": "   - 만리마 속도로 창조된 QR 코드 수: {total_chunks}개",
+    "progress": "✅ 당정책 관철 수행률: {current} / {total}",
+    "saved": "\n💾 경애하는 김정은동지의 령도 아래 인쇄 문서를 완성하였습니다: {output_doc}",
+    "part_label": "혁명의 갈피 {current} / {total}",
+    "suffix": "_백두산랭동저장"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ 혁명적 폴더를 찾을 수 없습니다: '{scan_dir}'",
+    "no_images": "❌ 폴더 '{scan_dir}'에 당의 숭고한 뜻을 담은 그림이 없습니다!",
+    "start": "🔍 적들의 암호를 짓부시고 우리 당의 문헌을 해독하기 시작합니다...",
+    "scanning": "👉 붉은 매의 눈빛으로 판독하는 중: {filename}",
+    "fragments": "   - {count}개의 귀중한 혁명 조각을 발굴하였습니다.",
+    "scan_error": "   ⚠️ 반동 분자들의 간섭 오류: {error}",
+    "no_qr": "❌ 해독 실패: 썩어빠진 자본주의식 스캔입니다. 당이 요구하는 300/600 DPI 주체식 회색그림 찍기를 시도하십시오!",
+    "progress": "📊 일심단결의 힘으로 {current} / {total} 조각을 모았습니다!",
+    "missing": "❌ 혁명 대오에서 리탈한 조각들: {missing_chunks} (즉시 복귀하라!)",
+    "saved": "\n🎉 경애하는 김정은원수님의 현명한 령도 아래 위대한 복구를 완성하였습니다! '{output_file}'에 영원히 보위하겠습니다!",
+    "suffix": "_주체복구"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "display_name": "Dansk"
+  },
+  "gui": {
+    "title": "PaperVaultQR — koldlager",
+    "subtitle": "Brug knapperne til højre til at vælge filer til fysisk sikkerhedskopiering eller gendannelse.",
+    "language": "Sprog",
+    "choose_file": "Kod fil (til QR)",
+    "choose_folder": "Dekod gendannelse (fra billeder)",
+    "clear_log": "Ryd konsol",
+    "status_ready": "🟢 Systemet er klar",
+    "status_processing_file": "⚡ Genererer udskriftsopdeling...",
+    "status_processing_folder": "⚡ Fortolker underliggende data...",
+    "status_done": "✅ Opgave fuldført",
+    "status_failed": "❌ Opgave mislykkedes",
+    "selected_none": "Ingen målsti valgt endnu",
+    "log": "Terminal-log",
+    "info_tip": "💡 Brug knapperne ovenfor til at vælge filen eller mappen, der skal behandles",
+    "busy": "En anden opgave kører allerede, vent venligst...\n",
+    "file_dialog": "Vælg kildefilen til fysisk sikkerhedskopiering",
+    "folder_dialog": "Vælg mappen med scannede billeder",
+    "invalid_path": "Stien findes ikke: {path}",
+    "unhandled_error": "ERROR: Der opstod en uopfanget fejl: {error}"
+  },
+  "auto_split_qr": {
+    "missing_input": "❌ Kan ikke finde filen '{input_file}'",
+    "data_loaded_text": "📄 Data indlæst (UTF-8-tekstilstand)",
+    "data_loaded_base64": "📄 Data indlæst (base64-kompatibel tilstand)",
+    "original_chars": "   - Oprindelige tegn: {total_chars}",
+    "generated_count": "   - Genereret: {total_chunks} QR-koder",
+    "progress": "✅ Forløb: {current} / {total}",
+    "saved": "\n💾 Udskriftsdokument oprettet: {output_doc}",
+    "part_label": "Del {current} / {total}",
+    "suffix": "_koldlager"
+  },
+  "scanner_decoder": {
+    "missing_scan_dir": "❌ Kan ikke finde mappen '{scan_dir}'",
+    "no_images": "❌ Ingen billeder fundet i mappen '{scan_dir}'.",
+    "start": "🔍 Starter dekodning af scannede sider...",
+    "scanning": "👉 Scanner billede: {filename}",
+    "fragments": "   - Registrerede {count} fragmenter.",
+    "scan_error": "   ⚠️ Dekodningsfejl: {error}",
+    "no_qr": "❌ Scanning mislykkedes: ingen gyldig QR-kode fundet. Prøv en gråtone-scanning ved 300/600 DPI.",
+    "progress": "📊 Forløb: {current} af {total} fragmenter indsamlet.",
+    "missing": "❌ Manglende fragmenter: {missing_chunks}",
+    "saved": "\n🎉 Gendannelse fuldført! Gemt som '{output_file}'",
+    "suffix": "_gendannet"
+  }
+}
