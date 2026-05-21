@@ -75,16 +75,23 @@ class QueueRedirector(io.StringIO):
         pass
 
 
-def run_task_in_thread(path, lang, log_q):
+def run_task_in_thread(paths, lang, log_q):
     old_stdout, old_stderr = sys.stdout, sys.stderr
     redirector = QueueRedirector(log_q)
     sys.stdout, sys.stderr = redirector, redirector
 
     try:
-        if os.path.isdir(path):
-            scanner_decoder.decode_folder(path, lang=lang)
+        if isinstance(paths, (str, os.PathLike)):
+            targets = [paths]
         else:
-            auto_split_qr.process_file(path, lang=lang)
+            targets = list(paths)
+
+        for path in targets:
+            log_q.put(f"__FILE_START__::{path}")
+            if os.path.isdir(path):
+                scanner_decoder.decode_folder(path, lang=lang)
+            else:
+                auto_split_qr.process_file(path, lang=lang)
     except Exception as e:
         print(get_gui_text(lang, "unhandled_error", error=e))
     finally:
@@ -114,6 +121,7 @@ class ModernGUI(ctk.CTk):
         self._task_failed = False
         self._status_key = "status_ready"
         self._selected_path = ""
+        self._selected_paths = []
         self._progress_mode = None  # "encode" | "decode"
         self._progress_total = 0
         self._progress_current = 0
@@ -275,6 +283,20 @@ class ModernGUI(ctk.CTk):
         self.log_text.delete("1.0", "end")
         self.log_text.configure(state="disabled")
 
+    def _format_selected_paths(self, paths):
+        if not paths:
+            return ""
+
+        if len(paths) == 1:
+            return paths[0]
+
+        display_names = [os.path.basename(p) or p for p in paths[:3]]
+        summary = ", ".join(display_names)
+        remaining = len(paths) - len(display_names)
+        if remaining > 0:
+            summary += f" ... (+{remaining})"
+        return summary
+
     def open_project_link(self):
         webbrowser.open_new_tab(PROJECT_URL)
 
@@ -343,6 +365,16 @@ class ModernGUI(ctk.CTk):
                         "status_failed" if self._task_failed else "status_done",
                         self._task_failed,
                     )
+                    self.path_label.configure(
+                        text=self._selected_path if self._selected_path else self._text("selected_none")
+                    )
+                elif line.startswith("__FILE_START__::"):
+                    current_path = line.split("::", 1)[1]
+                    self.progress.set(0)
+                    self._progress_mode = None
+                    self._progress_total = 0
+                    self._progress_current = 0
+                    self.path_label.configure(text=current_path)
                 elif line.startswith("ERROR:") or line.startswith("❌"):
                     self._task_failed = True
                     self._append_log(line)
@@ -354,7 +386,7 @@ class ModernGUI(ctk.CTk):
         self.after(LOG_POLL_MS, self._poll_log)
 
     def choose_file(self):
-        p = filedialog.askopenfilename(title=self._text("file_dialog"))
+        p = filedialog.askopenfilenames(title=self._text("file_dialog"))
         if p:
             self.handle_path(p)
 
@@ -364,26 +396,36 @@ class ModernGUI(ctk.CTk):
             self.handle_path(p)
 
     def handle_path(self, path):
-        path = os.path.abspath(os.fspath(path))
+        if isinstance(path, (str, os.PathLike)):
+            paths = [os.path.abspath(os.fspath(path))]
+        else:
+            paths = [os.path.abspath(os.fspath(p)) for p in path if p]
 
-        if not os.path.exists(path):
-            self._task_failed = True
-            self._set_status("status_failed", True)
-            msg = get_gui_text(self._ui_lang(), "invalid_path", path=path)
-            self.path_label.configure(text=msg)
-            self._append_log(msg + "\n")
+        if not paths:
             return
 
         if self._running:
             self._append_log(self._text("busy"))
             return
 
-        self._selected_path = path
+        for selected_path in paths:
+            if not os.path.exists(selected_path):
+                self._task_failed = True
+                self._set_status("status_failed", True)
+                msg = get_gui_text(self._ui_lang(), "invalid_path", path=selected_path)
+                self.path_label.configure(text=msg)
+                self._append_log(msg + "\n")
+                return
+
+        self._selected_paths = paths
+        self._selected_path = self._format_selected_paths(paths)
         self._task_failed = False
         self._set_status(
-            "status_processing_folder" if os.path.isdir(path) else "status_processing_file"
+            "status_processing_folder"
+            if len(paths) == 1 and os.path.isdir(paths[0])
+            else "status_processing_file"
         )
-        self.path_label.configure(text=path)
+        self.path_label.configure(text=self._selected_path if self._selected_path else self._text("selected_none"))
 
         while not self.log_q.empty():
             self.log_q.get_nowait()
@@ -391,26 +433,14 @@ class ModernGUI(ctk.CTk):
         self._set_controls_enabled(False)
 
         self.progress.configure(mode="determinate")
-
-        if os.path.isdir(path):
-            self._progress_mode = "decode"
-            images = (
-                glob.glob(os.path.join(path, "*.[pP][nN][gG]"))
-                + glob.glob(os.path.join(path, "*.[jJ][pP][gG]"))
-                + glob.glob(os.path.join(path, "*.[jJ][pP][eE][gG]"))
-            )
-            self._progress_total = len(images)
-            self._progress_current = 0
-            self.progress.set(0)
-        else:
-            self._progress_mode = "encode"
-            self._progress_total = 0
-            self._progress_current = 0
-            self.progress.set(0)
+        self._progress_mode = "encode"
+        self._progress_total = 0
+        self._progress_current = 0
+        self.progress.set(0)
 
         worker = threading.Thread(
             target=run_task_in_thread,
-            args=(path, self._ui_lang(), self.log_q),
+            args=(paths, self._ui_lang(), self.log_q),
             daemon=True,
         )
         self._running = True

@@ -130,25 +130,38 @@ def process_file(input_path: str, lang: str = "zh"):
         doc.save(output_doc)
         print(tr(lang, "saved", output_doc=output_doc))
 
+
+def process_files(input_paths, lang: str = "zh"):
+    for input_path in input_paths:
+        if not input_path:
+            continue
+        abs_path = os.path.abspath(input_path)
+        if os.path.isdir(abs_path):
+            print(tr(lang, "missing_input", input_file=abs_path))
+            continue
+        process_file(abs_path, lang=lang)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--lang", choices=CLI_LANGUAGE_CHOICES, default=AUTO_LANGUAGE_VALUE)
-    parser.add_argument("target", nargs="?")
+    parser.add_argument("target", nargs="*")
     args = parser.parse_args()
 
     lang = detect_lang(None if args.lang == AUTO_LANGUAGE_VALUE else args.lang)
     if not args.target:
         return print(tr(lang, "missing_input", input_file="<No file provided>"))
 
-    target_path = os.path.abspath(args.target)
-    if os.path.isdir(target_path):
-        try:
-            from core import scanner_decoder
-        except ImportError:
-            import scanner_decoder
-        scanner_decoder.decode_folder(target_path, lang=lang)
-    else:
-        process_file(target_path, lang=lang)
+    for target in args.target:
+        target_path = os.path.abspath(target)
+        if os.path.isdir(target_path):
+            try:
+                from core import scanner_decoder
+            except ImportError:
+                import scanner_decoder
+            scanner_decoder.decode_folder(target_path, lang=lang)
+        else:
+            process_file(target_path, lang=lang)
 
 if __name__ == "__main__":
     main()
