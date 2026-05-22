@@ -1,16 +1,14 @@
 # PaperVaultQR
 
-> 中文文档 [README.zh.md](README.zh.md) | English [README.md](README.md)
-
 PaperVaultQR は、テキストファイルを複数の QR コードに分割して印刷可能な Word 文書を生成し、スキャン済みの QR 画像フォルダから元の内容を復元します。高エントロピーな暗号データのオフライン紙バックアップ向けに設計されています。
 
 ## 📷 画面例
 
 以下はソフトウェアの画面例です。画像は `Picture` ディレクトリにあります。
 
-- 日本語 UI: `Picture/PaperVaultQR_JP.png`
+- 日本語 UI: `Picture/PaperVaultQR_ja_jp.png`
 
-![PaperVaultQR Japanese GUI](Picture/PaperVaultQR_JP.png)
+![PaperVaultQR Japanese GUI](Picture/PaperVaultQR_ja_jp.png)
 
 ## 🖼️ ロゴ
 

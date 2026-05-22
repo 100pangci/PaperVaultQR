@@ -1,16 +1,14 @@
 # PaperVaultQR
 
-> English [README.md](README.md) | 日本語 [README_jp.md](README_jp.md)
-
 PaperVaultQR 可将文本文件切分为多个二维码，生成适合打印的 Word 文档；也可以从扫描后的二维码图片目录恢复原始内容。适合用于高熵加密数据的离线纸质备份。
 
 ## 📷 界面截图
 
 以下为软件界面截图，图片位于 `Picture` 目录：
 
-- 中文界面：`Picture/PaperVaultQR_CN.png`
+- 中文界面：`Picture/PaperVaultQR_zh_cn.png`
 
-![PaperVaultQR 中文界面](Picture/PaperVaultQR_CN.png)
+![PaperVaultQR 中文界面](Picture/PaperVaultQR_zh_cn.png)
 
 ## 🖼️ Logo
 
