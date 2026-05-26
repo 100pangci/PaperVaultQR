@@ -13,6 +13,7 @@ import customtkinter as ctk
 from PIL import Image, ImageTk
 
 from core import auto_split_qr, scanner_decoder
+from core.auto_split_qr import QrLayoutConfig
 from i18n import normalize_lang
 from app_version import get_app_version
 from i18n.ui_texts import (
@@ -83,7 +84,7 @@ class QueueRedirector(io.StringIO):
         pass
 
 
-def run_task_in_thread(paths, lang, log_q):
+def run_task_in_thread(paths, lang, log_q, config: QrLayoutConfig | None = None):
     old_stdout, old_stderr = sys.stdout, sys.stderr
     redirector = QueueRedirector(log_q)
     sys.stdout, sys.stderr = redirector, redirector
@@ -99,7 +100,7 @@ def run_task_in_thread(paths, lang, log_q):
             if os.path.isdir(path):
                 scanner_decoder.decode_folder(path, lang=lang)
             else:
-                auto_split_qr.process_file(path, lang=lang)
+                auto_split_qr.process_file(path, lang=lang, config=config)
     except Exception as e:
         print(get_gui_text(lang, "unhandled_error", error=e))
     finally:
@@ -125,6 +126,14 @@ class ModernGUI(ctk.CTk):
         self.lang_var.trace_add("write", self.update_ui_texts)
 
         self.log_q = queue.Queue()
+        self.default_qr_config = auto_split_qr.DEFAULT_CONFIG
+        self.qr_error_choices = list(auto_split_qr.QR_ERROR_CHOICES)
+        self.config_chunk_size_var = ctk.StringVar(value=str(self.default_qr_config.chunk_size))
+        self.config_qr_error_var = ctk.StringVar(value=self.default_qr_config.qr_error)
+        self.config_qr_width_var = ctk.StringVar(value=str(self.default_qr_config.qr_width_cm))
+        self.config_font_size_var = ctk.StringVar(value=str(self.default_qr_config.font_size_label))
+        self.config_cols_var = ctk.StringVar(value=str(self.default_qr_config.cols_per_page))
+        self.config_margin_var = ctk.StringVar(value=str(self.default_qr_config.page_margin))
         self._running = False
         self._task_failed = False
         self._status_key = "status_ready"
@@ -200,6 +209,59 @@ class ModernGUI(ctk.CTk):
             command=self.choose_file,
         )
         self.file_btn.pack(side="right", padx=(10, 0))
+
+        self.settings_card = ctk.CTkFrame(self, corner_radius=10)
+        self.settings_card.pack(fill="x", padx=20, pady=(5, 5))
+
+        self.settings_title = ctk.CTkLabel(self.settings_card, text="", font=ui_font(14, "bold"))
+        self.settings_title.grid(row=0, column=0, columnspan=6, sticky="w", padx=15, pady=(10, 8))
+
+        self.setting_chunk_label = ctk.CTkLabel(self.settings_card, text="")
+        self.setting_chunk_label.grid(row=1, column=0, sticky="w", padx=(15, 6), pady=(0, 8))
+        self.setting_chunk_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_chunk_size_var)
+        self.setting_chunk_entry.grid(row=1, column=1, sticky="w", pady=(0, 8))
+
+        self.setting_error_label = ctk.CTkLabel(self.settings_card, text="")
+        self.setting_error_label.grid(row=1, column=2, sticky="w", padx=(10, 6), pady=(0, 8))
+        self.setting_error_menu = ctk.CTkOptionMenu(
+            self.settings_card,
+            variable=self.config_qr_error_var,
+            values=self.qr_error_choices,
+            width=90,
+        )
+        self.setting_error_menu.grid(row=1, column=3, sticky="w", pady=(0, 8))
+
+        self.setting_width_label = ctk.CTkLabel(self.settings_card, text="")
+        self.setting_width_label.grid(row=1, column=4, sticky="w", padx=(10, 6), pady=(0, 8))
+        self.setting_width_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_qr_width_var)
+        self.setting_width_entry.grid(row=1, column=5, sticky="w", padx=(0, 15), pady=(0, 8))
+
+        self.setting_font_label = ctk.CTkLabel(self.settings_card, text="")
+        self.setting_font_label.grid(row=2, column=0, sticky="w", padx=(15, 6), pady=(0, 10))
+        self.setting_font_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_font_size_var)
+        self.setting_font_entry.grid(row=2, column=1, sticky="w", pady=(0, 10))
+
+        self.setting_cols_label = ctk.CTkLabel(self.settings_card, text="")
+        self.setting_cols_label.grid(row=2, column=2, sticky="w", padx=(10, 6), pady=(0, 10))
+        self.setting_cols_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_cols_var)
+        self.setting_cols_entry.grid(row=2, column=3, sticky="w", pady=(0, 10))
+
+        self.setting_margin_label = ctk.CTkLabel(self.settings_card, text="")
+        self.setting_margin_label.grid(row=2, column=4, sticky="w", padx=(10, 6), pady=(0, 10))
+        self.setting_margin_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_margin_var)
+        self.setting_margin_entry.grid(row=2, column=5, sticky="w", padx=(0, 15), pady=(0, 10))
+
+        self.set_default_btn = ctk.CTkButton(
+            self.settings_card,
+            text="",
+            width=120,
+            fg_color="transparent",
+            border_width=1,
+            text_color=("gray10", "#DCE4EE"),
+            font=ui_font(12),
+            command=self.reset_qr_config_to_default,
+        )
+        self.set_default_btn.grid(row=3, column=0, sticky="w", padx=15, pady=(0, 10))
 
         self.status_card = ctk.CTkFrame(self, corner_radius=10)
         self.status_card.pack(fill="x", padx=20, pady=5)
@@ -336,6 +398,14 @@ class ModernGUI(ctk.CTk):
         self.clear_btn.configure(text=self._text("clear_log"))
         self.log_label.configure(text=self._text("log"))
         self.info_label.configure(text=self._text("info_tip"))
+        self.settings_title.configure(text=self._text("settings_title"))
+        self.setting_chunk_label.configure(text=self._text("setting_chunk_size"))
+        self.setting_error_label.configure(text=self._text("setting_qr_error"))
+        self.setting_width_label.configure(text=self._text("setting_qr_width"))
+        self.setting_font_label.configure(text=self._text("setting_font_size"))
+        self.setting_cols_label.configure(text=self._text("setting_cols_per_page"))
+        self.setting_margin_label.configure(text=self._text("setting_page_margin"))
+        self.set_default_btn.configure(text=self._text("set_default"))
         self.project_link_label.configure(text=PROJECT_URL)
         self.status_label.configure(text=self._text(self._status_key))
         self.path_label.configure(
@@ -348,6 +418,13 @@ class ModernGUI(ctk.CTk):
         self.file_btn.configure(state=state)
         self.folder_btn.configure(state=state)
         self.clear_btn.configure(state=state)
+        self.setting_chunk_entry.configure(state=state)
+        self.setting_error_menu.configure(state=state)
+        self.setting_width_entry.configure(state=state)
+        self.setting_font_entry.configure(state=state)
+        self.setting_cols_entry.configure(state=state)
+        self.setting_margin_entry.configure(state=state)
+        self.set_default_btn.configure(state=state)
 
     def clear_log(self):
         self.log_text.configure(state="normal")
@@ -438,6 +515,61 @@ class ModernGUI(ctk.CTk):
             pass
         self.after(LOG_POLL_MS, self._poll_log)
 
+    def reset_qr_config_to_default(self):
+        cfg = self.default_qr_config
+        self.config_chunk_size_var.set(str(cfg.chunk_size))
+        self.config_qr_error_var.set(cfg.qr_error)
+        self.config_qr_width_var.set(str(cfg.qr_width_cm))
+        self.config_font_size_var.set(str(cfg.font_size_label))
+        self.config_cols_var.set(str(cfg.cols_per_page))
+        self.config_margin_var.set(str(cfg.page_margin))
+
+    def _build_qr_config_from_ui(self) -> QrLayoutConfig | None:
+        lang = self._ui_lang()
+        try:
+            chunk_size = int(self.config_chunk_size_var.get().strip())
+            qr_error = self.config_qr_error_var.get().strip().upper()
+            qr_width_cm = float(self.config_qr_width_var.get().strip())
+            font_size_label = int(self.config_font_size_var.get().strip())
+            cols_per_page = int(self.config_cols_var.get().strip())
+            page_margin = float(self.config_margin_var.get().strip())
+        except ValueError:
+            msg = self._text("invalid_config_number")
+            self._task_failed = True
+            self._set_status("status_failed", True)
+            self._append_log(msg + "\n")
+            self.path_label.configure(text=msg)
+            return None
+
+        if chunk_size <= 0 or qr_width_cm <= 0 or font_size_label <= 0 or cols_per_page <= 0 or page_margin < 0:
+            msg = self._text("invalid_config_range")
+            self._task_failed = True
+            self._set_status("status_failed", True)
+            self._append_log(msg + "\n")
+            self.path_label.configure(text=msg)
+            return None
+
+        if qr_error not in self.qr_error_choices:
+            msg = get_gui_text(
+                lang,
+                "invalid_config_qr_error",
+                choices=", ".join(self.qr_error_choices),
+            )
+            self._task_failed = True
+            self._set_status("status_failed", True)
+            self._append_log(msg + "\n")
+            self.path_label.configure(text=msg)
+            return None
+
+        return QrLayoutConfig(
+            chunk_size=chunk_size,
+            qr_error=qr_error,
+            qr_width_cm=qr_width_cm,
+            font_size_label=font_size_label,
+            cols_per_page=cols_per_page,
+            page_margin=page_margin,
+        )
+
     def choose_file(self):
         p = filedialog.askopenfilenames(title=self._text("file_dialog"))
         if p:
@@ -491,9 +623,14 @@ class ModernGUI(ctk.CTk):
         self._progress_current = 0
         self.progress.set(0)
 
+        config = self._build_qr_config_from_ui()
+        if config is None:
+            self._set_controls_enabled(True)
+            return
+
         worker = threading.Thread(
             target=run_task_in_thread,
-            args=(paths, self._ui_lang(), self.log_q),
+            args=(paths, self._ui_lang(), self.log_q, config),
             daemon=True,
         )
         self._running = True

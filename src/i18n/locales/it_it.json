@@ -21,7 +21,20 @@
     "file_dialog": "Seleziona il file sorgente per il backup fisico",
     "folder_dialog": "Seleziona la cartella contenente le immagini scansionate",
     "invalid_path": "Percorso inesistente: {path}",
-    "unhandled_error": "ERROR: Eccezione non gestita: {error}"
+    "unhandled_error": "ERROR: Eccezione non gestita: {error}",
+    "settings_title": "Impostazioni layout QR",
+    "setting_chunk_size": "Dimensione blocco",
+    "setting_qr_error": "Correzione errore QR",
+    "setting_qr_width": "Larghezza QR (cm)",
+    "setting_font_size": "Dimensione font etichetta",
+    "setting_cols_per_page": "Colonne per pagina",
+    "setting_page_margin": "Margine pagina (cm)",
+    "set_default": "Imposta come predefinito",
+    "invalid_config_number": "Impostazione numerica non valida. Controlla i parametri QR.",
+    "invalid_config_range": "Intervallo non valido. Usa valori positivi (margine può essere 0).",
+    "invalid_config_qr_error": "Livello errore QR non valido. Valori consentiti: {choices}.",
+    "default_saved": "Impostazioni predefinite salvate.",
+    "default_save_failed": "Salvataggio impostazioni predefinite non riuscito: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ File non trovato: '{input_file}'",

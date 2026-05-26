@@ -21,7 +21,20 @@
     "file_dialog": "Vælg kildefilen til fysisk sikkerhedskopiering",
     "folder_dialog": "Vælg mappen med scannede billeder",
     "invalid_path": "Stien findes ikke: {path}",
-    "unhandled_error": "ERROR: Der opstod en uopfanget fejl: {error}"
+    "unhandled_error": "ERROR: Der opstod en uopfanget fejl: {error}",
+    "settings_title": "QR-layoutindstillinger",
+    "setting_chunk_size": "Chunk-størrelse",
+    "setting_qr_error": "QR-fejlkorrektion",
+    "setting_qr_width": "QR-bredde (cm)",
+    "setting_font_size": "Etiket-skriftstørrelse",
+    "setting_cols_per_page": "Kolonner pr. side",
+    "setting_page_margin": "Sidemargen (cm)",
+    "set_default": "Sæt som standard",
+    "invalid_config_number": "Ugyldig numerisk indstilling. Tjek alle QR-indstillinger.",
+    "invalid_config_range": "Ugyldigt interval. Brug positive værdier (margen må være 0).",
+    "invalid_config_qr_error": "Ugyldigt QR-fejlniveau. Tilladte værdier: {choices}.",
+    "default_saved": "Standardindstillinger gemt.",
+    "default_save_failed": "Kunne ikke gemme standardindstillinger: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Kan ikke finde filen '{input_file}'",

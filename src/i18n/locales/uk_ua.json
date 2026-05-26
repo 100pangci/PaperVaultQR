@@ -21,7 +21,20 @@
     "file_dialog": "Виберіть вихідний файл для фізичного резервного копіювання",
     "folder_dialog": "Виберіть теку зі сканованими зображеннями",
     "invalid_path": "Шлях не існує: {path}",
-    "unhandled_error": "ERROR: Невловлений виняток: {error}"
+    "unhandled_error": "ERROR: Невловлений виняток: {error}",
+    "settings_title": "Параметри макета QR",
+    "setting_chunk_size": "Розмір блоку",
+    "setting_qr_error": "Рівень корекції QR",
+    "setting_qr_width": "Ширина QR (см)",
+    "setting_font_size": "Розмір шрифту мітки",
+    "setting_cols_per_page": "Стовпців на сторінку",
+    "setting_page_margin": "Поля сторінки (см)",
+    "set_default": "Зробити типовим",
+    "invalid_config_number": "Некоректне числове значення. Перевірте параметри QR.",
+    "invalid_config_range": "Некоректний діапазон. Використовуйте додатні значення (поля можуть бути 0).",
+    "invalid_config_qr_error": "Некоректний рівень корекції QR. Дозволені значення: {choices}.",
+    "default_saved": "Типові параметри збережено.",
+    "default_save_failed": "Не вдалося зберегти типові параметри: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Файл не знайдено: '{input_file}'",

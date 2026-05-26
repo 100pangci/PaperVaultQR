@@ -21,7 +21,20 @@
     "file_dialog": "בחרו קובץ מקור לגיבוי פיזי",
     "folder_dialog": "בחרו תיקייה עם תמונות סרוקות",
     "invalid_path": "הנתיב לא קיים: {path}",
-    "unhandled_error": "ERROR: חריגה שלא טופלה: {error}"
+    "unhandled_error": "ERROR: חריגה שלא טופלה: {error}",
+    "settings_title": "הגדרות פריסת QR",
+    "setting_chunk_size": "גודל מקטע",
+    "setting_qr_error": "תיקון שגיאות QR",
+    "setting_qr_width": "רוחב QR (ס״מ)",
+    "setting_font_size": "גודל גופן תווית",
+    "setting_cols_per_page": "עמודות לעמוד",
+    "setting_page_margin": "שוליים בעמוד (ס״מ)",
+    "set_default": "הגדר כברירת מחדל",
+    "invalid_config_number": "הגדרה מספרית לא תקינה. בדוק את כל הגדרות ה-QR.",
+    "invalid_config_range": "טווח לא תקין. השתמש בערכים חיוביים (שוליים יכולים להיות 0).",
+    "invalid_config_qr_error": "רמת תיקון שגיאות QR לא תקינה. ערכים מותרים: {choices}.",
+    "default_saved": "הגדרות ברירת המחדל נשמרו.",
+    "default_save_failed": "שמירת ברירת המחדל נכשלה: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ הקובץ לא נמצא: '{input_file}'",

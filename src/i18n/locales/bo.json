@@ -21,7 +21,20 @@
     "file_dialog": "རྒྱབ་ཉར་ཆེད་རྩ་བའི་ཡིག་ཆ་འདེམས",
     "folder_dialog": "པར་རིས་བཤེར་མ་བྱས་པའི་ཡིག་ཁུག་འདེམས",
     "invalid_path": "ལམ་དེ་མེད་པ: {path}",
-    "unhandled_error": "ERROR: ཚབས་ཆེའི་ནོར་འཁྲུལ: {error}"
+    "unhandled_error": "ERROR: ཚབས་ཆེའི་ནོར་འཁྲུལ: {error}",
+    "settings_title": "QR བཀོད་སྒྲིག་སྒྲིག་འགོད",
+    "setting_chunk_size": "ཆ་ཤས་ཆེ་ཆུང་",
+    "setting_qr_error": "QR ནོར་འཁྲུལ་བཟོ་བཅོས",
+    "setting_qr_width": "QR ཞེང་ཚད (cm)",
+    "setting_font_size": "མཚོན་རྟགས་ཡིག་གཟུགས་ཆེ་ཆུང་",
+    "setting_cols_per_page": "ཤོག་ངོས་རེར་ཀ་རིས་གྲངས་",
+    "setting_page_margin": "ཤོག་ངོས་མཐའ་མཚམས (cm)",
+    "set_default": "སོར་བཞག་བྱོས",
+    "invalid_config_number": "ཨང་གྲངས་སྒྲིག་འགོད་ནོར་འདུག ཞིབ་བཤེར་བྱོས།",
+    "invalid_config_range": "སྒྲིག་འགོད་ཁྱབ་ཚད་ནོར་འདུག ཚད་ལྡན་གྲངས་སྤྱོད།",
+    "invalid_config_qr_error": "QR ནོར་འཁྲུལ་རིམ་པ་ནོར་འདུག ཆོག་པ: {choices}",
+    "default_saved": "སོར་བཞག་སྒྲིག་འགོད་ཉར་ཚགས་བྱས།",
+    "default_save_failed": "སོར་བཞག་ཉར་ཚགས་ཕམ་པ: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ ཡིག་ཆ་མ་རྙེད་: '{input_file}'",

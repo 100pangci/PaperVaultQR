@@ -21,7 +21,20 @@
     "file_dialog": "Chọn tệp nguồn để sao lưu vật lý",
     "folder_dialog": "Chọn thư mục chứa ảnh đã quét",
     "invalid_path": "Đường dẫn không tồn tại: {path}",
-    "unhandled_error": "ERROR: Ngoại lệ chưa được xử lý: {error}"
+    "unhandled_error": "ERROR: Ngoại lệ chưa được xử lý: {error}",
+    "settings_title": "Cài đặt bố cục QR",
+    "setting_chunk_size": "Kích thước đoạn",
+    "setting_qr_error": "Mức sửa lỗi QR",
+    "setting_qr_width": "Độ rộng QR (cm)",
+    "setting_font_size": "Cỡ chữ nhãn",
+    "setting_cols_per_page": "Số cột mỗi trang",
+    "setting_page_margin": "Lề trang (cm)",
+    "set_default": "Đặt làm mặc định",
+    "invalid_config_number": "Thiết lập số không hợp lệ. Vui lòng kiểm tra các tham số QR.",
+    "invalid_config_range": "Khoảng giá trị không hợp lệ. Dùng số dương (lề có thể là 0).",
+    "invalid_config_qr_error": "Mức sửa lỗi QR không hợp lệ. Giá trị cho phép: {choices}.",
+    "default_saved": "Đã lưu cài đặt mặc định.",
+    "default_save_failed": "Lưu cài đặt mặc định thất bại: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Không tìm thấy tệp: '{input_file}'",

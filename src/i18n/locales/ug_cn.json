@@ -21,7 +21,20 @@
     "file_dialog": "فىزىكىلىق زاپاسلاش ئۈچۈن مەنبە ھۆججەتنى تاللاڭ",
     "folder_dialog": "سكانلانغان سۈرەتلەر بار ھۆججەت قىسقۇچنى تاللاڭ",
     "invalid_path": "يول مەۋجۇت ئەمەس: {path}",
-    "unhandled_error": "ERROR: بىر تەرەپ قىلىنمىغان خاتالىق: {error}"
+    "unhandled_error": "ERROR: بىر تەرەپ قىلىنمىغان خاتالىق: {error}",
+    "settings_title": "QR ئورۇنلاشتۇرۇش تەڭشىكى",
+    "setting_chunk_size": "پارچە چوڭلۇقى",
+    "setting_qr_error": "QR خاتالىق تۈزىتىش دەرىجىسى",
+    "setting_qr_width": "QR كەڭلىكى (cm)",
+    "setting_font_size": "بەلگە خەت چوڭلۇقى",
+    "setting_cols_per_page": "ھەر بەتتىكى ستون سانى",
+    "setting_page_margin": "بەت يان ئارىلىقى (cm)",
+    "set_default": "كۆڭۈلدىكى قىممەت قىلىپ بەلگىلە",
+    "invalid_config_number": "سان قىممەت تەڭشىكى خاتا. بارلىق QR تەڭشەكلىرىنى تەكشۈرۈڭ.",
+    "invalid_config_range": "تەڭشەك دائىرىسى خاتا. مۇسبەت قىممەت ئىشلىتىڭ (يان ئارىلىق 0 بولالايدۇ).",
+    "invalid_config_qr_error": "QR خاتالىق تۈزىتىش دەرىجىسى خاتا. رۇخسەت قىممەتلەر: {choices}.",
+    "default_saved": "كۆڭۈلدىكى تەڭشەكلەر ساقlandi.",
+    "default_save_failed": "كۆڭۈلدىكى تەڭشەكنى ساقلاش مەغلۇپ بولدى: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ ھۆججەت تېپىلمىدى: '{input_file}'",

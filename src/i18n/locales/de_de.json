@@ -21,7 +21,20 @@
     "file_dialog": "Quelldatei für physische Sicherung auswählen",
     "folder_dialog": "Ordner mit gescannten Bildern auswählen",
     "invalid_path": "Pfad existiert nicht: {path}",
-    "unhandled_error": "ERROR: Nicht abgefangene Ausnahme: {error}"
+    "unhandled_error": "ERROR: Nicht abgefangene Ausnahme: {error}",
+    "settings_title": "QR-Layout-Einstellungen",
+    "setting_chunk_size": "Chunk-Größe",
+    "setting_qr_error": "QR-Fehlerkorrektur",
+    "setting_qr_width": "QR-Breite (cm)",
+    "setting_font_size": "Beschriftungsschriftgröße",
+    "setting_cols_per_page": "Spalten pro Seite",
+    "setting_page_margin": "Seitenrand (cm)",
+    "set_default": "Als Standard festlegen",
+    "invalid_config_number": "Ungültige Zahleneingabe. Bitte prüfen Sie alle QR-Einstellungen.",
+    "invalid_config_range": "Ungültiger Wertebereich. Verwenden Sie positive Werte (Rand darf 0 sein).",
+    "invalid_config_qr_error": "Ungültige QR-Fehlerkorrektur. Zulässige Werte: {choices}.",
+    "default_saved": "Standardeinstellungen gespeichert.",
+    "default_save_failed": "Speichern der Standardeinstellungen fehlgeschlagen: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Datei nicht gefunden: '{input_file}'",

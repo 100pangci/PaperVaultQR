@@ -21,7 +21,20 @@
     "file_dialog": "Selecione o arquivo de origem para backup físico",
     "folder_dialog": "Selecione a pasta com imagens digitalizadas",
     "invalid_path": "O caminho não existe: {path}",
-    "unhandled_error": "ERROR: Exceção não tratada: {error}"
+    "unhandled_error": "ERROR: Exceção não tratada: {error}",
+    "settings_title": "Configurações de layout QR",
+    "setting_chunk_size": "Tamanho do bloco",
+    "setting_qr_error": "Correção de erro QR",
+    "setting_qr_width": "Largura do QR (cm)",
+    "setting_font_size": "Tamanho da fonte do rótulo",
+    "setting_cols_per_page": "Colunas por página",
+    "setting_page_margin": "Margem da página (cm)",
+    "set_default": "Definir como padrão",
+    "invalid_config_number": "Configuração numérica inválida. Verifique os parâmetros QR.",
+    "invalid_config_range": "Faixa inválida. Use valores positivos (margem pode ser 0).",
+    "invalid_config_qr_error": "Nível de erro QR inválido. Valores permitidos: {choices}.",
+    "default_saved": "Configurações padrão salvas.",
+    "default_save_failed": "Falha ao salvar configurações padrão: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Arquivo não encontrado: '{input_file}'",

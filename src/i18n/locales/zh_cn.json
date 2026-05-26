@@ -21,7 +21,20 @@
     "file_dialog": "选择要进行物理备份的源文件",
     "folder_dialog": "选择包含扫描图片的文件夹",
     "invalid_path": "路径不存在：{path}",
-    "unhandled_error": "ERROR: 发生未捕获的错误: {error}"
+    "unhandled_error": "ERROR: 发生未捕获的错误: {error}",
+    "settings_title": "二维码排版参数",
+    "setting_chunk_size": "分片字符数",
+    "setting_qr_error": "二维码纠错级别",
+    "setting_qr_width": "二维码宽度 (cm)",
+    "setting_font_size": "标签字号",
+    "setting_cols_per_page": "每页列数",
+    "setting_page_margin": "页面边距 (cm)",
+    "set_default": "设为默认",
+    "invalid_config_number": "参数格式错误：请检查所有二维码参数是否为数字。",
+    "invalid_config_range": "参数范围错误：请使用正数（页面边距可为 0）。",
+    "invalid_config_qr_error": "二维码纠错级别无效。允许值：{choices}。",
+    "default_saved": "默认参数已保存。",
+    "default_save_failed": "保存默认参数失败：{error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ 找不到文件 '{input_file}'",

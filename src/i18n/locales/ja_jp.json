@@ -21,7 +21,20 @@
     "file_dialog": "物理バックアップする元ファイルを選択",
     "folder_dialog": "スキャン画像を含むフォルダを選択",
     "invalid_path": "パスが存在しません: {path}",
-    "unhandled_error": "ERROR: 未処理のエラーが発生しました: {error}"
+    "unhandled_error": "ERROR: 未処理のエラーが発生しました: {error}",
+    "settings_title": "QRレイアウト設定",
+    "setting_chunk_size": "分割文字数",
+    "setting_qr_error": "QR誤り訂正レベル",
+    "setting_qr_width": "QR幅 (cm)",
+    "setting_font_size": "ラベル文字サイズ",
+    "setting_cols_per_page": "1ページの列数",
+    "setting_page_margin": "ページ余白 (cm)",
+    "set_default": "デフォルトに設定",
+    "invalid_config_number": "数値設定が無効です。QR設定を確認してください。",
+    "invalid_config_range": "設定範囲が無効です。正の値を使用してください（余白は0可）。",
+    "invalid_config_qr_error": "QR誤り訂正レベルが無効です。使用可能: {choices}。",
+    "default_saved": "デフォルト設定を保存しました。",
+    "default_save_failed": "デフォルト設定の保存に失敗しました: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ ファイルが見つかりません: '{input_file}'",

@@ -21,7 +21,20 @@
     "file_dialog": "Select source file for physical backup",
     "folder_dialog": "Select folder containing scanned images",
     "invalid_path": "Path does not exist: {path}",
-    "unhandled_error": "ERROR: Unhandled exception: {error}"
+    "unhandled_error": "ERROR: Unhandled exception: {error}",
+    "settings_title": "QR Layout Settings",
+    "setting_chunk_size": "Chunk Size",
+    "setting_qr_error": "QR Error",
+    "setting_qr_width": "QR Width (cm)",
+    "setting_font_size": "Label Font Size",
+    "setting_cols_per_page": "Columns / Page",
+    "setting_page_margin": "Page Margin (cm)",
+    "set_default": "Set as Default",
+    "invalid_config_number": "Invalid numeric setting. Please check all QR settings.",
+    "invalid_config_range": "Invalid setting range. Use positive values (page margin can be 0).",
+    "invalid_config_qr_error": "Invalid QR error level. Allowed values: {choices}.",
+    "default_saved": "Default settings saved.",
+    "default_save_failed": "Failed to save default settings: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ File not found: '{input_file}'",

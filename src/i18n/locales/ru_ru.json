@@ -21,7 +21,20 @@
     "file_dialog": "Выберите исходный файл для физического резервного копирования",
     "folder_dialog": "Выберите папку со сканированными изображениями",
     "invalid_path": "Путь не существует: {path}",
-    "unhandled_error": "ERROR: Необработанное исключение: {error}"
+    "unhandled_error": "ERROR: Необработанное исключение: {error}",
+    "settings_title": "Параметры макета QR",
+    "setting_chunk_size": "Размер блока",
+    "setting_qr_error": "Уровень коррекции QR",
+    "setting_qr_width": "Ширина QR (см)",
+    "setting_font_size": "Размер шрифта метки",
+    "setting_cols_per_page": "Столбцов на страницу",
+    "setting_page_margin": "Поля страницы (см)",
+    "set_default": "Сделать по умолчанию",
+    "invalid_config_number": "Неверный числовой параметр. Проверьте настройки QR.",
+    "invalid_config_range": "Неверный диапазон. Используйте положительные значения (поле может быть 0).",
+    "invalid_config_qr_error": "Неверный уровень коррекции QR. Допустимые значения: {choices}.",
+    "default_saved": "Параметры по умолчанию сохранены.",
+    "default_save_failed": "Не удалось сохранить параметры по умолчанию: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Файл не найден: '{input_file}'",

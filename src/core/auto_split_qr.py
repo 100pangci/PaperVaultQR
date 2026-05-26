@@ -4,6 +4,7 @@ import io
 import math
 import os
 import sys
+from dataclasses import dataclass
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.dirname(CURRENT_DIR)
@@ -22,16 +23,30 @@ from i18n.core_texts import AUTO_LANGUAGE_VALUE, CLI_LANGUAGE_CHOICES, detect_la
 # ==============================================================================
 #                               核心配置区域
 # ==============================================================================
-CHUNK_SIZE = 500       
-QR_ERROR = 'M'         
+CHUNK_SIZE = 500
+QR_ERROR = "M"
 QR_WIDTH_CM = 4.0
 FONT_SIZE_LABEL = 10
 
 COLS_PER_PAGE = 4
 PAGE_MARGIN = 1.0
+QR_ERROR_CHOICES = ("L", "M", "Q", "H")
 TARGET_ENCODING = "utf-8"
 BASE64_TAG = "<<BASE64>>"
 # ==============================================================================
+
+
+@dataclass(frozen=True)
+class QrLayoutConfig:
+    chunk_size: int = CHUNK_SIZE
+    qr_error: str = QR_ERROR
+    qr_width_cm: float = QR_WIDTH_CM
+    font_size_label: int = FONT_SIZE_LABEL
+    cols_per_page: int = COLS_PER_PAGE
+    page_margin: float = PAGE_MARGIN
+
+
+DEFAULT_CONFIG = QrLayoutConfig()
 
 
 def tr(lang: str, key: str, **kwargs) -> str:
@@ -43,14 +58,14 @@ def _encode_input_data(raw_data: bytes) -> tuple[str, bool]:
     except UnicodeDecodeError:
         return base64.b64encode(raw_data).decode("ascii"), True
 
-def setup_page(doc):
+def setup_page(doc, config: QrLayoutConfig):
     section = doc.sections[0]
     section.page_height = Cm(29.7)
     section.page_width = Cm(21.0)
-    section.left_margin, section.right_margin = Cm(PAGE_MARGIN), Cm(PAGE_MARGIN)
-    section.top_margin, section.bottom_margin = Cm(PAGE_MARGIN), Cm(PAGE_MARGIN)
+    section.left_margin, section.right_margin = Cm(config.page_margin), Cm(config.page_margin)
+    section.top_margin, section.bottom_margin = Cm(config.page_margin), Cm(config.page_margin)
 
-def _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename):
+def _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename, config: QrLayoutConfig):
     if is_base64:
         if idx == 1:
             payload = f"[{idx}/{total_chunks}]<<FILENAME:{original_filename}>>{BASE64_TAG}{chunk_content}"
@@ -61,14 +76,15 @@ def _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filenam
         if idx == total_chunks:
             payload += f"<<FILENAME:{original_filename}>>"
 
-    qr = segno.make(payload, error=QR_ERROR)
+    qr = segno.make(payload, error=config.qr_error)
     img_stream = io.BytesIO()
     qr.save(img_stream, kind="png", scale=10, border=1)
     img_stream.seek(0)
     return idx, img_stream
 
-def process_file(input_path: str, lang: str = "zh"):
+def process_file(input_path: str, lang: str = "zh", config: QrLayoutConfig | None = None):
     input_path = os.path.abspath(input_path)
+    config = config or DEFAULT_CONFIG
     if not os.path.exists(input_path):
         return print(tr(lang, "missing_input", input_file=input_path))
 
@@ -81,7 +97,7 @@ def process_file(input_path: str, lang: str = "zh"):
 
     full_text, is_base64 = _encode_input_data(raw_data)
     total_chars = len(full_text)
-    total_chunks = math.ceil(total_chars / CHUNK_SIZE)
+    total_chunks = math.ceil(total_chars / config.chunk_size)
 
     print("="*50)
     print(tr(lang, "data_loaded_base64" if is_base64 else "data_loaded_text"))
@@ -90,39 +106,39 @@ def process_file(input_path: str, lang: str = "zh"):
     print("="*50)
 
     doc = Document()
-    setup_page(doc)
+    setup_page(doc, config)
 
     # 移除文档默认的空段落，防止排版被顶偏
     for p in doc.paragraphs:
         p._element.getparent().remove(p._element)
 
-    total_rows = math.ceil(total_chunks / COLS_PER_PAGE)
+    total_rows = math.ceil(total_chunks / config.cols_per_page)
     
     # 🌟 修复空页的关键：使用唯一自适应大表格，让 Word 引擎自动进行跨页断行
-    current_table = doc.add_table(rows=total_rows, cols=COLS_PER_PAGE)
+    current_table = doc.add_table(rows=total_rows, cols=config.cols_per_page)
     current_table.autofit = False
 
     progress_step = max(1, total_chunks // 100)
 
     for i in range(total_chunks):
         idx = i + 1
-        start = i * CHUNK_SIZE
-        chunk_content = full_text[start : start + CHUNK_SIZE]
-        _, img_stream = _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename)
+        start = i * config.chunk_size
+        chunk_content = full_text[start : start + config.chunk_size]
+        _, img_stream = _build_qr_task(idx, total_chunks, chunk_content, is_base64, original_filename, config)
 
-        row_idx = i // COLS_PER_PAGE
-        col_idx = i % COLS_PER_PAGE
+        row_idx = i // config.cols_per_page
+        col_idx = i % config.cols_per_page
         cell = current_table.cell(row_idx, col_idx)
         cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
 
         p_label = cell.paragraphs[0]
         p_label.alignment, p_label.paragraph_format.space_before, p_label.paragraph_format.space_after = WD_ALIGN_PARAGRAPH.CENTER, Pt(0), Pt(0)
         run_label = p_label.add_run(tr(lang, "part_label", current=idx, total=total_chunks))
-        run_label.font.bold, run_label.font.size = True, Pt(FONT_SIZE_LABEL)
+        run_label.font.bold, run_label.font.size = True, Pt(config.font_size_label)
 
         p_img = cell.add_paragraph()
         p_img.alignment, p_img.paragraph_format.space_before, p_img.paragraph_format.space_after = WD_ALIGN_PARAGRAPH.CENTER, Pt(0), Pt(0)
-        p_img.add_run().add_picture(img_stream, width=Cm(QR_WIDTH_CM))
+        p_img.add_run().add_picture(img_stream, width=Cm(config.qr_width_cm))
         img_stream.close()
 
         if idx % progress_step == 0 or idx == total_chunks:
@@ -135,7 +151,7 @@ def process_file(input_path: str, lang: str = "zh"):
     print(tr(lang, "saved", output_doc=output_doc))
 
 
-def process_files(input_paths, lang: str = "zh"):
+def process_files(input_paths, lang: str = "zh", config: QrLayoutConfig | None = None):
     for input_path in input_paths:
         if not input_path:
             continue
@@ -143,7 +159,7 @@ def process_files(input_paths, lang: str = "zh"):
         if os.path.isdir(abs_path):
             print(tr(lang, "missing_input", input_file=abs_path))
             continue
-        process_file(abs_path, lang=lang)
+        process_file(abs_path, lang=lang, config=config)
 
 
 def main():

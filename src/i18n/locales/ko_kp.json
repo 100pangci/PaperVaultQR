@@ -21,7 +21,20 @@
     "file_dialog": "위대한 당의 문헌을 영원히 결사보위할 원본 파일을 고르십시오!",
     "folder_dialog": "결사옹위의 정신이 깃든 그림 폴더를 고르십시오!",
     "invalid_path": "반동적인 로선입니다! 당의 로선에 없는 경로입니다: {path}",
-    "unhandled_error": "ERROR: 적대세력들의 쑈프트웨어적 테로가 발생하였습니다: {error}"
+    "unhandled_error": "ERROR: 적대세력들의 쑈프트웨어적 테로가 발생하였습니다: {error}",
+    "settings_title": "QR 배치 설정",
+    "setting_chunk_size": "분할 문자수",
+    "setting_qr_error": "QR 오류정정",
+    "setting_qr_width": "QR 너비 (cm)",
+    "setting_font_size": "표식 글자크기",
+    "setting_cols_per_page": "페지당 렬수",
+    "setting_page_margin": "페지 여백 (cm)",
+    "set_default": "기본값으로 설정",
+    "invalid_config_number": "수자 설정이 잘못되였습니다. QR 설정을 확인하시오.",
+    "invalid_config_range": "설정 범위가 잘못되였습니다. 양수를 사용하시오(여백은 0 가능).",
+    "invalid_config_qr_error": "QR 오류정정 급수가 잘못되였습니다. 허용값: {choices}.",
+    "default_saved": "기본 설정이 저장되였습니다.",
+    "default_save_failed": "기본 설정 저장 실패: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ 귀중한 파일을 잃어버렸습니다: '{input_file}' (책임자는 즉시 자아비판을 진행하라!)",

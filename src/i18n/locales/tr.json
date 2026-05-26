@@ -21,7 +21,20 @@
     "file_dialog": "Fiziksel yedekleme için kaynak dosyayı seçin",
     "folder_dialog": "Taranan görüntülerin bulunduğu klasörü seçin",
     "invalid_path": "Yol mevcut değil: {path}",
-    "unhandled_error": "ERROR: Yakalanmamış istisna: {error}"
+    "unhandled_error": "ERROR: Yakalanmamış istisna: {error}",
+    "settings_title": "QR Düzen Ayarları",
+    "setting_chunk_size": "Parça Boyutu",
+    "setting_qr_error": "QR Hata Düzeyi",
+    "setting_qr_width": "QR Genişliği (cm)",
+    "setting_font_size": "Etiket Yazı Boyutu",
+    "setting_cols_per_page": "Sayfa Başına Sütun",
+    "setting_page_margin": "Sayfa Kenar Boşluğu (cm)",
+    "set_default": "Varsayılan olarak ayarla",
+    "invalid_config_number": "Geçersiz sayısal ayar. Lütfen tüm QR ayarlarını kontrol edin.",
+    "invalid_config_range": "Geçersiz aralık. Pozitif değerler kullanın (kenar boşluğu 0 olabilir).",
+    "invalid_config_qr_error": "Geçersiz QR hata düzeyi. İzin verilen değerler: {choices}.",
+    "default_saved": "Varsayılan ayarlar kaydedildi.",
+    "default_save_failed": "Varsayılan ayarlar kaydedilemedi: {error}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Dosya bulunamadı: '{input_file}'",
