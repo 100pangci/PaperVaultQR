@@ -29,7 +29,7 @@
     "setting_font_size": "标签字号",
     "setting_cols_per_page": "每页列数",
     "setting_page_margin": "页面边距 (cm)",
-    "set_default": "设为默认",
+    "set_default": "恢复默认",
     "invalid_config_number": "参数格式错误：请检查所有二维码参数是否为数字。",
     "invalid_config_range": "参数范围错误：请使用正数（页面边距可为 0）。",
     "invalid_config_qr_error": "二维码纠错级别无效。允许值：{choices}。",
