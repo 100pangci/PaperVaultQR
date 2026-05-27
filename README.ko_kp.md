@@ -124,7 +124,7 @@ python src/core/auto_split_qr.py --lang ko_kp path/to/input.txt
 python src/core/auto_split_qr.py --lang zh_cn path/to/input.txt
 python src/core/auto_split_qr.py --lang auto path/to/input.txt
 ```
-```
+```bash
 python src/core/scanner_decoder.py --lang ko_kp path/to/scanned_images_folder
 python src/core/scanner_decoder.py --lang zh_cn path/to/scanned_images_folder
 python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
