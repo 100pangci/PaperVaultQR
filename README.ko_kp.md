@@ -81,7 +81,8 @@ build_gui_exe.bat
 chmod +x build_gui_linux.sh
 ./build_gui_linux.sh
 ```
-  
+### GitHub Actions (당중앙의 자동화 련락망)
+`v*` 표식을 달아 올리거나 `workflow_dispatch`로 수동 점화를 진행하면 당의 자동화 공정이 리눅스용 전위 무기를 단숨에 조립하여 `release/` 창고에 적재합니다!
 
 ## 🚀 주체적 타격 방법 (Usage)
   
@@ -106,8 +107,28 @@ python src/core/scanner_decoder.py --lang ko_kp path/to/scanned_images_folder
 python src/gui.py
 ```
 - 좌측 상단 언어 선택기에서 반드시 **조선어 (주체혁명판)** 을 선택하여 수령님의 은덕을 느끼십시오.
+- 부호화 전투에 돌입하기 앞서 **주체적 QR 배치 작전도(매개변수)** 를 당의 로선에 맞게 세밀하게 조준할 수 있습니다:
+  - **혁명적 분할 문자수** (단숨에 쪼개기!)
+  - **QR 사상적 오류정정 급수** (내려침단추: `L` / `M` / `Q` / `H`)
+  - **주체QR의 웅대한 너비 (cm)**
+  - **붉은 표식 글자크기**
+  - **페지당 혁명대오 렬수**
+  - **페지 결사옹위 여백 (cm)**
+- 사상적 혼란이 올 경우 **백두의 초심으로 복구** 단추를 눌러 원수님 친필 지시값(기본값)으로 단숨에 되돌릴 수 있습니다.
   
+### 4. 혁명적 언어 로선 (Language Options)
+전위대용 명령창(CLI)에서는 실제 언어 부호만 타격받습니다 (례: `ko_kp`, `zh_cn`, `en_us`, `ja_jp`). `auto`를 입력하면 체계가 스스로 판단하여 다국적 언어를 번역합니다.
 
+```bash
+python src/core/auto_split_qr.py --lang ko_kp path/to/input.txt
+python src/core/auto_split_qr.py --lang zh_cn path/to/input.txt
+python src/core/auto_split_qr.py --lang auto path/to/input.txt
+```
+```
+python src/core/scanner_decoder.py --lang ko_kp path/to/scanned_images_folder
+python src/core/scanner_decoder.py --lang zh_cn path/to/scanned_images_folder
+python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
+```
 ## 📄 절대불변의 로선 (Default Parameters)
   
 - 조각당 글자수: `500` 자

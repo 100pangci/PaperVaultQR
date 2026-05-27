@@ -121,6 +121,14 @@ The GUI supports:
 - choosing one or more files to encode
 - choosing a folder to decode
 - `auto` plus the built-in locales
+- editing **QR Layout Settings** before encoding:
+  - **Chunk Size**
+  - **QR Error** (dropdown: `L` / `M` / `Q` / `H`)
+  - **QR Width (cm)**
+  - **Label Font Size**
+  - **Columns / Page**
+  - **Page Margin (cm)**
+- click **Restore Defaults** to reset all above values to built-in defaults
 
 ### 4. Language options
 
@@ -147,6 +155,7 @@ python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
 - Page margin: `1.0 cm`
 - Page size: `A4`
 - Layout: `4` columns, with Word flowing rows across pages automatically
+- In GUI mode, these parameters can be adjusted before encoding, and **Restore Defaults** resets them to the built-in values above
 
 ## 🔧 Scanning Recommendations
 
