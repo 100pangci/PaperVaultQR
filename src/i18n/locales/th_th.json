@@ -29,12 +29,10 @@
     "setting_font_size": "ขนาดฟอนต์ป้ายกำกับ",
     "setting_cols_per_page": "คอลัมน์ต่อหน้า",
     "setting_page_margin": "ระยะขอบหน้า (ซม.)",
-    "set_default": "ตั้งเป็นค่าเริ่มต้น",
+    "set_default": "คืนค่าเริ่มต้น",
     "invalid_config_number": "ค่าตัวเลขไม่ถูกต้อง โปรดตรวจสอบการตั้งค่า QR ทั้งหมด",
     "invalid_config_range": "ช่วงค่าไม่ถูกต้อง ใช้ค่าบวก (ระยะขอบเป็น 0 ได้)",
-    "invalid_config_qr_error": "ระดับแก้ไขข้อผิดพลาด QR ไม่ถูกต้อง ค่าที่อนุญาต: {choices}",
-    "default_saved": "บันทึกค่าเริ่มต้นแล้ว",
-    "default_save_failed": "บันทึกค่าเริ่มต้นไม่สำเร็จ: {error}"
+    "invalid_config_qr_error": "ระดับแก้ไขข้อผิดพลาด QR ไม่ถูกต้อง ค่าที่อนุญาต: {choices}"
   },
   "auto_split_qr": {
     "missing_input": "❌ ไม่พบไฟล์: '{input_file}'",

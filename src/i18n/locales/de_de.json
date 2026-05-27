@@ -29,12 +29,10 @@
     "setting_font_size": "Beschriftungsschriftgröße",
     "setting_cols_per_page": "Spalten pro Seite",
     "setting_page_margin": "Seitenrand (cm)",
-    "set_default": "Als Standard festlegen",
+    "set_default": "Standardwerte wiederherstellen",
     "invalid_config_number": "Ungültige Zahleneingabe. Bitte prüfen Sie alle QR-Einstellungen.",
     "invalid_config_range": "Ungültiger Wertebereich. Verwenden Sie positive Werte (Rand darf 0 sein).",
-    "invalid_config_qr_error": "Ungültige QR-Fehlerkorrektur. Zulässige Werte: {choices}.",
-    "default_saved": "Standardeinstellungen gespeichert.",
-    "default_save_failed": "Speichern der Standardeinstellungen fehlgeschlagen: {error}"
+    "invalid_config_qr_error": "Ungültige QR-Fehlerkorrektur. Zulässige Werte: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ Datei nicht gefunden: '{input_file}'",

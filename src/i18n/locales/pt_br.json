@@ -29,12 +29,10 @@
     "setting_font_size": "Tamanho da fonte do rótulo",
     "setting_cols_per_page": "Colunas por página",
     "setting_page_margin": "Margem da página (cm)",
-    "set_default": "Definir como padrão",
+    "set_default": "Restaurar padrões",
     "invalid_config_number": "Configuração numérica inválida. Verifique os parâmetros QR.",
     "invalid_config_range": "Faixa inválida. Use valores positivos (margem pode ser 0).",
-    "invalid_config_qr_error": "Nível de erro QR inválido. Valores permitidos: {choices}.",
-    "default_saved": "Configurações padrão salvas.",
-    "default_save_failed": "Falha ao salvar configurações padrão: {error}"
+    "invalid_config_qr_error": "Nível de erro QR inválido. Valores permitidos: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ Arquivo não encontrado: '{input_file}'",

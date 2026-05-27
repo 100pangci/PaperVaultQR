@@ -32,9 +32,7 @@
     "set_default": "恢复默认",
     "invalid_config_number": "参数格式错误：请检查所有二维码参数是否为数字。",
     "invalid_config_range": "参数范围错误：请使用正数（页面边距可为 0）。",
-    "invalid_config_qr_error": "二维码纠错级别无效。允许值：{choices}。",
-    "default_saved": "默认参数已保存。",
-    "default_save_failed": "保存默认参数失败：{error}"
+    "invalid_config_qr_error": "二维码纠错级别无效。允许值：{choices}。"
   },
   "auto_split_qr": {
     "missing_input": "❌ 找不到文件 '{input_file}'",

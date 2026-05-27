@@ -29,12 +29,10 @@
     "setting_font_size": "بەلگە خەت چوڭلۇقى",
     "setting_cols_per_page": "ھەر بەتتىكى ستون سانى",
     "setting_page_margin": "بەت يان ئارىلىقى (cm)",
-    "set_default": "كۆڭۈلدىكى قىممەت قىلىپ بەلگىلە",
+    "set_default": "كۆڭۈلدىكى قىممەتنى ئەسلىگە كەلتۈر",
     "invalid_config_number": "سان قىممەت تەڭشىكى خاتا. بارلىق QR تەڭشەكلىرىنى تەكشۈرۈڭ.",
     "invalid_config_range": "تەڭشەك دائىرىسى خاتا. مۇسبەت قىممەت ئىشلىتىڭ (يان ئارىلىق 0 بولالايدۇ).",
-    "invalid_config_qr_error": "QR خاتالىق تۈزىتىش دەرىجىسى خاتا. رۇخسەت قىممەتلەر: {choices}.",
-    "default_saved": "كۆڭۈلدىكى تەڭشەكلەر ساقlandi.",
-    "default_save_failed": "كۆڭۈلدىكى تەڭشەكنى ساقلاش مەغلۇپ بولدى: {error}"
+    "invalid_config_qr_error": "QR خاتالىق تۈزىتىش دەرىجىسى خاتا. رۇخسەت قىممەتلەر: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ ھۆججەت تېپىلمىدى: '{input_file}'",

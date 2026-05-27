@@ -29,12 +29,10 @@
     "setting_font_size": "표식 글자크기",
     "setting_cols_per_page": "페지당 렬수",
     "setting_page_margin": "페지 여백 (cm)",
-    "set_default": "기본값으로 설정",
+    "set_default": "기본값 복구",
     "invalid_config_number": "수자 설정이 잘못되였습니다. QR 설정을 확인하시오.",
     "invalid_config_range": "설정 범위가 잘못되였습니다. 양수를 사용하시오(여백은 0 가능).",
-    "invalid_config_qr_error": "QR 오류정정 급수가 잘못되였습니다. 허용값: {choices}.",
-    "default_saved": "기본 설정이 저장되였습니다.",
-    "default_save_failed": "기본 설정 저장 실패: {error}"
+    "invalid_config_qr_error": "QR 오류정정 급수가 잘못되였습니다. 허용값: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ 귀중한 파일을 잃어버렸습니다: '{input_file}' (책임자는 즉시 자아비판을 진행하라!)",

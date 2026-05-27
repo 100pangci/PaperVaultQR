@@ -29,12 +29,10 @@
     "setting_font_size": "Taille de police de l'étiquette",
     "setting_cols_per_page": "Colonnes par page",
     "setting_page_margin": "Marge de page (cm)",
-    "set_default": "Définir par défaut",
+    "set_default": "Restaurer les valeurs par défaut",
     "invalid_config_number": "Valeur numérique invalide. Vérifiez les paramètres QR.",
     "invalid_config_range": "Plage invalide. Utilisez des valeurs positives (marge peut être 0).",
-    "invalid_config_qr_error": "Niveau de correction QR invalide. Valeurs autorisées : {choices}.",
-    "default_saved": "Paramètres par défaut enregistrés.",
-    "default_save_failed": "Échec de l'enregistrement des paramètres par défaut : {error}"
+    "invalid_config_qr_error": "Niveau de correction QR invalide. Valeurs autorisées : {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ Fichier introuvable : '{input_file}'",

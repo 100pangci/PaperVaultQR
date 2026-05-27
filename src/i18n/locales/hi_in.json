@@ -29,12 +29,10 @@
     "setting_font_size": "लेबल फ़ॉन्ट आकार",
     "setting_cols_per_page": "प्रति पृष्ठ कॉलम",
     "setting_page_margin": "पेज मार्जिन (cm)",
-    "set_default": "डिफ़ॉल्ट के रूप में सेट करें",
+    "set_default": "डिफ़ॉल्ट पुनर्स्थापित करें",
     "invalid_config_number": "अमान्य संख्यात्मक सेटिंग। कृपया सभी QR सेटिंग्स जाँचें।",
     "invalid_config_range": "अमान्य सीमा। धनात्मक मान उपयोग करें (मार्जिन 0 हो सकता है)।",
-    "invalid_config_qr_error": "अमान्य QR त्रुटि स्तर। मान्य मान: {choices}।",
-    "default_saved": "डिफ़ॉल्ट सेटिंग्स सहेजी गईं।",
-    "default_save_failed": "डिफ़ॉल्ट सेटिंग्स सहेजने में विफल: {error}"
+    "invalid_config_qr_error": "अमान्य QR त्रुटि स्तर। मान्य मान: {choices}।"
   },
   "auto_split_qr": {
     "missing_input": "❌ फ़ाइल नहीं मिली: '{input_file}'",

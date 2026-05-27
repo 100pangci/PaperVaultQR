@@ -29,12 +29,10 @@
     "setting_font_size": "Розмір шрифту мітки",
     "setting_cols_per_page": "Стовпців на сторінку",
     "setting_page_margin": "Поля сторінки (см)",
-    "set_default": "Зробити типовим",
+    "set_default": "Відновити типові значення",
     "invalid_config_number": "Некоректне числове значення. Перевірте параметри QR.",
     "invalid_config_range": "Некоректний діапазон. Використовуйте додатні значення (поля можуть бути 0).",
-    "invalid_config_qr_error": "Некоректний рівень корекції QR. Дозволені значення: {choices}.",
-    "default_saved": "Типові параметри збережено.",
-    "default_save_failed": "Не вдалося зберегти типові параметри: {error}"
+    "invalid_config_qr_error": "Некоректний рівень корекції QR. Дозволені значення: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ Файл не знайдено: '{input_file}'",

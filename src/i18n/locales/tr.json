@@ -29,12 +29,10 @@
     "setting_font_size": "Etiket Yazı Boyutu",
     "setting_cols_per_page": "Sayfa Başına Sütun",
     "setting_page_margin": "Sayfa Kenar Boşluğu (cm)",
-    "set_default": "Varsayılan olarak ayarla",
+    "set_default": "Varsayılanları geri yükle",
     "invalid_config_number": "Geçersiz sayısal ayar. Lütfen tüm QR ayarlarını kontrol edin.",
     "invalid_config_range": "Geçersiz aralık. Pozitif değerler kullanın (kenar boşluğu 0 olabilir).",
-    "invalid_config_qr_error": "Geçersiz QR hata düzeyi. İzin verilen değerler: {choices}.",
-    "default_saved": "Varsayılan ayarlar kaydedildi.",
-    "default_save_failed": "Varsayılan ayarlar kaydedilemedi: {error}"
+    "invalid_config_qr_error": "Geçersiz QR hata düzeyi. İzin verilen değerler: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ Dosya bulunamadı: '{input_file}'",

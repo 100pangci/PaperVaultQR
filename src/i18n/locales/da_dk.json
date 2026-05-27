@@ -29,12 +29,10 @@
     "setting_font_size": "Etiket-skriftstørrelse",
     "setting_cols_per_page": "Kolonner pr. side",
     "setting_page_margin": "Sidemargen (cm)",
-    "set_default": "Sæt som standard",
+    "set_default": "Gendan standardværdier",
     "invalid_config_number": "Ugyldig numerisk indstilling. Tjek alle QR-indstillinger.",
     "invalid_config_range": "Ugyldigt interval. Brug positive værdier (margen må være 0).",
-    "invalid_config_qr_error": "Ugyldigt QR-fejlniveau. Tilladte værdier: {choices}.",
-    "default_saved": "Standardindstillinger gemt.",
-    "default_save_failed": "Kunne ikke gemme standardindstillinger: {error}"
+    "invalid_config_qr_error": "Ugyldigt QR-fejlniveau. Tilladte værdier: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ Kan ikke finde filen '{input_file}'",

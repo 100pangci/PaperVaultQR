@@ -29,12 +29,10 @@
     "setting_font_size": "גודל גופן תווית",
     "setting_cols_per_page": "עמודות לעמוד",
     "setting_page_margin": "שוליים בעמוד (ס״מ)",
-    "set_default": "הגדר כברירת מחדל",
+    "set_default": "שחזר ברירות מחדל",
     "invalid_config_number": "הגדרה מספרית לא תקינה. בדוק את כל הגדרות ה-QR.",
     "invalid_config_range": "טווח לא תקין. השתמש בערכים חיוביים (שוליים יכולים להיות 0).",
-    "invalid_config_qr_error": "רמת תיקון שגיאות QR לא תקינה. ערכים מותרים: {choices}.",
-    "default_saved": "הגדרות ברירת המחדל נשמרו.",
-    "default_save_failed": "שמירת ברירת המחדל נכשלה: {error}"
+    "invalid_config_qr_error": "רמת תיקון שגיאות QR לא תקינה. ערכים מותרים: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ הקובץ לא נמצא: '{input_file}'",

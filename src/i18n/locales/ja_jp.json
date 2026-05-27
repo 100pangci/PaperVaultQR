@@ -29,12 +29,10 @@
     "setting_font_size": "ラベル文字サイズ",
     "setting_cols_per_page": "1ページの列数",
     "setting_page_margin": "ページ余白 (cm)",
-    "set_default": "デフォルトに設定",
+    "set_default": "デフォルトに戻す",
     "invalid_config_number": "数値設定が無効です。QR設定を確認してください。",
     "invalid_config_range": "設定範囲が無効です。正の値を使用してください（余白は0可）。",
-    "invalid_config_qr_error": "QR誤り訂正レベルが無効です。使用可能: {choices}。",
-    "default_saved": "デフォルト設定を保存しました。",
-    "default_save_failed": "デフォルト設定の保存に失敗しました: {error}"
+    "invalid_config_qr_error": "QR誤り訂正レベルが無効です。使用可能: {choices}。"
   },
   "auto_split_qr": {
     "missing_input": "❌ ファイルが見つかりません: '{input_file}'",

@@ -29,12 +29,10 @@
     "setting_font_size": "Tamaño de fuente de etiqueta",
     "setting_cols_per_page": "Columnas por página",
     "setting_page_margin": "Margen de página (cm)",
-    "set_default": "Establecer como predeterminado",
+    "set_default": "Restaurar valores predeterminados",
     "invalid_config_number": "Configuración numérica inválida. Revisa todos los parámetros QR.",
     "invalid_config_range": "Rango inválido. Usa valores positivos (el margen puede ser 0).",
-    "invalid_config_qr_error": "Nivel de corrección QR inválido. Valores permitidos: {choices}.",
-    "default_saved": "Configuración predeterminada guardada.",
-    "default_save_failed": "Error al guardar la configuración predeterminada: {error}"
+    "invalid_config_qr_error": "Nivel de corrección QR inválido. Valores permitidos: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ Archivo no encontrado: '{input_file}'",

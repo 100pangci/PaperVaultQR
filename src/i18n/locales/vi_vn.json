@@ -29,12 +29,10 @@
     "setting_font_size": "Cỡ chữ nhãn",
     "setting_cols_per_page": "Số cột mỗi trang",
     "setting_page_margin": "Lề trang (cm)",
-    "set_default": "Đặt làm mặc định",
+    "set_default": "Khôi phục mặc định",
     "invalid_config_number": "Thiết lập số không hợp lệ. Vui lòng kiểm tra các tham số QR.",
     "invalid_config_range": "Khoảng giá trị không hợp lệ. Dùng số dương (lề có thể là 0).",
-    "invalid_config_qr_error": "Mức sửa lỗi QR không hợp lệ. Giá trị cho phép: {choices}.",
-    "default_saved": "Đã lưu cài đặt mặc định.",
-    "default_save_failed": "Lưu cài đặt mặc định thất bại: {error}"
+    "invalid_config_qr_error": "Mức sửa lỗi QR không hợp lệ. Giá trị cho phép: {choices}."
   },
   "auto_split_qr": {
     "missing_input": "❌ Không tìm thấy tệp: '{input_file}'",
