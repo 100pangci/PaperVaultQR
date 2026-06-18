@@ -32,7 +32,13 @@
     "set_default": "คืนค่าเริ่มต้น",
     "invalid_config_number": "ค่าตัวเลขไม่ถูกต้อง โปรดตรวจสอบการตั้งค่า QR ทั้งหมด",
     "invalid_config_range": "ช่วงค่าไม่ถูกต้อง ใช้ค่าบวก (ระยะขอบเป็น 0 ได้)",
-    "invalid_config_qr_error": "ระดับแก้ไขข้อผิดพลาด QR ไม่ถูกต้อง ค่าที่อนุญาต: {choices}"
+    "invalid_config_qr_error": "ระดับแก้ไขข้อผิดพลาด QR ไม่ถูกต้อง ค่าที่อนุญาต: {choices}",
+    "setting_enable_redundancy": "เปิดใช้งานการแก้ไขข้อผิดพลาดข้ามบล็อก",
+    "setting_rs_strength": "ความแรงของการแก้ไขข้อผิดพลาด",
+    "rs_strength_low": "ต่ำ (2%)",
+    "rs_strength_medium": "ปานกลาง (5%)",
+    "rs_strength_high": "สูง (10%)",
+    "redundancy_info": "สามารถกู้คืน QR โค้ดที่เสียหายได้: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ ไม่พบไฟล์: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ ความคืบหน้า: {current} / {total}",
     "saved": "\n💾 สร้างเอกสารสำหรับพิมพ์สำเร็จ: {output_doc}",
     "part_label": "ส่วน {current} / {total}",
-    "suffix": "_ที่เก็บเย็น"
+    "suffix": "_ที่เก็บเย็น",
+    "redundancy_enabled": "   - การแก้ไขความซ้ำซ้อน: เปิดใช้งาน (บล็อกซ้ำ: {redundancy_blocks}, กู้คืนได้: {max_recoverable})",
+    "redundancy_disabled": "   - การแก้ไขความซ้ำซ้อน: ปิดใช้งาน",
+    "rs_encoding_done": "   - การเข้ารหัส Reed-Solomon เสร็จสมบูรณ์"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ ไม่พบโฟลเดอร์: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 ความคืบหน้า: เก็บได้ {current} / {total} ชิ้นส่วน",
     "missing": "❌ ชิ้นส่วนที่ขาดหาย: {missing_chunks}",
     "saved": "\n🎉 กู้คืนสำเร็จ! บันทึกไว้ที่ '{output_file}'",
-    "suffix": "_กู้คืน"
+    "suffix": "_กู้คืน",
+    "crc_check_passed": "   - การตรวจสอบ CRC32: ✓ ผ่าน",
+    "crc_check_failed": "   - การตรวจสอบ CRC32: ✗ ล้มเหลว (รหัสชิ้นส่วน: {chunk_ids})",
+    "missing_chunks": "   - ชิ้นส่วนที่ขาดหาย: {missing_chunks}",
+    "total_corrupted": "   - ชิ้นส่วนที่เสียหายทั้งหมด: {corrupted_count}",
+    "rs_recovery_started": "🔧 เริ่มการแก้ไขข้อผิดพลาด Reed-Solomon...",
+    "rs_recovery_success": "   - กู้คืนชิ้นส่วนที่เสียหาย {recovered_count} ชิ้นสำเร็จ",
+    "rs_recovery_failed": "   - การแก้ไขล้มเหลว: เกินขีดจำกัดการแก้ไข ({max_recoverable})",
+    "rs_verification_passed": "   - การตรวจสอบหลังการแก้ไข: ✓ ผ่าน",
+    "rs_verification_failed": "   - การตรวจสอบหลังการแก้ไข: ✗ ล้มเหลว (ID: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ ไม่สามารถกู้คืนได้: {unrecoverable_count} ชิ้นส่วนที่เสียหาย (ID: {chunk_ids})\n   เคล็ดลับ: โปรดสแกนคิวอาร์โค้ดเหล่านี้อีกครั้ง",
+    "redundancy_not_enabled": "   - การแก้ไขความซ้ำซ้อน: ไม่ได้เปิดใช้งาน",
+    "verification_summary": "   - ผลการตรวจสอบ: {valid_count} ถูกต้อง, {corrupted_count} เสียหาย"
   }
 }

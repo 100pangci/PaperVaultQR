@@ -32,7 +32,13 @@
     "set_default": "שחזר ברירות מחדל",
     "invalid_config_number": "הגדרה מספרית לא תקינה. בדוק את כל הגדרות ה-QR.",
     "invalid_config_range": "טווח לא תקין. השתמש בערכים חיוביים (שוליים יכולים להיות 0).",
-    "invalid_config_qr_error": "רמת תיקון שגיאות QR לא תקינה. ערכים מותרים: {choices}."
+    "invalid_config_qr_error": "רמת תיקון שגיאות QR לא תקינה. ערכים מותרים: {choices}.",
+    "setting_enable_redundancy": "אפשר תיקון שגיאות בין בלוקים",
+    "setting_rs_strength": "עוצמת תיקון שגיאות",
+    "rs_strength_low": "נמוך (2%)",
+    "rs_strength_medium": "בינוני (5%)",
+    "rs_strength_high": "גבוה (10%)",
+    "redundancy_info": "קודי QR פגומים שניתן לשחזר: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ הקובץ לא נמצא: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ התקדמות: {current} / {total}",
     "saved": "\n💾 מסמך ההדפסה נוצר בהצלחה: {output_doc}",
     "part_label": "חלק {current} / {total}",
-    "suffix": "_אחסוןקר"
+    "suffix": "_אחסוןקר",
+    "redundancy_enabled": "   - תיקון יתירות: מופעל (בלוקי יתירות: {redundancy_blocks}, ניתן לשחזור: {max_recoverable})",
+    "redundancy_disabled": "   - תיקון יתירות: מושבת",
+    "rs_encoding_done": "   - קידוד Reed-Solomon הושלם"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ התיקייה לא נמצאה: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 התקדמות: נאספו {current} מתוך {total} מקטעים.",
     "missing": "❌ מקטעים חסרים: {missing_chunks}",
     "saved": "\n🎉 השחזור הושלם! נשמר אל '{output_file}'",
-    "suffix": "_שוחזר"
+    "suffix": "_שוחזר",
+    "crc_check_passed": "   - בדיקת CRC32: ✓ עברה",
+    "crc_check_failed": "   - בדיקת CRC32: ✗ נכשלה (מזהי חלקים: {chunk_ids})",
+    "missing_chunks": "   - חלקים חסרים: {missing_chunks}",
+    "total_corrupted": "   - סך הכל חלקים פגומים: {corrupted_count}",
+    "rs_recovery_started": "🔧 מתחיל תיקון שגיאות Reed-Solomon...",
+    "rs_recovery_success": "   - {recovered_count} חלקים פגומים שוחזרו בהצלחה",
+    "rs_recovery_failed": "   - תיקון נכשל: חרג ממגבלת התיקון ({max_recoverable})",
+    "rs_verification_passed": "   - אימות לאחר תיקון: ✓ עברה",
+    "rs_verification_failed": "   - אימות לאחר תיקון: ✗ נכשלה (מזהים: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ בלתי ניתן לשחזור: {unrecoverable_count} חלקים פגומים (מזהים: {chunk_ids})\n   טיפ: אנא סרוק שוב קודי QR אלו",
+    "redundancy_not_enabled": "   - תיקון יתירות: לא מופעל",
+    "verification_summary": "   - תוצאות אימות: {valid_count} תקינים, {corrupted_count} פגומים"
   }
 }

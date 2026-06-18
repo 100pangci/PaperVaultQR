@@ -32,7 +32,13 @@
     "set_default": "སོར་བཞག་སླར་གསོ",
     "invalid_config_number": "ཨང་གྲངས་སྒྲིག་འགོད་ནོར་འདུག ཞིབ་བཤེར་བྱོས།",
     "invalid_config_range": "སྒྲིག་འགོད་ཁྱབ་ཚད་ནོར་འདུག ཚད་ལྡན་གྲངས་སྤྱོད།",
-    "invalid_config_qr_error": "QR ནོར་འཁྲུལ་རིམ་པ་ནོར་འདུག ཆོག་པ: {choices}"
+    "invalid_config_qr_error": "QR ནོར་འཁྲུལ་རིམ་པ་ནོར་འདུག ཆོག་པ: {choices}",
+    "setting_enable_redundancy": "སྡེབ་གཅིག་གི་ནོར་འཁྲུལ་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི།",
+    "setting_rs_strength": "ནོར་འཁྲུལ་སྐྱོན་བཅོས་སྒྲིག་གི་སྟོབས་ཤུགས།",
+    "rs_strength_low": "དམའ་བ། (2%)",
+    "rs_strength_medium": "འབྲིང་བ། (5%)",
+    "rs_strength_high": "མཐོ་བ། (10%)",
+    "redundancy_info": "སླར་གསོ་བྱེད་ཐུབ་པའི་སྡེབ་གཅིག་གི་QRསྐད་འཕྲིན་རྒྱབ་འཁྲུལ། {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ ཡིག་ཆ་མ་རྙེད་: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ འཕེལ་རིམ: {current} / {total}",
     "saved": "\n💾 དཔར་ཡིག་ཆ་ལེགས་པར་བཟོས: {output_doc}",
     "part_label": "ཆ་ཤས {current} / {total}",
-    "suffix": "_གྲང་ཉར"
+    "suffix": "_གྲང་ཉར",
+    "redundancy_enabled": "   - སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི།: སྤར་བའི། (སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི།: {redundancy_blocks}, སླར་གསོ་བྱེད་ཐུབ་པ།: {max_recoverable})",
+    "redundancy_disabled": "   - སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི།: སྤར་བའི།",
+    "rs_encoding_done": "   - Reed-Solomon ཀོཌིང་བརྒྱབ་འཁྲུལ་སྒྲིག་སྤར་བའི།"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ ཡིག་ཁུག་མ་རྙེད་: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 འཕེལ་རིམ: {current} / {total} ཆ་ཤས་བསྡུས་པ།",
     "missing": "❌ ཆ་ཤས་མ་ཚང་: {missing_chunks}",
     "saved": "\n🎉 སླར་གསོ་ལེགས་པར་འགྲུབ! '{output_file}' ལ་བསྲུངས་ཟིན།",
-    "suffix": "_སླར་གསོ"
+    "suffix": "_སླར་གསོ",
+    "crc_check_passed": "   - CRC32 ཞིབ་བཤེར།: ✓ འགྲུབ་པ།",
+    "crc_check_failed": "   - CRC32 ཞིབ་བཤེར།: ✗ མ་འགྲུབ་པ། (སྡེབ་གཅིག་གི་པར་རིས་གྱི་ID: {chunk_ids})",
+    "missing_chunks": "   - སྡེབ་གཅིག་གི་པར་རིས་རྒྱབ་འཁྲུལ།: {missing_chunks}",
+    "total_corrupted": "   - སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི།: {corrupted_count}",
+    "rs_recovery_started": "🔧 Reed-Solomon སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐོར་ནས།...",
+    "rs_recovery_success": "   - {recovered_count} སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐོར་ནས་མངོན་པ།",
+    "rs_recovery_failed": "   - སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐོར་ནས་མ་འགྲུབ་པ།: སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་ཚད་བརྒལ་བ། ({max_recoverable})",
+    "rs_verification_passed": "   - སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐོར་ནས་མངོན་པ་: ✓ འགྲུབ་པ།",
+    "rs_verification_failed": "   - སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐོར་ནས་མངོན་པ་: ✗ མ་འགྲུབ་པ། (ID: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ སླར་གསོ་བྱེད་ཐབས་བྲལ་བ།: {unrecoverable_count} སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐོར་ནས་མངོན་པ། (ID: {chunk_ids})\n   གླེང་གཞི།: སྐུ་མགྲོན་ལགས་ཀྱིས་QR སྐད་འཕྲིན་འདི་དག་བསྐྱར་ཞིབ་བྱོན་རོགས།",
+    "redundancy_not_enabled": "   - སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐོར་ནས་མངོན་པ།: སྤར་བའི།",
+    "verification_summary": "   - ཞིབ་བཤེར་གྱི་འབྲས་བུ།: {valid_count} སྐྱོན་མེད་པ།, {corrupted_count} སྡེབ་གཅིག་གི་སྐྱོན་བཅོས་སྒྲིག་སྤར་བའི་སྐོར་ནས་མངོན་པ།"
   }
 }

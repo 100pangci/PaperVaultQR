@@ -134,6 +134,8 @@ class ModernGUI(ctk.CTk):
         self.config_font_size_var = ctk.StringVar(value=str(self.default_qr_config.font_size_label))
         self.config_cols_var = ctk.StringVar(value=str(self.default_qr_config.cols_per_page))
         self.config_margin_var = ctk.StringVar(value=str(self.default_qr_config.page_margin))
+        self.enable_redundancy_var = ctk.BooleanVar(value=self.default_qr_config.enable_redundancy)
+        self.rs_strength_var = ctk.DoubleVar(value=self.default_qr_config.rs_block_ratio)
         self._running = False
         self._task_failed = False
         self._status_key = "status_ready"
@@ -251,6 +253,38 @@ class ModernGUI(ctk.CTk):
         self.setting_margin_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_margin_var)
         self.setting_margin_entry.grid(row=2, column=5, sticky="w", padx=(0, 15), pady=(0, 10))
 
+        # 第三行：冗余功能控件
+        self.redundancy_checkbox = ctk.CTkCheckBox(
+            self.settings_card,
+            text="",
+            variable=self.enable_redundancy_var,
+            command=self.on_redundancy_toggle,
+            font=ui_font(12)
+        )
+        self.redundancy_checkbox.grid(row=3, column=0, columnspan=2, sticky="w", padx=(15, 6), pady=(0, 10))
+
+        self.rs_strength_label = ctk.CTkLabel(self.settings_card, text="", font=ui_font(11))
+        self.rs_strength_label.grid(row=3, column=2, columnspan=2, sticky="w", padx=(10, 6), pady=(0, 10))
+        
+        self.rs_strength_slider = ctk.CTkSlider(
+            self.settings_card,
+            from_=0.02,
+            to=0.10,
+            number_of_steps=4,
+            variable=self.rs_strength_var,
+            command=self.on_rs_strength_change,
+            width=150
+        )
+        self.rs_strength_slider.grid(row=3, column=4, columnspan=2, sticky="w", padx=(10, 15), pady=(0, 10))
+        
+        self.rs_info_label = ctk.CTkLabel(
+            self.settings_card,
+            text="",
+            text_color="gray40",
+            font=ui_font(10)
+        )
+        self.rs_info_label.grid(row=4, column=0, columnspan=6, sticky="w", padx=15, pady=(0, 10))
+
         self.set_default_btn = ctk.CTkButton(
             self.settings_card,
             text="",
@@ -261,7 +295,10 @@ class ModernGUI(ctk.CTk):
             font=ui_font(12),
             command=self.reset_qr_config_to_default,
         )
-        self.set_default_btn.grid(row=3, column=0, sticky="w", padx=15, pady=(0, 10))
+        self.set_default_btn.grid(row=5, column=0, sticky="w", padx=15, pady=(0, 10))
+        
+        # 初始化控件状态
+        self.update_redundancy_ui()
 
         self.status_card = ctk.CTkFrame(self, corner_radius=10)
         self.status_card.pack(fill="x", padx=20, pady=5)
@@ -405,12 +442,16 @@ class ModernGUI(ctk.CTk):
         self.setting_font_label.configure(text=self._text("setting_font_size"))
         self.setting_cols_label.configure(text=self._text("setting_cols_per_page"))
         self.setting_margin_label.configure(text=self._text("setting_page_margin"))
+        self.redundancy_checkbox.configure(text=self._text("setting_enable_redundancy"))
         self.set_default_btn.configure(text=self._text("set_default"))
         self.project_link_label.configure(text=PROJECT_URL)
         self.status_label.configure(text=self._text(self._status_key))
         self.path_label.configure(
             text=self._selected_path if self._selected_path else self._text("selected_none")
         )
+        
+        # 更新冗余控件的文本状态
+        self.update_redundancy_ui()
 
     def _set_controls_enabled(self, enabled):
         state = "normal" if enabled else "disabled"
@@ -425,6 +466,47 @@ class ModernGUI(ctk.CTk):
         self.setting_cols_entry.configure(state=state)
         self.setting_margin_entry.configure(state=state)
         self.set_default_btn.configure(state=state)
+        # 更新冗余控件状态
+        self.update_redundancy_ui()
+
+    def on_redundancy_toggle(self):
+        """冗余功能切换回调"""
+        self.update_redundancy_ui()
+
+    def on_rs_strength_change(self, value):
+        """纠错强度滑块回调"""
+        self.update_redundancy_ui()
+
+    def update_redundancy_ui(self):
+        """更新冗余控件的UI状态"""
+        enabled = self.enable_redundancy_var.get()
+        lang = self._ui_lang()
+        
+        # 更新滑块和标签的可用性
+        state = "normal" if enabled else "disabled"
+        self.rs_strength_slider.configure(state=state)
+        
+        # 根据滑块值更新标签文本
+        rs_value = self.rs_strength_var.get()
+        if rs_value <= 0.03:
+            strength_text = self._text("rs_strength_low", "Low (2%)")
+        elif rs_value <= 0.07:
+            strength_text = self._text("rs_strength_medium", "Medium (5%)")
+        else:
+            strength_text = self._text("rs_strength_high", "High (10%)")
+        
+        self.rs_strength_label.configure(text=f"{self._text('setting_rs_strength', 'Error Correction Strength')}: {strength_text}")
+        
+        # 更新信息标签
+        if enabled:
+            # 计算示例：假设100个块
+            sample_total = 100
+            redundancy_blocks = max(2, int(sample_total * rs_value))
+            max_recoverable = redundancy_blocks
+            info_text = self._text("redundancy_info", max_recoverable=max_recoverable, total=sample_total)
+            self.rs_info_label.configure(text=info_text)
+        else:
+            self.rs_info_label.configure(text="")
 
     def clear_log(self):
         self.log_text.configure(state="normal")
@@ -523,6 +605,9 @@ class ModernGUI(ctk.CTk):
         self.config_font_size_var.set(str(cfg.font_size_label))
         self.config_cols_var.set(str(cfg.cols_per_page))
         self.config_margin_var.set(str(cfg.page_margin))
+        self.enable_redundancy_var.set(cfg.enable_redundancy)
+        self.rs_strength_var.set(cfg.rs_block_ratio)
+        self.update_redundancy_ui()
 
     def _build_qr_config_from_ui(self) -> QrLayoutConfig | None:
         lang = self._ui_lang()
@@ -568,6 +653,8 @@ class ModernGUI(ctk.CTk):
             font_size_label=font_size_label,
             cols_per_page=cols_per_page,
             page_margin=page_margin,
+            enable_redundancy=self.enable_redundancy_var.get(),
+            rs_block_ratio=self.rs_strength_var.get(),
         )
 
     def choose_file(self):

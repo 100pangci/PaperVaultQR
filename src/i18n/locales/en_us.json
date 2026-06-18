@@ -29,6 +29,12 @@
     "setting_font_size": "Label Font Size",
     "setting_cols_per_page": "Columns / Page",
     "setting_page_margin": "Page Margin (cm)",
+    "setting_enable_redundancy": "Enable Cross-Block Error Correction",
+    "setting_rs_strength": "Error Correction Strength",
+    "rs_strength_low": "Low (2%)",
+    "rs_strength_medium": "Medium (5%)",
+    "rs_strength_high": "High (10%)",
+    "redundancy_info": "Recoverable damaged QR codes: {max_recoverable}/{total}",
     "set_default": "Restore Defaults",
     "invalid_config_number": "Invalid numeric setting. Please check all QR settings.",
     "invalid_config_range": "Invalid setting range. Use positive values (page margin can be 0).",
@@ -43,7 +49,10 @@
     "progress": "✅ Progress: {current} / {total}",
     "saved": "\n💾 Print document generated successfully: {output_doc}",
     "part_label": "Part {current} / {total}",
-    "suffix": "_ColdStorage"
+    "suffix": "_ColdStorage",
+    "redundancy_enabled": "   - Redundancy correction: Enabled (redundancy blocks: {redundancy_blocks}, recoverable: {max_recoverable})",
+    "redundancy_disabled": "   - Redundancy correction: Disabled",
+    "rs_encoding_done": "   - Reed-Solomon encoding completed"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ Folder not found: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 Progress: {current} / {total} chunks current.",
     "missing": "❌ Missing chunks: {missing_chunks}",
     "saved": "\n🎉 Reconstruction complete! Saved to '{output_file}'",
-    "suffix": "_Recovered"
+    "suffix": "_Recovered",
+    "crc_check_passed": "   - CRC32 check: ✓ Passed",
+    "crc_check_failed": "   - CRC32 check: ✗ Failed (chunk IDs: {chunk_ids})",
+    "missing_chunks": "   - Missing chunks: {missing_chunks}",
+    "total_corrupted": "   - Total corrupted chunks: {corrupted_count}",
+    "rs_recovery_started": "🔧 Starting Reed-Solomon error correction...",
+    "rs_recovery_success": "   - Successfully recovered {recovered_count} corrupted chunks",
+    "rs_recovery_failed": "   - Error correction failed: exceeded correction limit ({max_recoverable})",
+    "rs_verification_passed": "   - Post-correction verification: ✓ Passed",
+    "rs_verification_failed": "   - Post-correction verification: ✗ Failed (IDs: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ Unrecoverable: {unrecoverable_count} corrupted chunks (IDs: {chunk_ids})\n   Tip: Please rescan these QR codes",
+    "redundancy_not_enabled": "   - Redundancy correction: Not enabled",
+    "verification_summary": "   - Verification results: {valid_count} valid, {corrupted_count} corrupted"
   }
 }

@@ -22,7 +22,6 @@
     "folder_dialog": "결사옹위의 정신이 깃든 그림 폴더를 고르십시오!",
     "invalid_path": "반동적인 로선입니다! 당의 로선에 없는 경로입니다: {path}",
     "unhandled_error": "ERROR: 적대세력들의 쑈프트웨어적 테로가 발생하였습니다: {error}",
-    
     "settings_title": "주체적 QR 배치 작전도 (당중앙의 과학적 설계)",
     "setting_chunk_size": "혁명적 분할 문자수 (단숨에 쪼개기!)",
     "setting_qr_error": "QR 사상적 오류정정 (미제의 방해책동 분쇄률)",
@@ -33,7 +32,13 @@
     "set_default": "백두의 초심으로 복구 (원수님 친필 지시값)",
     "invalid_config_number": "반동적인 수자가 입력되였습니다! QR 작전도를 당의 로선에 맞게 즉시 재검토하십시오.",
     "invalid_config_range": "설정 범위가 주체의 궤도를 벗어났습니다! 혁명적인 양수만 허용됩니다 (결사옹위 여백은 0도 가능).",
-    "invalid_config_qr_error": "사상적 오류정정 급수가 당의 유일사상체계에 어긋납니다! 위대한 당이 허락한 급수: {choices}."
+    "invalid_config_qr_error": "사상적 오류정정 급수가 당의 유일사상체계에 어긋납니다! 위대한 당이 허락한 급수: {choices}.",
+    "setting_enable_redundancy": "크로스 블록 오류 수정 사용",
+    "setting_rs_strength": "오류 수정 강도",
+    "rs_strength_low": "낮음 (2%)",
+    "rs_strength_medium": "중간 (5%)",
+    "rs_strength_high": "높음 (10%)",
+    "redundancy_info": "복구 가능한 손상된 QR 코드: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ 귀중한 파일을 잃어버렸습니다: '{input_file}' (책임자는 즉시 자아비판을 진행하라!)",
@@ -44,7 +49,10 @@
     "progress": "✅ 당정책 관철 수행률: {current} / {total}",
     "saved": "\n💾 경애하는 김정은동지의 령도 아래 인쇄 문서를 완성하였습니다: {output_doc}",
     "part_label": "혁명의 갈피 {current} / {total}",
-    "suffix": "_백두산랭동저장"
+    "suffix": "_백두산랭동저장",
+    "redundancy_enabled": "   - 중복성 수정: 사용 (중복 블록 수: {redundancy_blocks}, 복구 가능: {max_recoverable})",
+    "redundancy_disabled": "   - 중복성 수정: 사용 안 함",
+    "rs_encoding_done": "   - Reed-Solomon 인코딩 완료"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ 혁명적 폴더를 찾을 수 없습니다: '{scan_dir}'",
@@ -57,6 +65,18 @@
     "progress": "📊 일심단결의 힘으로 {current} / {total} 조각을 모았습니다!",
     "missing": "❌ 혁명 대오에서 리탈한 조각들: {missing_chunks} (즉시 복귀하라!)",
     "saved": "\n🎉 경애하는 김정은원수님의 현명한 령도 아래 위대한 복구를 완성하였습니다! '{output_file}'에 영원히 보위하겠습니다!",
-    "suffix": "_주체복구"
+    "suffix": "_주체복구",
+    "crc_check_passed": "   - CRC32 검사: ✓ 통과",
+    "crc_check_failed": "   - CRC32 검사: ✗ 실패 (청크 ID: {chunk_ids})",
+    "missing_chunks": "   - 누락된 청크: {missing_chunks}",
+    "total_corrupted": "   - 총 손상된 청크 수: {corrupted_count}",
+    "rs_recovery_started": "🔧 Reed-Solomon 오류 수정 시작...",
+    "rs_recovery_success": "   - {recovered_count}개의 손상된 청크를 성공적으로 복구",
+    "rs_recovery_failed": "   - 수정 실패: 수정 한도 초과 ({max_recoverable})",
+    "rs_verification_passed": "   - 수정 후 검증: ✓ 통과",
+    "rs_verification_failed": "   - 수정 후 검증: ✗ 실패 (ID: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ 복구 불가: {unrecoverable_count}개의 손상된 청크 (ID: {chunk_ids})\n   팁: 이러한 QR 코드를 다시 스캔하세요",
+    "redundancy_not_enabled": "   - 중복성 수정: 사용 안 함",
+    "verification_summary": "   - 검증 결과: {valid_count}개 정상, {corrupted_count}개 손상됨"
   }
 }

@@ -32,7 +32,13 @@
     "set_default": "Восстановить значения по умолчанию",
     "invalid_config_number": "Неверный числовой параметр. Проверьте настройки QR.",
     "invalid_config_range": "Неверный диапазон. Используйте положительные значения (поле может быть 0).",
-    "invalid_config_qr_error": "Неверный уровень коррекции QR. Допустимые значения: {choices}."
+    "invalid_config_qr_error": "Неверный уровень коррекции QR. Допустимые значения: {choices}.",
+    "setting_enable_redundancy": "Включить межблочную коррекцию ошибок",
+    "setting_rs_strength": "Сила коррекции ошибок",
+    "rs_strength_low": "Низкий (2%)",
+    "rs_strength_medium": "Средний (5%)",
+    "rs_strength_high": "Высокий (10%)",
+    "redundancy_info": "Восстанавливаемые поврежденные QR-коды: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Файл не найден: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ Прогресс: {current} / {total}",
     "saved": "\n💾 Печатный документ успешно создан: {output_doc}",
     "part_label": "Часть {current} / {total}",
-    "suffix": "_ХолодноеХранилище"
+    "suffix": "_ХолодноеХранилище",
+    "redundancy_enabled": "   - Коррекция избыточности: Включено (избыточные блоки: {redundancy_blocks}, восстанавливаемо: {max_recoverable})",
+    "redundancy_disabled": "   - Коррекция избыточности: Отключено",
+    "rs_encoding_done": "   - Кодирование Reed-Solomon завершено"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ Папка не найдена: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 Прогресс: собрано {current} из {total} фрагментов.",
     "missing": "❌ Отсутствуют фрагменты: {missing_chunks}",
     "saved": "\n🎉 Восстановление завершено! Сохранено в '{output_file}'",
-    "suffix": "_Восстановлено"
+    "suffix": "_Восстановлено",
+    "crc_check_passed": "   - Проверка CRC32: ✓ Прошла",
+    "crc_check_failed": "   - Проверка CRC32: ✗ Неудачно (ID чанков: {chunk_ids})",
+    "missing_chunks": "   - Отсутствующие чанки: {missing_chunks}",
+    "total_corrupted": "   - Всего поврежденных чанков: {corrupted_count}",
+    "rs_recovery_started": "🔧 Запуск коррекции ошибок Reed-Solomon...",
+    "rs_recovery_success": "   - Успешно восстановлено {recovered_count} поврежденных чанков",
+    "rs_recovery_failed": "   - Коррекция не удалась: превышен предел коррекции ({max_recoverable})",
+    "rs_verification_passed": "   - Проверка после коррекции: ✓ Прошла",
+    "rs_verification_failed": "   - Проверка после коррекции: ✗ Неудачно (ID: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ Невосстанавливаемо: {unrecoverable_count} поврежденных чанков (ID: {chunk_ids})\n   Совет: Пожалуйста, просканируйте эти QR-коды снова",
+    "redundancy_not_enabled": "   - Коррекция избыточности: Не включено",
+    "verification_summary": "   - Результаты проверки: {valid_count} допустимо, {corrupted_count} повреждено"
   }
 }

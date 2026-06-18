@@ -32,7 +32,13 @@
     "set_default": "Varsayılanları geri yükle",
     "invalid_config_number": "Geçersiz sayısal ayar. Lütfen tüm QR ayarlarını kontrol edin.",
     "invalid_config_range": "Geçersiz aralık. Pozitif değerler kullanın (kenar boşluğu 0 olabilir).",
-    "invalid_config_qr_error": "Geçersiz QR hata düzeyi. İzin verilen değerler: {choices}."
+    "invalid_config_qr_error": "Geçersiz QR hata düzeyi. İzin verilen değerler: {choices}.",
+    "setting_enable_redundancy": "Bloklar arası hata düzeltmeyi etkinleştir",
+    "setting_rs_strength": "Hata düzeltme gücü",
+    "rs_strength_low": "Düşük (2%)",
+    "rs_strength_medium": "Orta (5%)",
+    "rs_strength_high": "Yüksek (10%)",
+    "redundancy_info": "Kurtarılabilir hasarlı QR kodları: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Dosya bulunamadı: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ İlerleme: {current} / {total}",
     "saved": "\n💾 Yazdırma belgesi başarıyla oluşturuldu: {output_doc}",
     "part_label": "Parça {current} / {total}",
-    "suffix": "_SoğukDepolama"
+    "suffix": "_SoğukDepolama",
+    "redundancy_enabled": "   - Artıklık düzeltme: Etkin (artıklık blokları: {redundancy_blocks}, kurtarılabilir: {max_recoverable})",
+    "redundancy_disabled": "   - Artıklık düzeltme: Devre dışı",
+    "rs_encoding_done": "   - Reed-Solomon kodlaması tamamlandı"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ Klasör bulunamadı: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 İlerleme: {current} / {total} parça toplandı.",
     "missing": "❌ Eksik parçalar: {missing_chunks}",
     "saved": "\n🎉 Yeniden oluşturma tamamlandı! '{output_file}' olarak kaydedildi",
-    "suffix": "_Kurtarıldı"
+    "suffix": "_Kurtarıldı",
+    "crc_check_passed": "   - CRC32 kontrolü: ✓ Başarılı",
+    "crc_check_failed": "   - CRC32 kontrolü: ✗ Başarısız (küme kimlikleri: {chunk_ids})",
+    "missing_chunks": "   - Eksik kümeler: {missing_chunks}",
+    "total_corrupted": "   - Toplam hasarlı küme sayısı: {corrupted_count}",
+    "rs_recovery_started": "🔧 Reed-Solomon hata düzeltme başlatılıyor...",
+    "rs_recovery_success": "   - {recovered_count} hasarlı küme başarıyla kurtarıldı",
+    "rs_recovery_failed": "   - Düzeltme başarısız: düzeltme limiti aşıldı ({max_recoverable})",
+    "rs_verification_passed": "   - Düzeltme sonrası doğrulama: ✓ Başarılı",
+    "rs_verification_failed": "   - Düzeltme sonrası doğrulama: ✗ Başarısız (kimlikler: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ Kurtarılamaz: {unrecoverable_count} hasarlı küme (kimlikler: {chunk_ids})\n   İpucu: Lütfen bu QR kodlarını tekrar taratın",
+    "redundancy_not_enabled": "   - Artıklık düzeltme: Etkin değil",
+    "verification_summary": "   - Doğrulama sonuçları: {valid_count} geçerli, {corrupted_count} hasarlı"
   }
 }

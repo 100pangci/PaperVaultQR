@@ -32,7 +32,13 @@
     "set_default": "Khôi phục mặc định",
     "invalid_config_number": "Thiết lập số không hợp lệ. Vui lòng kiểm tra các tham số QR.",
     "invalid_config_range": "Khoảng giá trị không hợp lệ. Dùng số dương (lề có thể là 0).",
-    "invalid_config_qr_error": "Mức sửa lỗi QR không hợp lệ. Giá trị cho phép: {choices}."
+    "invalid_config_qr_error": "Mức sửa lỗi QR không hợp lệ. Giá trị cho phép: {choices}.",
+    "setting_enable_redundancy": "Bật sửa lỗi giữa các khối",
+    "setting_rs_strength": "Độ mạnh sửa lỗi",
+    "rs_strength_low": "Thấp (2%)",
+    "rs_strength_medium": "Trung bình (5%)",
+    "rs_strength_high": "Cao (10%)",
+    "redundancy_info": "Mã QR hỏng có thể khôi phục: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Không tìm thấy tệp: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ Tiến độ: {current} / {total}",
     "saved": "\n💾 Đã tạo tài liệu in thành công: {output_doc}",
     "part_label": "Phần {current} / {total}",
-    "suffix": "_LuuTruLanh"
+    "suffix": "_LuuTruLanh",
+    "redundancy_enabled": "   - Sửa lỗi dư thừa: Đã bật (khối dư thừa: {redundancy_blocks}, có thể khôi phục: {max_recoverable})",
+    "redundancy_disabled": "   - Sửa lỗi dư thừa: Đã tắt",
+    "rs_encoding_done": "   - Mã hóa Reed-Solomon hoàn tất"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ Không tìm thấy thư mục: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 Tiến độ: đã thu thập {current} / {total} mảnh.",
     "missing": "❌ Thiếu các mảnh: {missing_chunks}",
     "saved": "\n🎉 Khôi phục hoàn tất! Đã lưu vào '{output_file}'",
-    "suffix": "_DaKhoiPhuc"
+    "suffix": "_DaKhoiPhuc",
+    "crc_check_passed": "   - Kiểm tra CRC32: ✓ Đạt",
+    "crc_check_failed": "   - Kiểm tra CRC32: ✗ Thất bại (ID khối: {chunk_ids})",
+    "missing_chunks": "   - Các khối bị thiếu: {missing_chunks}",
+    "total_corrupted": "   - Tổng số khối bị hỏng: {corrupted_count}",
+    "rs_recovery_started": "🔧 Bắt đầu sửa lỗi Reed-Solomon...",
+    "rs_recovery_success": "   - Đã khôi phục thành công {recovered_count} khối bị hỏng",
+    "rs_recovery_failed": "   - Sửa lỗi thất bại: vượt quá giới hạn sửa lỗi ({max_recoverable})",
+    "rs_verification_passed": "   - Xác minh sau khi sửa lỗi: ✓ Đạt",
+    "rs_verification_failed": "   - Xác minh sau khi sửa lỗi: ✗ Thất bại (ID: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ Không thể khôi phục: {unrecoverable_count} khối bị hỏng (ID: {chunk_ids})\n   Gợi ý: Vui lòng quét lại các mã QR này",
+    "redundancy_not_enabled": "   - Sửa lỗi dư thừa: Không được bật",
+    "verification_summary": "   - Kết quả xác minh: {valid_count} hợp lệ, {corrupted_count} bị hỏng"
   }
 }

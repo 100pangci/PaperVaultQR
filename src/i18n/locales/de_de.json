@@ -32,7 +32,13 @@
     "set_default": "Standardwerte wiederherstellen",
     "invalid_config_number": "Ungültige Zahleneingabe. Bitte prüfen Sie alle QR-Einstellungen.",
     "invalid_config_range": "Ungültiger Wertebereich. Verwenden Sie positive Werte (Rand darf 0 sein).",
-    "invalid_config_qr_error": "Ungültige QR-Fehlerkorrektur. Zulässige Werte: {choices}."
+    "invalid_config_qr_error": "Ungültige QR-Fehlerkorrektur. Zulässige Werte: {choices}.",
+    "setting_enable_redundancy": "Fehlerkorrektur über Blöcke hinweg aktivieren",
+    "setting_rs_strength": "Fehlerkorrekturstärke",
+    "rs_strength_low": "Niedrig (2%)",
+    "rs_strength_medium": "Mittel (5%)",
+    "rs_strength_high": "Hoch (10%)",
+    "redundancy_info": "Wiederherstellbare beschädigte QR-Codes: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Datei nicht gefunden: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ Fortschritt: {current} / {total}",
     "saved": "\n💾 Druckdokument erfolgreich erstellt: {output_doc}",
     "part_label": "Teil {current} / {total}",
-    "suffix": "_KaltSpeicher"
+    "suffix": "_KaltSpeicher",
+    "redundancy_enabled": "   - Redundanzkorrektur: Aktiviert (Redundanzblöcke: {redundancy_blocks}, Wiederherstellbar: {max_recoverable})",
+    "redundancy_disabled": "   - Redundanzkorrektur: Deaktiviert",
+    "rs_encoding_done": "   - Reed-Solomon-Codierung abgeschlossen"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ Ordner nicht gefunden: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 Fortschritt: {current} / {total} Fragmente gesammelt.",
     "missing": "❌ Fehlende Fragmente: {missing_chunks}",
     "saved": "\n🎉 Wiederherstellung abgeschlossen! Gespeichert unter '{output_file}'",
-    "suffix": "_Wiederhergestellt"
+    "suffix": "_Wiederhergestellt",
+    "crc_check_passed": "   - CRC32-Prüfung: ✓ Bestanden",
+    "crc_check_failed": "   - CRC32-Prüfung: ✗ Fehlgeschlagen (Chunk-IDs: {chunk_ids})",
+    "missing_chunks": "   - Fehlende Chunks: {missing_chunks}",
+    "total_corrupted": "   - Gesamt beschädigte Chunks: {corrupted_count}",
+    "rs_recovery_started": "🔧 Reed-Solomon-Fehlerkorrektur wird gestartet...",
+    "rs_recovery_success": "   - {recovered_count} beschädigte Chunks erfolgreich wiederhergestellt",
+    "rs_recovery_failed": "   - Korrektur fehlgeschlagen: Korrekturlimit überschritten ({max_recoverable})",
+    "rs_verification_passed": "   - Nachkorrektur-Verifizierung: ✓ Bestanden",
+    "rs_verification_failed": "   - Nachkorrektur-Verifizierung: ✗ Fehlgeschlagen (IDs: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ Nicht wiederherstellbar: {unrecoverable_count} beschädigte Chunks (IDs: {chunk_ids})\n   Tipp: Bitte diese QR-Codes erneut scannen",
+    "redundancy_not_enabled": "   - Redundanzkorrektur: Nicht aktiviert",
+    "verification_summary": "   - Überprüfungsergebnisse: {valid_count} gültig, {corrupted_count} beschädigt"
   }
 }

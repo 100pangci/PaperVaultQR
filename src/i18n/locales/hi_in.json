@@ -32,7 +32,13 @@
     "set_default": "डिफ़ॉल्ट पुनर्स्थापित करें",
     "invalid_config_number": "अमान्य संख्यात्मक सेटिंग। कृपया सभी QR सेटिंग्स जाँचें।",
     "invalid_config_range": "अमान्य सीमा। धनात्मक मान उपयोग करें (मार्जिन 0 हो सकता है)।",
-    "invalid_config_qr_error": "अमान्य QR त्रुटि स्तर। मान्य मान: {choices}।"
+    "invalid_config_qr_error": "अमान्य QR त्रुटि स्तर। मान्य मान: {choices}।",
+    "setting_enable_redundancy": "क्रॉस-ब्लॉक त्रुटि सुधार सक्षम करें",
+    "setting_rs_strength": "त्रुटि सुधार शक्ति",
+    "rs_strength_low": "कम (2%)",
+    "rs_strength_medium": "मध्यम (5%)",
+    "rs_strength_high": "उच्च (10%)",
+    "redundancy_info": "पुनर्प्राप्त करने योग्य क्षतिग्रस्त QR कोड: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ फ़ाइल नहीं मिली: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ प्रगति: {current} / {total}",
     "saved": "\n💾 प्रिंट दस्तावेज़ सफलतापूर्वक बनाया गया: {output_doc}",
     "part_label": "भाग {current} / {total}",
-    "suffix": "_शीतभंडारण"
+    "suffix": "_शीतभंडारण",
+    "redundancy_enabled": "   - प्रतिकृति सुधार: सक्षम (प्रतिकृति ब्लॉक: {redundancy_blocks}, पुनर्प्राप्त करने योग्य: {max_recoverable})",
+    "redundancy_disabled": "   - प्रतिकृति सुधार: अक्षम",
+    "rs_encoding_done": "   - Reed-Solomon एन्कोडिंग पूर्ण"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ फ़ोल्डर नहीं मिला: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 प्रगति: {current} / {total} खंड एकत्र किए गए।",
     "missing": "❌ गायब खंड: {missing_chunks}",
     "saved": "\n🎉 पुनर्निर्माण पूर्ण! '{output_file}' में सहेजा गया",
-    "suffix": "_पुनर्स्थापित"
+    "suffix": "_पुनर्स्थापित",
+    "crc_check_passed": "   - CRC32 जाँच: ✓ पास",
+    "crc_check_failed": "   - CRC32 जाँच: ✗ विफल (चंक आईडी: {chunk_ids})",
+    "missing_chunks": "   - अनुपस्थित चंक: {missing_chunks}",
+    "total_corrupted": "   - कुल क्षतिग्रस्त चंक: {corrupted_count}",
+    "rs_recovery_started": "🔧 Reed-Solomon त्रुटि सुधार शुरू हो रहा है...",
+    "rs_recovery_success": "   - {recovered_count} क्षतिग्रस्त चंक सफलतापूर्वक पुनर्प्राप्त किए गए",
+    "rs_recovery_failed": "   - सुधार विफल: सुधार सीमा पार ({max_recoverable})",
+    "rs_verification_passed": "   - सुधार के बाद सत्यापन: ✓ पास",
+    "rs_verification_failed": "   - सुधार के बाद सत्यापन: ✗ विफल (आईडी: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ अपुनर्प्राप्य: {unrecoverable_count} क्षतिग्रस्त चंक (आईडी: {chunk_ids})\n   सुझाव: कृपया इन QR कोड को फिर से स्कैन करें",
+    "redundancy_not_enabled": "   - प्रतिकृति सुधार: सक्षम नहीं",
+    "verification_summary": "   - सत्यापन परिणाम: {valid_count} मान्य, {corrupted_count} क्षतिग्रस्त"
   }
 }

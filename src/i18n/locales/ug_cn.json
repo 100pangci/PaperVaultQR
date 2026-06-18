@@ -32,7 +32,13 @@
     "set_default": "كۆڭۈلدىكى قىممەتنى ئەسلىگە كەلتۈر",
     "invalid_config_number": "سان قىممەت تەڭشىكى خاتا. بارلىق QR تەڭشەكلىرىنى تەكشۈرۈڭ.",
     "invalid_config_range": "تەڭشەك دائىرىسى خاتا. مۇسبەت قىممەت ئىشلىتىڭ (يان ئارىلىق 0 بولالايدۇ).",
-    "invalid_config_qr_error": "QR خاتالىق تۈزىتىش دەرىجىسى خاتا. رۇخسەت قىممەتلەر: {choices}."
+    "invalid_config_qr_error": "QR خاتالىق تۈزىتىش دەرىجىسى خاتا. رۇخسەت قىممەتلەر: {choices}.",
+    "setting_enable_redundancy": "تىزما ئارا خاتالىق تۈزىتىشنى قوزغات",
+    "setting_rs_strength": "خاتالىق تۈزىتىش كۈچى",
+    "rs_strength_low": "تۆۋەن (2%)",
+    "rs_strength_medium": "ئوتتۇرا (5%)",
+    "rs_strength_high": "يۇقىرى (10%)",
+    "redundancy_info": "ئەسلىگە كەلتۈرگىلى بولىدىغان بۇزۇلغان QR كودى: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ ھۆججەت تېپىلمىدى: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ ئىلگىرىلەش: {current} / {total}",
     "saved": "\n💾 بېسىش ھۆججىتى مۇۋەپپەقىيەتلىك ھاسىل قىلىندى: {output_doc}",
     "part_label": "قىسىم {current} / {total}",
-    "suffix": "_سوغۇقساقلاش"
+    "suffix": "_سوغۇقساقلاش",
+    "redundancy_enabled": "   - ئارتۇقچە تۈزىتىش: قوزغىتىلدى (ئارتۇقچە بىرەك: {redundancy_blocks}, ئەسلىگە كەلتۈرگىلى بولىدۇ: {max_recoverable})",
+    "redundancy_disabled": "   - ئارتۇقچە تۈزىتىش: چەكلەنگەن",
+    "rs_encoding_done": "   - Reed-Solomon كودلاش تامام"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ ھۆججەت قىسقۇچ تېپىلمىدى: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 ئىلگىرىلەش: {current} / {total} پارچە يىغىلدى.",
     "missing": "❌ يوقاپ كەتكەن پارچىلار: {missing_chunks}",
     "saved": "\n🎉 قايتا قۇرۇش تاماملاندى! '{output_file}' غا ساقلاندى",
-    "suffix": "_ئەسلىگەكەلتۈرۈلدى"
+    "suffix": "_ئەسلىگەكەلتۈرۈلدى",
+    "crc_check_passed": "   - CRC32 تەكشۈرۈش: ✓ ئۆتتى",
+    "crc_check_failed": "   - CRC32 تەكشۈرۈش: ✗ مەغلۇب بولدى (بۆلەك ID: {chunk_ids})",
+    "missing_chunks": "   - يوقاپ كەتكەن بۆلەك: {missing_chunks}",
+    "total_corrupted": "   - جەمئىي بۇزۇلغان بۆلەك سانى: {corrupted_count}",
+    "rs_recovery_started": "🔧 Reed-Solomon خاتالىق تۈزىتىش باشلىنىۋاتىدۇ...",
+    "rs_recovery_success": "   - {recovered_count} بۇزۇلغان بۆلەك مۇۋەپپەقىيەتلىك ئەسلىگە كەلتۈرۈلدى",
+    "rs_recovery_failed": "   - تۈزىتىش مەغلۇب بولدى: تۈزىتىش چېكى ئاشتى ({max_recoverable})",
+    "rs_verification_passed": "   - تۈزىتىشتىن كېيىنكى دەلىللەش: ✓ ئۆتتى",
+    "rs_verification_failed": "   - تۈزىتىشتىن كېيىنكى دەلىللەش: ✗ مەغلۇب بولدى (ID: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ ئەسلىگە كەلتۈرگىلى بولمايدۇ: {unrecoverable_count} بۇزۇلغان بۆلەك (ID: {chunk_ids})\n   تەكلىپ: بۇ QR كودلىرىنى قايتا تەكشۈرۈڭ",
+    "redundancy_not_enabled": "   - ئارتۇقچە تۈزىتىش: قوزغىتىلمىغان",
+    "verification_summary": "   - دەلىللەش نەتىجىسى: {valid_count} نورمال, {corrupted_count} بۇزۇلغان"
   }
 }

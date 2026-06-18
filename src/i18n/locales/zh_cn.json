@@ -25,10 +25,16 @@
     "settings_title": "二维码排版参数",
     "setting_chunk_size": "分片字符数",
     "setting_qr_error": "二维码纠错级别",
-    "setting_qr_width": "二维码宽度 (cm)",
+    "setting_qr_width": "二维码宽度",
     "setting_font_size": "标签字号",
     "setting_cols_per_page": "每页列数",
-    "setting_page_margin": "页面边距 (cm)",
+    "setting_page_margin": "页面边距",
+    "setting_enable_redundancy": "启用跨块校验纠错",
+    "setting_rs_strength": "纠错强度",
+    "rs_strength_low": "低 (2%)",
+    "rs_strength_medium": "中 (5%)",
+    "rs_strength_high": "高 (10%)",
+    "redundancy_info": "可恢复损坏QR码: {max_recoverable}/{total}",
     "set_default": "恢复默认",
     "invalid_config_number": "参数格式错误：请检查所有二维码参数是否为数字。",
     "invalid_config_range": "参数范围错误：请使用正数（页面边距可为 0）。",
@@ -43,7 +49,10 @@
     "progress": "✅ 处理进度: {current} / {total}",
     "saved": "\n💾 成功生成打印文档: {output_doc}",
     "part_label": "Part {current} / {total}",
-    "suffix": "_冷存储"
+    "suffix": "_冷存储",
+    "redundancy_enabled": "   - 冗余纠错: 开启 (冗余块数: {redundancy_blocks}, 可恢复: {max_recoverable}个)",
+    "redundancy_disabled": "   - 冗余纠错: 关闭",
+    "rs_encoding_done": "   - Reed-Solomon编码完成"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ 找不到文件夹 '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 进度：共需 {total} 块，已收集 {current} 块。",
     "missing": "❌ 缺少以下碎片，请检查重新扫描：{missing_chunks}",
     "saved": "\n🎉 完美还原！已保存至 '{output_file}'",
-    "suffix": "_恢复"
+    "suffix": "_恢复",
+    "crc_check_passed": "   - CRC32校验: ✓ 通过",
+    "crc_check_failed": "   - CRC32校验: ✗ 失败 (块编号: {chunk_ids})",
+    "missing_chunks": "   - 缺失块: {missing_chunks}",
+    "total_corrupted": "   - 总损坏块: {corrupted_count} 个",
+    "rs_recovery_started": "🔧 开始Reed-Solomon纠错...",
+    "rs_recovery_success": "   - 成功恢复 {recovered_count} 个损坏块",
+    "rs_recovery_failed": "   - 纠错失败: 超过纠错能力上限 ({max_recoverable} 个)",
+    "rs_verification_passed": "   - 纠错后验证: ✓ 通过",
+    "rs_verification_failed": "   - 纠错后验证: ✗ 失败 (编号: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ 无法恢复: {unrecoverable_count} 个损坏块 (编号: {chunk_ids})\n   提示: 请重新扫描这些QR码",
+    "redundancy_not_enabled": "   - 冗余纠错: 未启用",
+    "verification_summary": "   - 校验结果: {valid_count}个正常, {corrupted_count}个损坏"
   }
 }

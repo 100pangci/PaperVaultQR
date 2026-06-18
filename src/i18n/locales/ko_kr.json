@@ -32,7 +32,13 @@
     "set_default": "기본값 복원",
     "invalid_config_number": "숫자 설정이 올바르지 않습니다. QR 설정을 확인하세요.",
     "invalid_config_range": "설정 범위가 올바르지 않습니다. 양수를 사용하세요(여백은 0 가능).",
-    "invalid_config_qr_error": "QR 오류 정정 레벨이 잘못되었습니다. 허용값: {choices}."
+    "invalid_config_qr_error": "QR 오류 정정 레벨이 잘못되었습니다. 허용값: {choices}.",
+    "setting_enable_redundancy": "크로스 블록 오류 수정 사용",
+    "setting_rs_strength": "오류 수정 강도",
+    "rs_strength_low": "낮음 (2%)",
+    "rs_strength_medium": "중간 (5%)",
+    "rs_strength_high": "높음 (10%)",
+    "redundancy_info": "복구 가능한 손상된 QR 코드: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ 파일을 찾을 수 없습니다: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ 진행률: {current} / {total}",
     "saved": "\n💾 인쇄 문서가 성공적으로 생성되었습니다: {output_doc}",
     "part_label": "파트 {current} / {total}",
-    "suffix": "_콜드스토리지"
+    "suffix": "_콜드스토리지",
+    "redundancy_enabled": "   - 중복성 수정: 사용 (중복 블록 수: {redundancy_blocks}, 복구 가능: {max_recoverable})",
+    "redundancy_disabled": "   - 중복성 수정: 사용 안 함",
+    "rs_encoding_done": "   - Reed-Solomon 인코딩 완료"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ 폴더를 찾을 수 없습니다: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 진행률: {current} / {total} 조각 수집됨.",
     "missing": "❌ 누락된 조각: {missing_chunks}",
     "saved": "\n🎉 복구 완료! '{output_file}'에 저장되었습니다",
-    "suffix": "_복구됨"
+    "suffix": "_복구됨",
+    "crc_check_passed": "   - CRC32 검사: ✓ 통과",
+    "crc_check_failed": "   - CRC32 검사: ✗ 실패 (청크 ID: {chunk_ids})",
+    "missing_chunks": "   - 누락된 청크: {missing_chunks}",
+    "total_corrupted": "   - 총 손상된 청크 수: {corrupted_count}",
+    "rs_recovery_started": "🔧 Reed-Solomon 오류 수정 시작...",
+    "rs_recovery_success": "   - {recovered_count}개의 손상된 청크를 성공적으로 복구",
+    "rs_recovery_failed": "   - 수정 실패: 수정 한도 초과 ({max_recoverable})",
+    "rs_verification_passed": "   - 수정 후 검증: ✓ 통과",
+    "rs_verification_failed": "   - 수정 후 검증: ✗ 실패 (ID: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ 복구 불가: {unrecoverable_count}개의 손상된 청크 (ID: {chunk_ids})\n   팁: 이러한 QR 코드를 다시 스캔하세요",
+    "redundancy_not_enabled": "   - 중복성 수정: 사용 안 함",
+    "verification_summary": "   - 검증 결과: {valid_count}개 정상, {corrupted_count}개 손상됨"
   }
 }

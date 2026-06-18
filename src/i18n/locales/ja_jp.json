@@ -32,7 +32,13 @@
     "set_default": "デフォルトに戻す",
     "invalid_config_number": "数値設定が無効です。QR設定を確認してください。",
     "invalid_config_range": "設定範囲が無効です。正の値を使用してください（余白は0可）。",
-    "invalid_config_qr_error": "QR誤り訂正レベルが無効です。使用可能: {choices}。"
+    "invalid_config_qr_error": "QR誤り訂正レベルが無効です。使用可能: {choices}。",
+    "setting_enable_redundancy": "クロスブロック誤り訂正を有効にする",
+    "setting_rs_strength": "誤り訂正強度",
+    "rs_strength_low": "低 (2%)",
+    "rs_strength_medium": "中 (5%)",
+    "rs_strength_high": "高 (10%)",
+    "redundancy_info": "回復可能な破損QRコード: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ ファイルが見つかりません: '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ 進捗: {current} / {total}",
     "saved": "\n💾 印刷用ドキュメントの生成に成功しました: {output_doc}",
     "part_label": "パート {current} / {total}",
-    "suffix": "_コールドストレージ"
+    "suffix": "_コールドストレージ",
+    "redundancy_enabled": "   - 冗長性訂正: 有効 (冗長ブロック数: {redundancy_blocks}, 回復可能: {max_recoverable})",
+    "redundancy_disabled": "   - 冗長性訂正: 無効",
+    "rs_encoding_done": "   - Reed-Solomonエンコーディング完了"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ フォルダが見つかりません: '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 進捗: {total} 個中 {current} 個を収集しました。",
     "missing": "❌ 不足している断片があります: {missing_chunks}",
     "saved": "\n🎉 復元に成功しました！保存先: '{output_file}'",
-    "suffix": "_復元"
+    "suffix": "_復元",
+    "crc_check_passed": "   - CRC32チェック: ✓ 合格",
+    "crc_check_failed": "   - CRC32チェック: ✗ 失敗 (チャンクID: {chunk_ids})",
+    "missing_chunks": "   - 欠落チャンク: {missing_chunks}",
+    "total_corrupted": "   - 総破損チャンク数: {corrupted_count}",
+    "rs_recovery_started": "🔧 Reed-Solomon誤り訂正開始...",
+    "rs_recovery_success": "   - {recovered_count}個の破損チャンクを正常に回復",
+    "rs_recovery_failed": "   - 訂正失敗: 訂正能力上限を超過 ({max_recoverable})",
+    "rs_verification_passed": "   - 修正後検証: ✓ 合格",
+    "rs_verification_failed": "   - 修正後検証: ✗ 失敗 (ID: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ 回復不能: {unrecoverable_count}個の破損チャンク (ID: {chunk_ids})\n   ヒント: これらのQRコードを再スキャンしてください",
+    "redundancy_not_enabled": "   - 冗長性訂正: 有効ではありません",
+    "verification_summary": "   - 検証結果: {valid_count}個正常, {corrupted_count}個破損"
   }
 }

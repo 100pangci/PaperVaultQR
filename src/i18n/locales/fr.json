@@ -32,7 +32,13 @@
     "set_default": "Restaurer les valeurs par défaut",
     "invalid_config_number": "Valeur numérique invalide. Vérifiez les paramètres QR.",
     "invalid_config_range": "Plage invalide. Utilisez des valeurs positives (marge peut être 0).",
-    "invalid_config_qr_error": "Niveau de correction QR invalide. Valeurs autorisées : {choices}."
+    "invalid_config_qr_error": "Niveau de correction QR invalide. Valeurs autorisées : {choices}.",
+    "setting_enable_redundancy": "Activer la correction d'erreurs entre blocs",
+    "setting_rs_strength": "Force de correction d'erreurs",
+    "rs_strength_low": "Faible (2%)",
+    "rs_strength_medium": "Moyen (5%)",
+    "rs_strength_high": "Élevé (10%)",
+    "redundancy_info": "Codes QR endommagés récupérables: {max_recoverable}/{total}"
   },
   "auto_split_qr": {
     "missing_input": "❌ Fichier introuvable : '{input_file}'",
@@ -43,7 +49,10 @@
     "progress": "✅ Progression : {current} / {total}",
     "saved": "\n💾 Document d'impression généré avec succès : {output_doc}",
     "part_label": "Partie {current} / {total}",
-    "suffix": "_StockageFroid"
+    "suffix": "_StockageFroid",
+    "redundancy_enabled": "   - Correction de redondance: Activée (blocs redondants: {redundancy_blocks}, récupérable: {max_recoverable})",
+    "redundancy_disabled": "   - Correction de redondance: Désactivée",
+    "rs_encoding_done": "   - Encodage Reed-Solomon terminé"
   },
   "scanner_decoder": {
     "missing_scan_dir": "❌ Dossier introuvable : '{scan_dir}'",
@@ -56,6 +65,18 @@
     "progress": "📊 Progression : {current} / {total} morceaux collectés.",
     "missing": "❌ Morceaux manquants : {missing_chunks}",
     "saved": "\n🎉 Reconstruction terminée ! Enregistré dans '{output_file}'",
-    "suffix": "_Récupéré"
+    "suffix": "_Récupéré",
+    "crc_check_passed": "   - Vérification CRC32: ✓ Réussie",
+    "crc_check_failed": "   - Vérification CRC32: ✗ Échouée (IDs de chunk: {chunk_ids})",
+    "missing_chunks": "   - Chunks manquants: {missing_chunks}",
+    "total_corrupted": "   - Chunks corrompus totaux: {corrupted_count}",
+    "rs_recovery_started": "🔧 Démarrage de la correction d'erreurs Reed-Solomon...",
+    "rs_recovery_success": "   - {recovered_count} chunks corrompus récupérés avec succès",
+    "rs_recovery_failed": "   - Correction échouée: limite de correction dépassée ({max_recoverable})",
+    "rs_verification_passed": "   - Vérification post-correction: ✓ Réussie",
+    "rs_verification_failed": "   - Vérification post-correction: ✗ Échouée (IDs: {chunk_ids})",
+    "corrupted_blocks_tip": "⚠ Irrécupérable: {unrecoverable_count} chunks corrompus (IDs: {chunk_ids})\n   Conseil: Veuillez rescanner ces codes QR",
+    "redundancy_not_enabled": "   - Correction de redondance: Non activée",
+    "verification_summary": "   - Résultats de vérification: {valid_count} valides, {corrupted_count} corrompus"
   }
 }

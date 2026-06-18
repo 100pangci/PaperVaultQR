@@ -3,10 +3,12 @@ import glob
 import re
 import base64
 import sys
+import zlib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import numpy as np
 from PIL import Image, ImageOps
 from pyzbar.pyzbar import decode
+from reedsolo import RSCodec
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.dirname(CURRENT_DIR)
@@ -133,16 +135,110 @@ def _find_dark_component_bboxes(
     return bboxes
 
 
-def _parse_payloads(decoded_objects) -> list[tuple[int, int, str]]:
-    pattern = re.compile(r"^\[(\d+)/(\d+)\]([\s\S]*)$")
+def _parse_payloads(decoded_objects) -> list[tuple[int, int, str | None, str]]:
+    """
+    解析QR码payload，支持两种格式：
+    - 旧格式：[{idx}/{total}]{content}
+    - 新格式：[{idx}/{total}][CRC32]{content}
+    返回：[(idx, total, crc32_or_None, data)]
+    """
+    pattern_with_crc = re.compile(r"^\[(\d+)/(\d+)\]\[([0-9A-Fa-f]{8})\]([\s\S]*)$")
+    pattern_without_crc = re.compile(r"^\[(\d+)/(\d+)\]([\s\S]*)$")
     parsed_chunks = []
     for obj in decoded_objects:
         payload = obj.data.decode("utf-8")
-        match = pattern.match(payload)
+        
+        # 先尝试新格式（带CRC32）
+        match = pattern_with_crc.match(payload)
+        if match:
+            idx, total, crc32, data = int(match.group(1)), int(match.group(2)), match.group(3), match.group(4)
+            parsed_chunks.append((idx, total, crc32, data))
+            continue
+        
+        # 再尝试旧格式（不带CRC32）
+        match = pattern_without_crc.match(payload)
         if match:
             idx, total, data = int(match.group(1)), int(match.group(2)), match.group(3)
-            parsed_chunks.append((idx, total, data))
+            parsed_chunks.append((idx, total, None, data))
+    
     return parsed_chunks
+
+
+def _calculate_crc32(data: str) -> str:
+    """计算字符串的CRC32校验和，返回8字符的16进制字符串"""
+    crc_value = zlib.crc32(data.encode("utf-8")) & 0xFFFFFFFF
+    return format(crc_value, "08X")
+
+
+def _verify_crc32(data: str, expected_crc32: str | None) -> bool:
+    """验证数据的CRC32校验和"""
+    if expected_crc32 is None:
+        return True  # 没有CRC32，跳过校验
+    calculated_crc32 = _calculate_crc32(data)
+    return calculated_crc32 == expected_crc32
+
+
+def _reed_solomon_decode(chunks: dict[int, str], redundancy_blocks: int, original_count: int) -> dict[int, str]:
+    """使用Reed-Solomon解码恢复损坏的数据块"""
+    if redundancy_blocks <= 0:
+        return chunks
+    
+    # 找出缺失的块
+    missing_indices = [i for i in range(1, original_count + redundancy_blocks + 1) if i not in chunks]
+    if not missing_indices:
+        return chunks
+    
+    # 检查是否超出纠错能力
+    if len(missing_indices) > redundancy_blocks:
+        return chunks
+    
+    # 将现有块转换为字节数组
+    chunk_bytes = {}
+    max_len = 0
+    for idx, chunk in chunks.items():
+        chunk_bytes[idx] = chunk.encode("utf-8")
+        max_len = max(max_len, len(chunk_bytes[idx]))
+    
+    # 填充所有块到相同长度
+    for idx in chunk_bytes:
+        chunk_bytes[idx] = chunk_bytes[idx].ljust(max_len, b'\x00')
+    
+    # 创建Reed-Solomon解码器
+    rs = RSCodec(redundancy_blocks)
+    
+    # 对每个字符位置进行解码
+    recovered_chunks = {i: bytearray() for i in range(1, original_count + 1)}
+    
+    for i in range(max_len):
+        # 构建当前列的数据
+        column = []
+        column_indices = []
+        for idx in range(1, original_count + redundancy_blocks + 1):
+            if idx in chunk_bytes:
+                column.append(chunk_bytes[idx][i])
+                column_indices.append(idx)
+            else:
+                column.append(0)  # 填充占位符
+                column_indices.append(idx)
+        
+        try:
+            # 尝试解码
+            decoded_column = rs.decode(column)
+            
+            # 提取原始数据块
+            for j in range(original_count):
+                recovered_chunks[j + 1].append(decoded_column[j])
+        except Exception:
+            # 解码失败，跳过此位置
+            continue
+    
+    # 转换回字符串并更新块
+    for i in range(1, original_count + 1):
+        if i not in chunks:  # 只更新缺失的块
+            chunk_str = bytes(recovered_chunks[i]).rstrip(b'\x00').decode("utf-8")
+            chunks[i] = chunk_str
+    
+    return chunks
 
 
 def _decode_image_file(img_path: str):
@@ -196,6 +292,7 @@ def _decode_image_file(img_path: str):
     parsed_chunks = _parse_payloads(all_decoded)
     return all_decoded, parsed_chunks
 
+
 def decode_folder(scan_dir: str, lang: str = "zh"):
     scan_dir = os.path.abspath(scan_dir)
     if not os.path.exists(scan_dir):
@@ -212,8 +309,10 @@ def decode_folder(scan_dir: str, lang: str = "zh"):
     parent_dir = os.path.dirname(scan_dir)
     folder_name = os.path.basename(scan_dir)
 
+    # 存储块数据：{idx: (crc32, data)}
     chunks_data = {}
     expected_total = None
+    has_crc32 = False  # 检测是否使用了CRC32
     processed_files = 0
     total_files = len(image_files)
 
@@ -231,11 +330,12 @@ def decode_folder(scan_dir: str, lang: str = "zh"):
             try:
                 decoded_objects, parsed_chunks = future.result()
 
-                # ⚠️ 修复 Bug 2：把循环里的叫 chunk_total，把外面的叫 expected_total，泾渭分明
-                for idx, chunk_total, data in parsed_chunks:
+                for idx, chunk_total, crc32, data in parsed_chunks:
                     if expected_total is None:
                         expected_total = chunk_total
-                    chunks_data[idx] = data
+                    if crc32 is not None:
+                        has_crc32 = True
+                    chunks_data[idx] = (crc32, data)
 
                 print(tr(lang, "fragments", count=len(decoded_objects)))
             except Exception as e:
@@ -254,13 +354,129 @@ def decode_folder(scan_dir: str, lang: str = "zh"):
     if not expected_total:
         return print(tr(lang, "no_qr"))
 
+    # 检查缺失块和校验失败块
     missing_chunks = [i for i in range(1, expected_total + 1) if i not in chunks_data]
-    print(tr(lang, "progress", total=expected_total, current=len(chunks_data)))
-
+    crc_failed_chunks = []
+    
+    if has_crc32:
+        # 进行CRC32校验
+        valid_chunks = 0
+        for idx in chunks_data:
+            crc32, data = chunks_data[idx]
+            if _verify_crc32(data, crc32):
+                valid_chunks += 1
+            else:
+                crc_failed_chunks.append(idx)
+        
+        print(tr(lang, "verification_summary", valid_count=valid_chunks, corrupted_count=len(crc_failed_chunks)))
+        
+        if crc_failed_chunks:
+            print(tr(lang, "crc_check_failed", chunk_ids=crc_failed_chunks))
+        else:
+            print(tr(lang, "crc_check_passed"))
+    
+    # 统计总损坏块数
+    total_corrupted = len(missing_chunks) + len(crc_failed_chunks)
+    
     if missing_chunks:
-        return print(tr(lang, "missing", missing_chunks=missing_chunks))
-
-    original_text = "".join([chunks_data[i] for i in range(1, expected_total + 1)])
+        print(tr(lang, "missing_chunks", missing_chunks=missing_chunks))
+    
+    print(tr(lang, "total_corrupted", corrupted_count=total_corrupted))
+    
+    # 如果有损坏且启用了CRC32，尝试Reed-Solomon纠错
+    if has_crc32 and total_corrupted > 0:
+        # 检查是否在纠错能力范围内
+        # 假设冗余块数为总数的5%（与编码端一致）
+        redundancy_blocks = max(2, int(expected_total * 0.05))
+        
+        if total_corrupted <= redundancy_blocks:
+            print(tr(lang, "rs_recovery_started"))
+            
+            # 构建完整的块字典用于纠错
+            full_chunks = {}
+            for idx in range(1, expected_total + 1):
+                if idx in chunks_data:
+                    crc32, data = chunks_data[idx]
+                    # 如果CRC32校验失败，标记为None表示损坏
+                    if idx in crc_failed_chunks:
+                        full_chunks[idx] = None
+                    else:
+                        full_chunks[idx] = data
+                else:
+                    full_chunks[idx] = None  # 缺失块
+            
+            # 计算原始数据块数量
+            original_count = expected_total - redundancy_blocks
+            
+            # 使用Reed-Solomon解码
+            try:
+                recovered_chunks = _reed_solomon_decode(
+                    {idx: data for idx, data in full_chunks.items() if data is not None},
+                    redundancy_blocks,
+                    original_count
+                )
+                
+                # 统计恢复的块
+                recovered_count = 0
+                for idx in range(1, original_count + 1):
+                    if idx not in chunks_data or idx in crc_failed_chunks:
+                        if idx in recovered_chunks:
+                            # 验证恢复的块
+                            recovered_data = recovered_chunks[idx]
+                            recovered_crc32 = _calculate_crc32(recovered_data)
+                            
+                            # 检查是否有期望的CRC32（如果之前有校验失败）
+                            if idx in crc_failed_chunks:
+                                expected_crc32 = chunks_data[idx][0]
+                                if recovered_crc32 == expected_crc32:
+                                    chunks_data[idx] = (recovered_crc32, recovered_data)
+                                    recovered_count += 1
+                            elif idx in missing_chunks:
+                                chunks_data[idx] = (recovered_crc32, recovered_data)
+                                recovered_count += 1
+                
+                if recovered_count > 0:
+                    print(tr(lang, "rs_recovery_success", recovered_count=recovered_count))
+                    
+                    # 验证恢复后的数据
+                    new_crc_failed = []
+                    for idx in range(1, original_count + 1):
+                        if idx in chunks_data:
+                            crc32, data = chunks_data[idx]
+                            if not _verify_crc32(data, crc32):
+                                new_crc_failed.append(idx)
+                    
+                    if not new_crc_failed:
+                        print(tr(lang, "rs_verification_passed"))
+                    else:
+                        print(tr(lang, "rs_verification_failed", chunk_ids=new_crc_failed))
+                else:
+                    print(tr(lang, "rs_recovery_failed", max_recoverable=redundancy_blocks))
+                    
+            except Exception as e:
+                print(tr(lang, "scan_error", error=f"Reed-Solomon纠错失败: {e}"))
+        else:
+            print(tr(lang, "rs_recovery_failed", max_recoverable=redundancy_blocks))
+        
+        # 重新统计缺失块
+        missing_chunks = [i for i in range(1, expected_total + 1) if i not in chunks_data]
+        crc_failed_chunks = []
+        for idx in chunks_data:
+            crc32, data = chunks_data[idx]
+            if not _verify_crc32(data, crc32):
+                crc_failed_chunks.append(idx)
+    
+    # 检查是否所有块都已恢复
+    all_recovered = len(missing_chunks) == 0 and len(crc_failed_chunks) == 0
+    
+    if not all_recovered:
+        unrecoverable_count = len(missing_chunks) + len(crc_failed_chunks)
+        unrecoverable_ids = sorted(missing_chunks + crc_failed_chunks)
+        print(tr(lang, "corrupted_blocks_tip", unrecoverable_count=unrecoverable_count, chunk_ids=unrecoverable_ids))
+        return
+    
+    # 提取数据
+    original_text = "".join([chunks_data[i][1] for i in range(1, expected_total + 1)])
 
     original_filename = None
     is_base64 = False
