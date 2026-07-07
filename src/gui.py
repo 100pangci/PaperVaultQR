@@ -484,7 +484,6 @@ class ModernGUI(ctk.CTk):
             self.rs_strength_slider.configure(state="disabled")
             self.redundancy_checkbox.configure(state="disabled")
             return
-
         enabled = self.enable_redundancy_var.get()
 
         # 更新滑块和标签的可用性
