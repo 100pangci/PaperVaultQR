@@ -36,6 +36,7 @@ The interface screenshots are stored in the `Picture` folder:
 - Preserve the original filename in the QR sequence for filename-aware recovery
 - Decode `png`, `jpg`, and `jpeg` images from a scanned folder in filename order and restore text or binary data
 - Support both desktop GUI and CLI, with `auto` plus all built-in locales
+- Cross-block Reed-Solomon error correction — add redundant QR blocks to recover from missing or damaged scans (set 0–100% in the GUI; 0 = off)
 
 ## 📌 Notes
 
@@ -60,7 +61,7 @@ The interface screenshots are stored in the `Picture` folder:
 Install the required Python packages:
 
 ```bash
-pip install segno python-docx pillow pyzbar customtkinter numpy
+pip install segno python-docx pillow pyzbar customtkinter numpy reedsolo
 ```
 
 > Note: `pyzbar` requires the system `zbar` library on Linux (for example, `sudo apt-get install libzbar0`).
@@ -124,6 +125,7 @@ The GUI supports:
 - editing **QR Layout Settings** before encoding:
   - **Chunk Size**
   - **QR Error** (dropdown: `L` / `M` / `Q` / `H`)
+  - **Cross-Block Error Correction** (enter 0–100; 0 = off)
   - **QR Width (cm)**
   - **Label Font Size**
   - **Columns / Page**
@@ -152,6 +154,7 @@ python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
 
 - Characters per chunk: `500`
 - QR error correction level: `M`
+- Cross-block RS error correction: `0` (disabled)
 - Page margin: `1.0 cm`
 - Page size: `A4`
 - Layout: `4` columns, with Word flowing rows across pages automatically

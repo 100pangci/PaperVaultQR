@@ -37,6 +37,7 @@
 - QR 코드 대오 속에 원본 파일 이름을 각인시켜, 복구 시 위대한 본래의 이름을 끝까지 유지합니다.
 - 스캔된 `png`, `jpg`, `jpeg` 그림들을 붉은 매의 눈빛으로 판독하여 파일 이름 순서대로 텍스트나 이진 자료를 자력갱생 복구합니다.
 - 인민을 위한 데스크톱 GUI와 전위대를 위한 CLI를 모두 지원하며, `ko_kp` (조선어-주체혁명판) 언어를 완벽히 지원합니다.
+- 크로스블록 RS(Reed-Solomon) 주체적 오류 정정 — 잉여 혁명 블록을 추가하여 QR 코드가 미제승냥이들에게 일부 파괴되어도 무적의 자력갱생으로 완벽 복구 (GUI에서 0–100% 입력; 0은 위대한 휴전)
   
 
 ## 📌 당중앙의 중대 지시 (Important Notes)
@@ -63,7 +64,7 @@
 명령어를 타격하여 필수 무장 장비를 보급받으십시오:
   
 ```bash
-pip install segno python-docx pillow pyzbar customtkinter numpy
+pip install segno python-docx pillow pyzbar customtkinter numpy reedsolo
 ```
   
 > _💡 리눅스 동지들은 시스템 계층의_ `zbar` _드라이버를 추가로 획득해야 합니다 (예:_ `sudo apt-get install libzbar0`_)_
@@ -110,6 +111,7 @@ python src/gui.py
 - 부호화 전투에 돌입하기 앞서 **주체적 QR 배치 작전도(매개변수)** 를 당의 로선에 맞게 세밀하게 조준할 수 있습니다:
   - **혁명적 분할 문자수** (단숨에 쪼개기!)
   - **QR 사상적 오류정정 급수** (내려침단추: `L` / `M` / `Q` / `H`)
+  - **주체적 크로스블록 오류정정 강도** (0–100 입력; 0은 혁명 휴전)
   - **주체QR의 웅대한 너비 (cm)**
   - **붉은 표식 글자크기**
   - **페지당 혁명대오 렬수**
@@ -133,6 +135,7 @@ python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
   
 - 조각당 글자수: `500` 자
 - QR 오류 정정 급수: `M` 급
+- 크로스블록 RS 주체적 오류 정정: `0` (혁명 휴전)
 - 용지 여백: `1.0 cm` (한 치의 오차도 용납할 수 없다!)
 - 용지 규격: `A4`
 - 대렬 배비: `4`렬 종대 (Word가 자동으로 페이지를 넘기며 정렬함)

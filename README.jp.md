@@ -34,6 +34,7 @@ PaperVaultQR は、テキストファイルを複数の QR コードに分割し
 - QR シーケンス内に元のファイル名を保持し、復元時にファイル名をなるべく維持
 - スキャン画像フォルダ内の `png`、`jpg`、`jpeg` をファイル名順に解析し、テキストまたはバイナリデータを復元
 - デスクトップ GUI と CLI の両方をサポートし、`auto` と内蔵 locale を利用可能
+- クロスブロック Reed-Solomon 誤り訂正 — 冗長 QR ブロックを追加し、QR コードの欠落や破損から復元（GUI で 0–100% を入力；0 は無効）
 
 ## 📌 重要な注意
 
@@ -56,7 +57,7 @@ PaperVaultQR は、テキストファイルを複数の QR コードに分割し
 ## ⚙️ 依存関係のインストール
 
 ```bash
-pip install segno python-docx pillow pyzbar customtkinter numpy
+pip install segno python-docx pillow pyzbar customtkinter numpy reedsolo
 ```
 
 > 💡 Linux では、システム側の `zbar` ライブラリも必要です（例: `sudo apt-get install libzbar0`）。
@@ -120,6 +121,7 @@ GUI でできること:
 - エンコード前に QR レイアウト設定を調整可能：
   - 1 チャンクあたりの文字数
   - QR 誤り訂正レベル（ドロップダウン：`L` / `M` / `Q` / `H`）
+  - **クロスブロック誤り訂正強度**（0–100 を入力；0 は無効）
   - QR 幅（cm）
   - ラベル文字サイズ
   - 1 ページの列数
@@ -148,6 +150,7 @@ python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
 
 - 1 チャンクあたりの文字数: `500`
 - QR 誤り訂正レベル: `M`
+- クロスブロック RS 誤り訂正: `0`（無効）
 - ページ余白: `1.0 cm`
 - 用紙サイズ: `A4`
 - レイアウト: `4` 列、Word が行を自動で跨いで配置

@@ -34,6 +34,7 @@ PaperVaultQR 可将文本文件切分为多个二维码，生成适合打印的 
 - 在二维码序列中保留原始文件名，便于恢复时尽可能沿用原命名
 - 从扫描图片目录按文件名顺序解析 `png`、`jpg`、`jpeg` 并恢复文本或二进制数据
 - 支持桌面 GUI 和 CLI，语言支持 `auto` 以及所有内置 locale
+- 跨块 Reed-Solomon 纠错 — 添加冗余 QR 块，可在部分二维码丢失或损坏时恢复（GUI 中输入 0–100%；0 为关闭）
 
 ## 📌 重要说明
 
@@ -56,7 +57,7 @@ PaperVaultQR 可将文本文件切分为多个二维码，生成适合打印的 
 ## ⚙️ 安装依赖
 
 ```bash
-pip install segno python-docx pillow pyzbar customtkinter numpy
+pip install segno python-docx pillow pyzbar customtkinter numpy reedsolo
 ```
 
 > 💡 Linux 需要额外安装系统层面的 `zbar` 驱动（例如 `sudo apt-get install libzbar0`）。
@@ -120,6 +121,7 @@ GUI 支持：
 - 在编码前调整**二维码排版参数**：
   - **分片字符数**
   - **二维码纠错级别**（下拉：`L` / `M` / `Q` / `H`）
+  - **跨块纠错强度**（输入 0–100；0 为关闭）
   - **二维码宽度 (cm)**
   - **标签字号**
   - **每页列数**
@@ -148,6 +150,7 @@ python src/core/scanner_decoder.py --lang auto path/to/scanned_images_folder
 
 - 每个块：`500` 字符
 - QR 纠错等级：`M`
+- 跨块 RS 纠错：`0`（关闭）
 - 页面边距：`1.0 cm`
 - 页面：`A4`
 - 表格：`4` 列，Word 自动跨页排版
