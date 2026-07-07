@@ -52,6 +52,7 @@
     "suffix": "_शीतभंडारण",
     "redundancy_enabled": "   - प्रतिकृति सुधार: सक्षम (प्रतिकृति ब्लॉक: {redundancy_blocks}, पुनर्प्राप्त करने योग्य: {max_recoverable})",
     "redundancy_disabled": "   - प्रतिकृति सुधार: अक्षम",
+    "redundancy_too_many_blocks": "   - बहुत अधिक डेटा चंक ({max_chunks}), Reed-Solomon अक्षम किया गया",
     "rs_encoding_done": "   - Reed-Solomon एन्कोडिंग पूर्ण"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - सुधार के बाद सत्यापन: ✗ विफल (आईडी: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ अपुनर्प्राप्य: {unrecoverable_count} क्षतिग्रस्त चंक (आईडी: {chunk_ids})\n   सुझाव: कृपया इन QR कोड को फिर से स्कैन करें",
     "redundancy_not_enabled": "   - प्रतिकृति सुधार: सक्षम नहीं",
-    "verification_summary": "   - सत्यापन परिणाम: {valid_count} मान्य, {corrupted_count} क्षतिग्रस्त"
+    "verification_summary": "   - सत्यापन परिणाम: {valid_count} मान्य, {corrupted_count} क्षतिग्रस्त",
+    "redundancy_enabled": "   - क्रॉस-ब्लॉक त्रुटि सुधार: सक्षम (प्रतिकृति ब्लॉक: {redundancy_blocks}, पुनर्प्राप्त करने योग्य: {max_recoverable})"
   }
 }

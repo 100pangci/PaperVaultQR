@@ -52,6 +52,7 @@
     "suffix": "_KaltSpeicher",
     "redundancy_enabled": "   - Redundanzkorrektur: Aktiviert (Redundanzblöcke: {redundancy_blocks}, Wiederherstellbar: {max_recoverable})",
     "redundancy_disabled": "   - Redundanzkorrektur: Deaktiviert",
+    "redundancy_too_many_blocks": "   - Zu viele Datenblöcke ({max_chunks}), Reed-Solomon deaktiviert",
     "rs_encoding_done": "   - Reed-Solomon-Codierung abgeschlossen"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - Nachkorrektur-Verifizierung: ✗ Fehlgeschlagen (IDs: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Nicht wiederherstellbar: {unrecoverable_count} beschädigte Chunks (IDs: {chunk_ids})\n   Tipp: Bitte diese QR-Codes erneut scannen",
     "redundancy_not_enabled": "   - Redundanzkorrektur: Nicht aktiviert",
-    "verification_summary": "   - Überprüfungsergebnisse: {valid_count} gültig, {corrupted_count} beschädigt"
+    "verification_summary": "   - Überprüfungsergebnisse: {valid_count} gültig, {corrupted_count} beschädigt",
+    "redundancy_enabled": "   - Blockübergreifende Fehlerkorrektur: Aktiviert (Redundanzblöcke: {redundancy_blocks}, wiederherstellbar: {max_recoverable})"
   }
 }

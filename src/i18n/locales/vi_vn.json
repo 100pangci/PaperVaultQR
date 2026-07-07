@@ -52,6 +52,7 @@
     "suffix": "_LuuTruLanh",
     "redundancy_enabled": "   - Sửa lỗi dư thừa: Đã bật (khối dư thừa: {redundancy_blocks}, có thể khôi phục: {max_recoverable})",
     "redundancy_disabled": "   - Sửa lỗi dư thừa: Đã tắt",
+    "redundancy_too_many_blocks": "   - Quá nhiều khối dữ liệu ({max_chunks}), Reed-Solomon bị tắt",
     "rs_encoding_done": "   - Mã hóa Reed-Solomon hoàn tất"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - Xác minh sau khi sửa lỗi: ✗ Thất bại (ID: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Không thể khôi phục: {unrecoverable_count} khối bị hỏng (ID: {chunk_ids})\n   Gợi ý: Vui lòng quét lại các mã QR này",
     "redundancy_not_enabled": "   - Sửa lỗi dư thừa: Không được bật",
-    "verification_summary": "   - Kết quả xác minh: {valid_count} hợp lệ, {corrupted_count} bị hỏng"
+    "verification_summary": "   - Kết quả xác minh: {valid_count} hợp lệ, {corrupted_count} bị hỏng",
+    "redundancy_enabled": "   - Sửa lỗi dư thừa giữa các khối: Đã bật (khối dư thừa: {redundancy_blocks}, có thể khôi phục: {max_recoverable})"
   }
 }

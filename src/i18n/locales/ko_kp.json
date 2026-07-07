@@ -52,6 +52,7 @@
     "suffix": "_백두산랭동저장",
     "redundancy_enabled": "   - 중복성 수정: 사용 (중복 블록 수: {redundancy_blocks}, 복구 가능: {max_recoverable})",
     "redundancy_disabled": "   - 중복성 수정: 사용 안 함",
+    "redundancy_too_many_blocks": "   - 만리마의 한계를 넘은 반동적 청크 수 ({max_chunks})! Reed-Solomon 혁명 전술을 일시 후퇴!",
     "rs_encoding_done": "   - Reed-Solomon 인코딩 완료"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - 수정 후 검증: ✗ 실패 (ID: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ 복구 불가: {unrecoverable_count}개의 손상된 청크 (ID: {chunk_ids})\n   팁: 이러한 QR 코드를 다시 스캔하세요",
     "redundancy_not_enabled": "   - 중복성 수정: 사용 안 함",
-    "verification_summary": "   - 검증 결과: {valid_count}개 정상, {corrupted_count}개 손상됨"
+    "verification_summary": "   - 검증 결과: {valid_count}개 정상, {corrupted_count}개 손상됨",
+    "redundancy_enabled": "   - 위대한 주체적 블록 간 오류 수정: 결사가동 (당이 허락한 중복 블록: {redundancy_blocks}, 혁명적 복구 가능: {max_recoverable})"
   }
 }

@@ -1,9 +1,7 @@
-import glob
 import io
 import locale
 import os
 import queue
-import re
 import sys
 import threading
 import webbrowser
@@ -265,7 +263,7 @@ class ModernGUI(ctk.CTk):
 
         self.rs_strength_label = ctk.CTkLabel(self.settings_card, text="", font=ui_font(11))
         self.rs_strength_label.grid(row=3, column=2, columnspan=2, sticky="w", padx=(10, 6), pady=(0, 10))
-        
+
         self.rs_strength_slider = ctk.CTkSlider(
             self.settings_card,
             from_=0.02,
@@ -276,7 +274,7 @@ class ModernGUI(ctk.CTk):
             width=150
         )
         self.rs_strength_slider.grid(row=3, column=4, columnspan=2, sticky="w", padx=(10, 15), pady=(0, 10))
-        
+
         self.rs_info_label = ctk.CTkLabel(
             self.settings_card,
             text="",
@@ -296,7 +294,7 @@ class ModernGUI(ctk.CTk):
             command=self.reset_qr_config_to_default,
         )
         self.set_default_btn.grid(row=5, column=0, sticky="w", padx=15, pady=(0, 10))
-        
+
         # 初始化控件状态
         self.update_redundancy_ui()
 
@@ -449,7 +447,7 @@ class ModernGUI(ctk.CTk):
         self.path_label.configure(
             text=self._selected_path if self._selected_path else self._text("selected_none")
         )
-        
+
         # 更新冗余控件的文本状态
         self.update_redundancy_ui()
 
@@ -466,11 +464,14 @@ class ModernGUI(ctk.CTk):
         self.setting_cols_entry.configure(state=state)
         self.setting_margin_entry.configure(state=state)
         self.set_default_btn.configure(state=state)
+        self.redundancy_checkbox.configure(state=state)
         # 更新冗余控件状态
         self.update_redundancy_ui()
 
     def on_redundancy_toggle(self):
         """冗余功能切换回调"""
+        if self._running:
+            return
         self.update_redundancy_ui()
 
     def on_rs_strength_change(self, value):
@@ -479,13 +480,17 @@ class ModernGUI(ctk.CTk):
 
     def update_redundancy_ui(self):
         """更新冗余控件的UI状态"""
+        if self._running:
+            self.rs_strength_slider.configure(state="disabled")
+            self.redundancy_checkbox.configure(state="disabled")
+            return
+
         enabled = self.enable_redundancy_var.get()
-        lang = self._ui_lang()
-        
+
         # 更新滑块和标签的可用性
         state = "normal" if enabled else "disabled"
         self.rs_strength_slider.configure(state=state)
-        
+
         # 根据滑块值更新标签文本
         rs_value = self.rs_strength_var.get()
         if rs_value <= 0.03:
@@ -494,9 +499,10 @@ class ModernGUI(ctk.CTk):
             strength_text = self._text("rs_strength_medium", "Medium (5%)")
         else:
             strength_text = self._text("rs_strength_high", "High (10%)")
-        
-        self.rs_strength_label.configure(text=f"{self._text('setting_rs_strength', 'Error Correction Strength')}: {strength_text}")
-        
+
+        label_text = f"{self._text('setting_rs_strength', 'Error Correction Strength')}: {strength_text}"
+        self.rs_strength_label.configure(text=label_text)
+
         # 更新信息标签
         if enabled:
             # 计算示例：假设100个块
@@ -551,9 +557,9 @@ class ModernGUI(ctk.CTk):
         try:
             while True:
                 line = self.log_q.get_nowait()
-                
+
                 # 去除换行符，防止解析异常
-                clean_line = line.strip() 
+                clean_line = line.strip()
 
                 if clean_line == "__DONE__":
                     if not self._task_failed:
@@ -567,7 +573,7 @@ class ModernGUI(ctk.CTk):
                     self.path_label.configure(
                         text=self._selected_path if self._selected_path else self._text("selected_none")
                     )
-                    
+
                 elif clean_line.startswith("__FILE_START__::"):
                     current_path = clean_line.split("::", 1)[1]
                     self.progress.set(0)
@@ -575,7 +581,7 @@ class ModernGUI(ctk.CTk):
                     self._progress_total = 0
                     self._progress_current = 0
                     self.path_label.configure(text=current_path)
-                    
+
                 # 🌟 新增：拦截底层发来的纯净进度指令，绝不打印到屏幕上！
                 elif clean_line.startswith("__PROGRESS__::"):
                     parts = clean_line.split("::")
@@ -584,15 +590,15 @@ class ModernGUI(ctk.CTk):
                         total_str = parts[2]
                         if total_str != "?":  # 忽略未知总数的进度条更新
                             self._update_progress(current, int(total_str))
-                            
+
                 elif clean_line.startswith("ERROR:") or clean_line.startswith("❌"):
                     self._task_failed = True
-                    self._append_log(line) # 注意：这里保留原始 line 以保留换行符
-                    
+                    self._append_log(line)  # 注意：这里保留原始 line 以保留换行符
+
                 else:
                     # 只有真正的业务文本，才会走到这里显示在 GUI 上
                     self._append_log(line)
-                    
+
         except queue.Empty:
             pass
         self.after(LOG_POLL_MS, self._poll_log)
