@@ -133,7 +133,6 @@ class ModernGUI(ctk.CTk):
         self.config_cols_var = ctk.StringVar(value=str(self.default_qr_config.cols_per_page))
         self.config_margin_var = ctk.StringVar(value=str(self.default_qr_config.page_margin))
         self.enable_redundancy_var = ctk.BooleanVar(value=self.default_qr_config.enable_redundancy)
-        self.rs_strength_var = ctk.DoubleVar(value=self.default_qr_config.rs_block_ratio)
         self._running = False
         self._task_failed = False
         self._status_key = "status_ready"
@@ -261,18 +260,15 @@ class ModernGUI(ctk.CTk):
         )
         self.redundancy_checkbox.grid(row=3, column=0, columnspan=2, sticky="w", padx=(15, 6), pady=(0, 10))
 
-        self.rs_strength_slider = ctk.CTkSlider(
+        self.rs_strength_menu = ctk.CTkOptionMenu(
             self.settings_card,
-            from_=0.02,
-            to=0.10,
-            variable=self.rs_strength_var,
+            values=["2%", "5%", "10%"],
             command=self.on_rs_strength_change,
-            width=100
+            width=100,
+            dynamic_resizing=False,
         )
-        self.rs_strength_slider.grid(row=3, column=2, columnspan=2, sticky="w", padx=(10, 6), pady=(0, 10))
-
-        self.rs_strength_label = ctk.CTkLabel(self.settings_card, text="", font=ui_font(11))
-        self.rs_strength_label.grid(row=3, column=4, columnspan=2, sticky="w", padx=(6, 15), pady=(0, 10))
+        self.rs_strength_menu.grid(row=3, column=2, columnspan=4, sticky="w", padx=(10, 15), pady=(0, 10))
+        self._set_rs_menu(self.default_qr_config.rs_block_ratio)
 
         self.set_default_btn = ctk.CTkButton(
             self.settings_card,
@@ -465,34 +461,30 @@ class ModernGUI(ctk.CTk):
             return
         self.update_redundancy_ui()
 
+    @staticmethod
+    def _ratio_to_menu(ratio: float) -> str:
+        return f"{int(round(ratio * 100))}%"
+
+    @staticmethod
+    def _menu_to_ratio(text: str) -> float:
+        return int(text.rstrip("%")) / 100.0
+
+    def _set_rs_menu(self, ratio: float):
+        self.rs_strength_menu.set(self._ratio_to_menu(ratio))
+
     def on_rs_strength_change(self, value):
-        """纠错强度滑块回调"""
+        """纠错强度菜单回调"""
         self.update_redundancy_ui()
 
     def update_redundancy_ui(self):
         """更新冗余控件的UI状态"""
         if self._running:
-            self.rs_strength_slider.configure(state="disabled")
+            self.rs_strength_menu.configure(state="disabled")
             self.redundancy_checkbox.configure(state="disabled")
             return
         enabled = self.enable_redundancy_var.get()
-
-        # 更新滑块和标签的可用性
         state = "normal" if enabled else "disabled"
-        self.rs_strength_slider.configure(state=state)
-
-        # 更新滑块标签
-        rs_value = self.rs_strength_var.get()
-        if enabled:
-            if rs_value <= 0.03:
-                label = self._text("rs_strength_low", "Low (2%)")
-            elif rs_value <= 0.07:
-                label = self._text("rs_strength_medium", "Medium (5%)")
-            else:
-                label = self._text("rs_strength_high", "High (10%)")
-            self.rs_strength_label.configure(text=label)
-        else:
-            self.rs_strength_label.configure(text="")
+        self.rs_strength_menu.configure(state=state)
 
     def clear_log(self):
         self.log_text.configure(state="normal")
@@ -592,7 +584,7 @@ class ModernGUI(ctk.CTk):
         self.config_cols_var.set(str(cfg.cols_per_page))
         self.config_margin_var.set(str(cfg.page_margin))
         self.enable_redundancy_var.set(cfg.enable_redundancy)
-        self.rs_strength_var.set(cfg.rs_block_ratio)
+        self._set_rs_menu(cfg.rs_block_ratio)
         self.update_redundancy_ui()
 
     def _build_qr_config_from_ui(self) -> QrLayoutConfig | None:
@@ -640,7 +632,7 @@ class ModernGUI(ctk.CTk):
             cols_per_page=cols_per_page,
             page_margin=page_margin,
             enable_redundancy=self.enable_redundancy_var.get(),
-            rs_block_ratio=self.rs_strength_var.get(),
+            rs_block_ratio=self._menu_to_ratio(self.rs_strength_menu.get()),
         )
 
     def choose_file(self):
