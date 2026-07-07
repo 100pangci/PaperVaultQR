@@ -132,7 +132,6 @@ class ModernGUI(ctk.CTk):
         self.config_font_size_var = ctk.StringVar(value=str(self.default_qr_config.font_size_label))
         self.config_cols_var = ctk.StringVar(value=str(self.default_qr_config.cols_per_page))
         self.config_margin_var = ctk.StringVar(value=str(self.default_qr_config.page_margin))
-        self.enable_redundancy_var = ctk.BooleanVar(value=self.default_qr_config.enable_redundancy)
         self._running = False
         self._task_failed = False
         self._status_key = "status_ready"
@@ -250,25 +249,19 @@ class ModernGUI(ctk.CTk):
         self.setting_margin_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_margin_var)
         self.setting_margin_entry.grid(row=2, column=5, sticky="w", padx=(0, 15), pady=(0, 10))
 
-        # 第三行：冗余功能控件
-        self.redundancy_checkbox = ctk.CTkCheckBox(
-            self.settings_card,
-            text="",
-            variable=self.enable_redundancy_var,
-            command=self.on_redundancy_toggle,
-            font=ui_font(12)
-        )
-        self.redundancy_checkbox.grid(row=3, column=0, columnspan=2, sticky="w", padx=(15, 6), pady=(0, 10))
+        # 第三行：冗余纠错
+        self.setting_rs_label = ctk.CTkLabel(self.settings_card, text="")
+        self.setting_rs_label.grid(row=3, column=0, sticky="w", padx=(15, 6), pady=(0, 10))
 
         self.rs_strength_menu = ctk.CTkOptionMenu(
             self.settings_card,
-            values=["2%", "5%", "10%"],
+            values=["OFF", "2%", "5%", "10%"],
             command=self.on_rs_strength_change,
             width=100,
             dynamic_resizing=False,
         )
-        self.rs_strength_menu.grid(row=3, column=2, columnspan=4, sticky="w", padx=(10, 15), pady=(0, 10))
-        self._set_rs_menu(self.default_qr_config.rs_block_ratio)
+        self.rs_strength_menu.grid(row=3, column=1, columnspan=5, sticky="w", padx=(0, 15), pady=(0, 10))
+        self._set_rs_menu(self.default_qr_config.enable_redundancy, self.default_qr_config.rs_block_ratio)
 
         self.set_default_btn = ctk.CTkButton(
             self.settings_card,
@@ -427,7 +420,7 @@ class ModernGUI(ctk.CTk):
         self.setting_font_label.configure(text=self._text("setting_font_size"))
         self.setting_cols_label.configure(text=self._text("setting_cols_per_page"))
         self.setting_margin_label.configure(text=self._text("setting_page_margin"))
-        self.redundancy_checkbox.configure(text=self._text("setting_enable_redundancy"))
+        self.setting_rs_label.configure(text=self._text("setting_rs_strength"))
         self.set_default_btn.configure(text=self._text("set_default"))
         self.project_link_label.configure(text=PROJECT_URL)
         self.status_label.configure(text=self._text(self._status_key))
@@ -435,7 +428,6 @@ class ModernGUI(ctk.CTk):
             text=self._selected_path if self._selected_path else self._text("selected_none")
         )
 
-        # 更新冗余控件的文本状态
         self.update_redundancy_ui()
 
     def _set_controls_enabled(self, enabled):
@@ -451,14 +443,6 @@ class ModernGUI(ctk.CTk):
         self.setting_cols_entry.configure(state=state)
         self.setting_margin_entry.configure(state=state)
         self.set_default_btn.configure(state=state)
-        self.redundancy_checkbox.configure(state=state)
-        # 更新冗余控件状态
-        self.update_redundancy_ui()
-
-    def on_redundancy_toggle(self):
-        """冗余功能切换回调"""
-        if self._running:
-            return
         self.update_redundancy_ui()
 
     @staticmethod
@@ -469,8 +453,8 @@ class ModernGUI(ctk.CTk):
     def _menu_to_ratio(text: str) -> float:
         return int(text.rstrip("%")) / 100.0
 
-    def _set_rs_menu(self, ratio: float):
-        self.rs_strength_menu.set(self._ratio_to_menu(ratio))
+    def _set_rs_menu(self, enabled: bool, ratio: float):
+        self.rs_strength_menu.set("OFF" if not enabled else self._ratio_to_menu(ratio))
 
     def on_rs_strength_change(self, value):
         """纠错强度菜单回调"""
@@ -478,12 +462,7 @@ class ModernGUI(ctk.CTk):
 
     def update_redundancy_ui(self):
         """更新冗余控件的UI状态"""
-        if self._running:
-            self.rs_strength_menu.configure(state="disabled")
-            self.redundancy_checkbox.configure(state="disabled")
-            return
-        enabled = self.enable_redundancy_var.get()
-        state = "normal" if enabled else "disabled"
+        state = "disabled" if self._running else "normal"
         self.rs_strength_menu.configure(state=state)
 
     def clear_log(self):
@@ -583,8 +562,7 @@ class ModernGUI(ctk.CTk):
         self.config_font_size_var.set(str(cfg.font_size_label))
         self.config_cols_var.set(str(cfg.cols_per_page))
         self.config_margin_var.set(str(cfg.page_margin))
-        self.enable_redundancy_var.set(cfg.enable_redundancy)
-        self._set_rs_menu(cfg.rs_block_ratio)
+        self._set_rs_menu(cfg.enable_redundancy, cfg.rs_block_ratio)
         self.update_redundancy_ui()
 
     def _build_qr_config_from_ui(self) -> QrLayoutConfig | None:
@@ -631,8 +609,9 @@ class ModernGUI(ctk.CTk):
             font_size_label=font_size_label,
             cols_per_page=cols_per_page,
             page_margin=page_margin,
-            enable_redundancy=self.enable_redundancy_var.get(),
-            rs_block_ratio=self._menu_to_ratio(self.rs_strength_menu.get()),
+            enable_redundancy=self.rs_strength_menu.get() != "OFF",
+            rs_block_ratio=self._menu_to_ratio(self.rs_strength_menu.get())
+            if self.rs_strength_menu.get() != "OFF" else 0.05,
         )
 
     def choose_file(self):
