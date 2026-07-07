@@ -52,6 +52,7 @@
     "suffix": "_ХолодноеХранилище",
     "redundancy_enabled": "   - Коррекция избыточности: Включено (избыточные блоки: {redundancy_blocks}, восстанавливаемо: {max_recoverable})",
     "redundancy_disabled": "   - Коррекция избыточности: Отключено",
+    "redundancy_too_many_blocks": "   - Слишком много блоков данных ({max_chunks}), Reed-Solomon отключен",
     "rs_encoding_done": "   - Кодирование Reed-Solomon завершено"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - Проверка после коррекции: ✗ Неудачно (ID: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Невосстанавливаемо: {unrecoverable_count} поврежденных чанков (ID: {chunk_ids})\n   Совет: Пожалуйста, просканируйте эти QR-коды снова",
     "redundancy_not_enabled": "   - Коррекция избыточности: Не включено",
-    "verification_summary": "   - Результаты проверки: {valid_count} допустимо, {corrupted_count} повреждено"
+    "verification_summary": "   - Результаты проверки: {valid_count} допустимо, {corrupted_count} повреждено",
+    "redundancy_enabled": "   - Межблочная коррекция ошибок: Включено (избыточные блоки: {redundancy_blocks}, восстанавливаемо: {max_recoverable})"
   }
 }

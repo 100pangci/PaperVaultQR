@@ -52,6 +52,7 @@
     "suffix": "_ArmazenamentoFrio",
     "redundancy_enabled": "   - Correção de redundância: Ativada (blocos redundantes: {redundancy_blocks}, recuperável: {max_recoverable})",
     "redundancy_disabled": "   - Correção de redundância: Desativada",
+    "redundancy_too_many_blocks": "   - Muitos blocos de dados ({max_chunks}), Reed-Solomon desativado",
     "rs_encoding_done": "   - Codificação Reed-Solomon concluída"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - Verificação pós-correção: ✗ Falhou (IDs: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Irrecuperável: {unrecoverable_count} chunks corrompidos (IDs: {chunk_ids})\n   Dica: Por favor, escaneie novamente esses códigos QR",
     "redundancy_not_enabled": "   - Correção de redundância: Não ativada",
-    "verification_summary": "   - Resultados de verificação: {valid_count} válidos, {corrupted_count} corrompidos"
+    "verification_summary": "   - Resultados de verificação: {valid_count} válidos, {corrupted_count} corrompidos",
+    "redundancy_enabled": "   - Correção de erros entre blocos: Ativada (blocos redundantes: {redundancy_blocks}, recuperável: {max_recoverable})"
   }
 }

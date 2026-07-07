@@ -52,6 +52,7 @@
     "suffix": "_ColdStorage",
     "redundancy_enabled": "   - Redundancy correction: Enabled (redundancy blocks: {redundancy_blocks}, recoverable: {max_recoverable})",
     "redundancy_disabled": "   - Redundancy correction: Disabled",
+    "redundancy_too_many_blocks": "   - Too many data chunks ({max_chunks}), Reed-Solomon disabled",
     "rs_encoding_done": "   - Reed-Solomon encoding completed"
   },
   "scanner_decoder": {
@@ -77,6 +78,8 @@
     "rs_verification_failed": "   - Post-correction verification: ✗ Failed (IDs: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Unrecoverable: {unrecoverable_count} corrupted chunks (IDs: {chunk_ids})\n   Tip: Please rescan these QR codes",
     "redundancy_not_enabled": "   - Redundancy correction: Not enabled",
-    "verification_summary": "   - Verification results: {valid_count} valid, {corrupted_count} corrupted"
+    "verification_summary": "   - Verification results: {valid_count} valid, {corrupted_count} corrupted",
+    "redundancy_enabled": "   - Cross-block error correction: Enabled (redundancy blocks: {redundancy_blocks}, recoverable: {max_recoverable})"
   }
 }
+

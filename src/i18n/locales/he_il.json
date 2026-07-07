@@ -52,6 +52,7 @@
     "suffix": "_אחסוןקר",
     "redundancy_enabled": "   - תיקון יתירות: מופעל (בלוקי יתירות: {redundancy_blocks}, ניתן לשחזור: {max_recoverable})",
     "redundancy_disabled": "   - תיקון יתירות: מושבת",
+    "redundancy_too_many_blocks": "   - יותר מדי בלוקי נתונים ({max_chunks}), Reed-Solomon הושבת",
     "rs_encoding_done": "   - קידוד Reed-Solomon הושלם"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - אימות לאחר תיקון: ✗ נכשלה (מזהים: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ בלתי ניתן לשחזור: {unrecoverable_count} חלקים פגומים (מזהים: {chunk_ids})\n   טיפ: אנא סרוק שוב קודי QR אלו",
     "redundancy_not_enabled": "   - תיקון יתירות: לא מופעל",
-    "verification_summary": "   - תוצאות אימות: {valid_count} תקינים, {corrupted_count} פגומים"
+    "verification_summary": "   - תוצאות אימות: {valid_count} תקינים, {corrupted_count} פגומים",
+    "redundancy_enabled": "   - תיקון שגיאות בין בלוקים: מופעל (בלוקי יתירות: {redundancy_blocks}, ניתן לשחזור: {max_recoverable})"
   }
 }

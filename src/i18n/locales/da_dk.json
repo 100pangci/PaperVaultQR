@@ -52,6 +52,7 @@
     "suffix": "_koldlager",
     "redundancy_enabled": "   - Redundanskorrektion: Aktiveret (redundante blokke: {redundancy_blocks}, gendannelig: {max_recoverable})",
     "redundancy_disabled": "   - Redundanskorrektion: Deaktiveret",
+    "redundancy_too_many_blocks": "   - For mange datablokke ({max_chunks}), Reed-Solomon deaktiveret",
     "rs_encoding_done": "   - Reed-Solomon kodning færdig"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - Verifikation efter korrektion: ✗ Fejlet (ID'er: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Ugendannelig: {unrecoverable_count} beskadigede chunks (ID'er: {chunk_ids})\n   Tip: Scan venligst disse QR-koder igen",
     "redundancy_not_enabled": "   - Redundanskorrektion: Ikke aktiveret",
-    "verification_summary": "   - Verifikationsresultater: {valid_count} gyldige, {corrupted_count} beskadigede"
+    "verification_summary": "   - Verifikationsresultater: {valid_count} gyldige, {corrupted_count} beskadigede",
+    "redundancy_enabled": "   - Tværblock-fejlkorrektion: Aktiveret (redundante blokke: {redundancy_blocks}, gendannelig: {max_recoverable})"
   }
 }

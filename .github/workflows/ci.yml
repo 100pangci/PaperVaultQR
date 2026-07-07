@@ -1,0 +1,49 @@
+name: CI Check
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev, main]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  lint-and-import:
+    name: Lint & Import Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install flake8 pyzbar Pillow segno python-docx customtkinter numpy
+
+      - name: Syntax check (compile)
+        run: |
+          python -m compileall src/
+          echo "✅ All Python files compiled successfully."
+
+      - name: Flake8 lint
+        run: |
+          python -m flake8 src/ --max-line-length=120 --count --statistics
+
+      - name: Import sanity
+        run: |
+          python -c "
+          import sys; sys.path.insert(0, 'src')
+          from core import auto_split_qr, scanner_decoder
+          from i18n import tr
+          print('✅ Core modules imported successfully.')
+          from i18n.ui_texts import get_gui_texts
+          texts = get_gui_texts('en_us')
+          print(f'✅ GUI texts loaded: {len(texts)} keys')
+          "

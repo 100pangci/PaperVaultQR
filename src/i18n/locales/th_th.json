@@ -52,6 +52,7 @@
     "suffix": "_ที่เก็บเย็น",
     "redundancy_enabled": "   - การแก้ไขความซ้ำซ้อน: เปิดใช้งาน (บล็อกซ้ำ: {redundancy_blocks}, กู้คืนได้: {max_recoverable})",
     "redundancy_disabled": "   - การแก้ไขความซ้ำซ้อน: ปิดใช้งาน",
+    "redundancy_too_many_blocks": "   - ข้อมูลชิ้นส่วนมากเกินไป ({max_chunks}), ปิดการใช้งาน Reed-Solomon",
     "rs_encoding_done": "   - การเข้ารหัส Reed-Solomon เสร็จสมบูรณ์"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - การตรวจสอบหลังการแก้ไข: ✗ ล้มเหลว (ID: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ ไม่สามารถกู้คืนได้: {unrecoverable_count} ชิ้นส่วนที่เสียหาย (ID: {chunk_ids})\n   เคล็ดลับ: โปรดสแกนคิวอาร์โค้ดเหล่านี้อีกครั้ง",
     "redundancy_not_enabled": "   - การแก้ไขความซ้ำซ้อน: ไม่ได้เปิดใช้งาน",
-    "verification_summary": "   - ผลการตรวจสอบ: {valid_count} ถูกต้อง, {corrupted_count} เสียหาย"
+    "verification_summary": "   - ผลการตรวจสอบ: {valid_count} ถูกต้อง, {corrupted_count} เสียหาย",
+    "redundancy_enabled": "   - การแก้ไขข้อผิดพลาดข้ามบล็อก: เปิดใช้งาน (บล็อกซ้ำ: {redundancy_blocks}, กู้คืนได้: {max_recoverable})"
   }
 }

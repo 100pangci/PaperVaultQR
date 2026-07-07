@@ -52,6 +52,7 @@
     "suffix": "_سوغۇقساقلاش",
     "redundancy_enabled": "   - ئارتۇقچە تۈزىتىش: قوزغىتىلدى (ئارتۇقچە بىرەك: {redundancy_blocks}, ئەسلىگە كەلتۈرگىلى بولىدۇ: {max_recoverable})",
     "redundancy_disabled": "   - ئارتۇقچە تۈزىتىش: چەكلەنگەن",
+    "redundancy_too_many_blocks": "   - سانلىق مەلۇمات بۆلىكى بەك كۆپ ({max_chunks}), Reed-Solomon چەكلەندى",
     "rs_encoding_done": "   - Reed-Solomon كودلاش تامام"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - تۈزىتىشتىن كېيىنكى دەلىللەش: ✗ مەغلۇب بولدى (ID: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ ئەسلىگە كەلتۈرگىلى بولمايدۇ: {unrecoverable_count} بۇزۇلغان بۆلەك (ID: {chunk_ids})\n   تەكلىپ: بۇ QR كودلىرىنى قايتا تەكشۈرۈڭ",
     "redundancy_not_enabled": "   - ئارتۇقچە تۈزىتىش: قوزغىتىلمىغان",
-    "verification_summary": "   - دەلىللەش نەتىجىسى: {valid_count} نورمال, {corrupted_count} بۇزۇلغان"
+    "verification_summary": "   - دەلىللەش نەتىجىسى: {valid_count} نورمال, {corrupted_count} بۇزۇلغان",
+    "redundancy_enabled": "   - تىزما ئارا خاتالىق تۈزىتىش: قوزغىتىلدى (ئارتۇقچە بىرەك: {redundancy_blocks}, ئەسلىگە كەلتۈرگىلى بولىدۇ: {max_recoverable})"
   }
 }

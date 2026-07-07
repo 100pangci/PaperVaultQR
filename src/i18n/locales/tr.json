@@ -52,6 +52,7 @@
     "suffix": "_SoğukDepolama",
     "redundancy_enabled": "   - Artıklık düzeltme: Etkin (artıklık blokları: {redundancy_blocks}, kurtarılabilir: {max_recoverable})",
     "redundancy_disabled": "   - Artıklık düzeltme: Devre dışı",
+    "redundancy_too_many_blocks": "   - Çok fazla veri kümesi ({max_chunks}), Reed-Solomon devre dışı",
     "rs_encoding_done": "   - Reed-Solomon kodlaması tamamlandı"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - Düzeltme sonrası doğrulama: ✗ Başarısız (kimlikler: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Kurtarılamaz: {unrecoverable_count} hasarlı küme (kimlikler: {chunk_ids})\n   İpucu: Lütfen bu QR kodlarını tekrar taratın",
     "redundancy_not_enabled": "   - Artıklık düzeltme: Etkin değil",
-    "verification_summary": "   - Doğrulama sonuçları: {valid_count} geçerli, {corrupted_count} hasarlı"
+    "verification_summary": "   - Doğrulama sonuçları: {valid_count} geçerli, {corrupted_count} hasarlı",
+    "redundancy_enabled": "   - Bloklar arası hata düzeltme: Etkin (artıklık blokları: {redundancy_blocks}, kurtarılabilir: {max_recoverable})"
   }
 }

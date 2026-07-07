@@ -466,11 +466,14 @@ class ModernGUI(ctk.CTk):
         self.setting_cols_entry.configure(state=state)
         self.setting_margin_entry.configure(state=state)
         self.set_default_btn.configure(state=state)
+        self.redundancy_checkbox.configure(state=state)
         # 更新冗余控件状态
         self.update_redundancy_ui()
 
     def on_redundancy_toggle(self):
         """冗余功能切换回调"""
+        if self._running:
+            return
         self.update_redundancy_ui()
 
     def on_rs_strength_change(self, value):
@@ -479,6 +482,11 @@ class ModernGUI(ctk.CTk):
 
     def update_redundancy_ui(self):
         """更新冗余控件的UI状态"""
+        if self._running:
+            self.rs_strength_slider.configure(state="disabled")
+            self.redundancy_checkbox.configure(state="disabled")
+            return
+        
         enabled = self.enable_redundancy_var.get()
         lang = self._ui_lang()
         

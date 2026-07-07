@@ -52,6 +52,7 @@
     "suffix": "_コールドストレージ",
     "redundancy_enabled": "   - 冗長性訂正: 有効 (冗長ブロック数: {redundancy_blocks}, 回復可能: {max_recoverable})",
     "redundancy_disabled": "   - 冗長性訂正: 無効",
+    "redundancy_too_many_blocks": "   - データブロックが多すぎます ({max_chunks})、Reed-Solomon を無効化",
     "rs_encoding_done": "   - Reed-Solomonエンコーディング完了"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - 修正後検証: ✗ 失敗 (ID: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ 回復不能: {unrecoverable_count}個の破損チャンク (ID: {chunk_ids})\n   ヒント: これらのQRコードを再スキャンしてください",
     "redundancy_not_enabled": "   - 冗長性訂正: 有効ではありません",
-    "verification_summary": "   - 検証結果: {valid_count}個正常, {corrupted_count}個破損"
+    "verification_summary": "   - 検証結果: {valid_count}個正常, {corrupted_count}個破損",
+    "redundancy_enabled": "   - クロスブロック誤り訂正: 有効 (冗長ブロック数: {redundancy_blocks}, 回復可能: {max_recoverable})"
   }
 }

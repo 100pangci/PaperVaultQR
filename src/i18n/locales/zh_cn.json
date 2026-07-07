@@ -52,6 +52,7 @@
     "suffix": "_冷存储",
     "redundancy_enabled": "   - 冗余纠错: 开启 (冗余块数: {redundancy_blocks}, 可恢复: {max_recoverable}个)",
     "redundancy_disabled": "   - 冗余纠错: 关闭",
+    "redundancy_too_many_blocks": "   - 数据块过多 ({max_chunks})，已关闭 Reed-Solomon 纠错",
     "rs_encoding_done": "   - Reed-Solomon编码完成"
   },
   "scanner_decoder": {
@@ -77,6 +78,8 @@
     "rs_verification_failed": "   - 纠错后验证: ✗ 失败 (编号: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ 无法恢复: {unrecoverable_count} 个损坏块 (编号: {chunk_ids})\n   提示: 请重新扫描这些QR码",
     "redundancy_not_enabled": "   - 冗余纠错: 未启用",
-    "verification_summary": "   - 校验结果: {valid_count}个正常, {corrupted_count}个损坏"
+    "verification_summary": "   - 校验结果: {valid_count}个正常, {corrupted_count}个损坏",
+    "redundancy_enabled": "   - 跨块纠错: 已开启 (冗余块数: {redundancy_blocks}, 可恢复: {max_recoverable}个)"
   }
 }
+

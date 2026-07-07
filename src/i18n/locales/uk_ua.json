@@ -52,6 +52,7 @@
     "suffix": "_ХолоднеСховище",
     "redundancy_enabled": "   - Корекція надлишковості: Увімкнено (надлишкові блоки: {redundancy_blocks}, відновлюється: {max_recoverable})",
     "redundancy_disabled": "   - Корекція надлишковості: Вимкнено",
+    "redundancy_too_many_blocks": "   - Забагато блоків даних ({max_chunks}), Reed-Solomon вимкнено",
     "rs_encoding_done": "   - Кодування Reed-Solomon завершено"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - Перевірка після корекції: ✗ Невдала (ID: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Не відновлюється: {unrecoverable_count} пошкоджених чанків (ID: {chunk_ids})\n   Порада: Будь ласка, повторно відскануйте ці QR-коди",
     "redundancy_not_enabled": "   - Корекція надлишковості: Не увімкнено",
-    "verification_summary": "   - Результати перевірки: {valid_count} дійсних, {corrupted_count} пошкоджених"
+    "verification_summary": "   - Результати перевірки: {valid_count} дійсних, {corrupted_count} пошкоджених",
+    "redundancy_enabled": "   - Міжблокова корекція помилок: Увімкнено (надлишкові блоки: {redundancy_blocks}, відновлюється: {max_recoverable})"
   }
 }

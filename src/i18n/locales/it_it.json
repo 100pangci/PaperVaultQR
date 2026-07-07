@@ -52,6 +52,7 @@
     "suffix": "_ArchiviazioneFredda",
     "redundancy_enabled": "   - Correzione ridondanza: Abilitata (blocchi ridondanti: {redundancy_blocks}, recuperabile: {max_recoverable})",
     "redundancy_disabled": "   - Correzione ridondanza: Disabilitata",
+    "redundancy_too_many_blocks": "   - Troppi blocchi di dati ({max_chunks}), Reed-Solomon disabilitato",
     "rs_encoding_done": "   - Codifica Reed-Solomon completata"
   },
   "scanner_decoder": {
@@ -77,6 +78,7 @@
     "rs_verification_failed": "   - Verifica post-correzione: ✗ Fallita (ID: {chunk_ids})",
     "corrupted_blocks_tip": "⚠ Irrecuperabile: {unrecoverable_count} chunk corrotti (ID: {chunk_ids})\n   Suggerimento: Si prega di scansionare nuovamente questi codici QR",
     "redundancy_not_enabled": "   - Correzione ridondanza: Non abilitata",
-    "verification_summary": "   - Risultati verifica: {valid_count} validi, {corrupted_count} corrotti"
+    "verification_summary": "   - Risultati verifica: {valid_count} validi, {corrupted_count} corrotti",
+    "redundancy_enabled": "   - Correzione errori tra blocchi: Abilitata (blocchi ridondanti: {redundancy_blocks}, recuperabile: {max_recoverable})"
   }
 }
