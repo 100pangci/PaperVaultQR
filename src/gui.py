@@ -508,7 +508,7 @@ class ModernGUI(ctk.CTk):
             sample_total = 100
             redundancy_blocks = max(2, int(sample_total * rs_value))
             max_recoverable = redundancy_blocks
-            info_text = self._text("redundancy_info", max_recoverable=max_recoverable, total=sample_total)
+            info_text = self._text("redundancy_info").format(max_recoverable=max_recoverable, total=sample_total)
             self.rs_info_label.configure(text=info_text)
         else:
             self.rs_info_label.configure(text="")
