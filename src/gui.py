@@ -110,9 +110,18 @@ class ModernGUI(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.geometry("900x650")
+        self.geometry("960x800")
         self.minsize(800, 600)
         self.option_add("*Font", (UI_FONT_FAMILY, 12))
+
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=0)
+        self.grid_rowconfigure(1, weight=0)
+        self.grid_rowconfigure(2, weight=0)
+        self.grid_rowconfigure(3, weight=0)
+        self.grid_rowconfigure(4, weight=0)
+        self.grid_rowconfigure(5, weight=1)
+        self.grid_rowconfigure(6, weight=0)
 
         self._language_options = build_language_options()
         self._language_label_to_code = {}
@@ -149,7 +158,7 @@ class ModernGUI(ctk.CTk):
         self.after(1000, self._sync_window_icon)
 
         self.header_frame = ctk.CTkFrame(self, fg_color="transparent")
-        self.header_frame.pack(fill="x", padx=20, pady=(20, 10))
+        self.header_frame.grid(row=0, column=0, sticky="ew", padx=20, pady=(15, 5))
 
         self.title_label = ctk.CTkLabel(self.header_frame, text="", font=ui_font(24, "bold"))
         self.title_label.pack(anchor="w")
@@ -163,7 +172,7 @@ class ModernGUI(ctk.CTk):
         self.subtitle_label.pack(anchor="w", pady=(2, 0))
 
         self.toolbar_frame = ctk.CTkFrame(self, fg_color="transparent")
-        self.toolbar_frame.pack(fill="x", padx=20, pady=(10, 15))
+        self.toolbar_frame.grid(row=1, column=0, sticky="ew", padx=20, pady=(5, 10))
 
         self.lang_label = ctk.CTkLabel(self.toolbar_frame, text="", font=ui_font(12, "bold"))
         self.lang_label.pack(side="left", padx=(0, 10))
@@ -209,55 +218,55 @@ class ModernGUI(ctk.CTk):
         self.file_btn.pack(side="right", padx=(10, 0))
 
         self.settings_card = ctk.CTkFrame(self, corner_radius=10)
-        self.settings_card.pack(fill="x", padx=20, pady=(5, 5))
+        self.settings_card.grid(row=2, column=0, sticky="ew", padx=20, pady=(5, 5))
 
         self.settings_title = ctk.CTkLabel(self.settings_card, text="", font=ui_font(14, "bold"))
-        self.settings_title.grid(row=0, column=0, columnspan=6, sticky="w", padx=15, pady=(10, 8))
+        self.settings_title.grid(row=0, column=0, columnspan=6, sticky="w", padx=15, pady=(8, 6))
 
         self.setting_chunk_label = ctk.CTkLabel(self.settings_card, text="")
-        self.setting_chunk_label.grid(row=1, column=0, sticky="w", padx=(15, 6), pady=(0, 8))
+        self.setting_chunk_label.grid(row=1, column=0, sticky="w", padx=(15, 6), pady=(0, 6))
         self.setting_chunk_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_chunk_size_var)
-        self.setting_chunk_entry.grid(row=1, column=1, sticky="w", pady=(0, 8))
+        self.setting_chunk_entry.grid(row=1, column=1, sticky="ew", pady=(0, 6))
 
         self.setting_error_label = ctk.CTkLabel(self.settings_card, text="")
-        self.setting_error_label.grid(row=1, column=2, sticky="w", padx=(10, 6), pady=(0, 8))
+        self.setting_error_label.grid(row=1, column=2, sticky="w", padx=(10, 6), pady=(0, 6))
         self.setting_error_menu = ctk.CTkOptionMenu(
             self.settings_card,
             variable=self.config_qr_error_var,
             values=self.qr_error_choices,
             width=90,
         )
-        self.setting_error_menu.grid(row=1, column=3, sticky="w", pady=(0, 8))
+        self.setting_error_menu.grid(row=1, column=3, sticky="ew", pady=(0, 6))
 
         self.setting_width_label = ctk.CTkLabel(self.settings_card, text="")
-        self.setting_width_label.grid(row=1, column=4, sticky="w", padx=(10, 6), pady=(0, 8))
+        self.setting_width_label.grid(row=1, column=4, sticky="w", padx=(10, 6), pady=(0, 6))
         self.setting_width_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_qr_width_var)
-        self.setting_width_entry.grid(row=1, column=5, sticky="w", padx=(0, 15), pady=(0, 8))
+        self.setting_width_entry.grid(row=1, column=5, sticky="ew", padx=(0, 15), pady=(0, 6))
 
         self.setting_font_label = ctk.CTkLabel(self.settings_card, text="")
-        self.setting_font_label.grid(row=2, column=0, sticky="w", padx=(15, 6), pady=(0, 10))
+        self.setting_font_label.grid(row=2, column=0, sticky="w", padx=(15, 6), pady=(0, 6))
         self.setting_font_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_font_size_var)
-        self.setting_font_entry.grid(row=2, column=1, sticky="w", pady=(0, 10))
+        self.setting_font_entry.grid(row=2, column=1, sticky="ew", pady=(0, 6))
 
         self.setting_cols_label = ctk.CTkLabel(self.settings_card, text="")
-        self.setting_cols_label.grid(row=2, column=2, sticky="w", padx=(10, 6), pady=(0, 10))
+        self.setting_cols_label.grid(row=2, column=2, sticky="w", padx=(10, 6), pady=(0, 6))
         self.setting_cols_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_cols_var)
-        self.setting_cols_entry.grid(row=2, column=3, sticky="w", pady=(0, 10))
+        self.setting_cols_entry.grid(row=2, column=3, sticky="ew", pady=(0, 6))
 
         self.setting_margin_label = ctk.CTkLabel(self.settings_card, text="")
-        self.setting_margin_label.grid(row=2, column=4, sticky="w", padx=(10, 6), pady=(0, 10))
+        self.setting_margin_label.grid(row=2, column=4, sticky="w", padx=(10, 6), pady=(0, 6))
         self.setting_margin_entry = ctk.CTkEntry(self.settings_card, width=90, textvariable=self.config_margin_var)
-        self.setting_margin_entry.grid(row=2, column=5, sticky="w", padx=(0, 15), pady=(0, 10))
+        self.setting_margin_entry.grid(row=2, column=5, sticky="ew", padx=(0, 15), pady=(0, 6))
 
         # 第三行：冗余纠错
         self.setting_rs_label = ctk.CTkLabel(self.settings_card, text="")
-        self.setting_rs_label.grid(row=3, column=0, sticky="w", padx=(15, 6), pady=(0, 10))
+        self.setting_rs_label.grid(row=3, column=0, sticky="w", padx=(15, 6), pady=(0, 6))
 
         self.config_rs_strength_var = ctk.StringVar(value="0")
         self.setting_rs_entry = ctk.CTkEntry(
             self.settings_card, width=90, textvariable=self.config_rs_strength_var
         )
-        self.setting_rs_entry.grid(row=3, column=1, columnspan=5, sticky="w", padx=(0, 15), pady=(0, 10))
+        self.setting_rs_entry.grid(row=3, column=1, columnspan=5, sticky="ew", padx=(0, 15), pady=(0, 6))
         self._set_rs_entry(self.default_qr_config.enable_redundancy, self.default_qr_config.rs_block_ratio)
 
         self.set_default_btn = ctk.CTkButton(
@@ -270,16 +279,18 @@ class ModernGUI(ctk.CTk):
             font=ui_font(12),
             command=self.reset_qr_config_to_default,
         )
-        self.set_default_btn.grid(row=5, column=0, sticky="w", padx=15, pady=(0, 10))
+        self.set_default_btn.grid(row=5, column=0, sticky="w", padx=15, pady=(0, 8))
 
-        # 初始化控件状态
+        for col in range(6):
+            self.settings_card.columnconfigure(col, weight=1)
+
         self.update_redundancy_ui()
 
         self.status_card = ctk.CTkFrame(self, corner_radius=10)
-        self.status_card.pack(fill="x", padx=20, pady=5)
+        self.status_card.grid(row=3, column=0, sticky="ew", padx=20, pady=5)
 
         self.status_label = ctk.CTkLabel(self.status_card, text="", font=ui_font(16, "bold"))
-        self.status_label.pack(anchor="w", padx=20, pady=(15, 2))
+        self.status_label.pack(anchor="w", padx=20, pady=(10, 2))
 
         self.path_label = ctk.CTkLabel(
             self.status_card,
@@ -287,21 +298,21 @@ class ModernGUI(ctk.CTk):
             text_color="gray50",
             font=ui_font(12),
         )
-        self.path_label.pack(anchor="w", padx=20, pady=(0, 10))
+        self.path_label.pack(anchor="w", padx=20, pady=(0, 6))
 
         self.progress = ctk.CTkProgressBar(self.status_card, height=4)
-        self.progress.pack(fill="x", padx=20, pady=(0, 15))
+        self.progress.pack(fill="x", padx=20, pady=(0, 10))
         self.progress.set(0)
 
         self.log_label = ctk.CTkLabel(self, text="", font=ui_font(12, "bold"))
-        self.log_label.pack(anchor="w", padx=20, pady=(15, 5))
+        self.log_label.grid(row=4, column=0, sticky="w", padx=20, pady=(10, 3))
 
         self.log_text = ctk.CTkTextbox(self, corner_radius=10, font=ui_font(13))
-        self.log_text.pack(fill="both", expand=True, padx=20, pady=(0, 10))
+        self.log_text.grid(row=5, column=0, sticky="nsew", padx=20, pady=(0, 5))
         self.log_text.configure(state="disabled")
 
         self.footer_frame = ctk.CTkFrame(self, fg_color="transparent")
-        self.footer_frame.pack(fill="x", padx=20, pady=(0, 10))
+        self.footer_frame.grid(row=6, column=0, sticky="ew", padx=20, pady=(0, 5))
 
         self.info_label = ctk.CTkLabel(
             self.footer_frame,
