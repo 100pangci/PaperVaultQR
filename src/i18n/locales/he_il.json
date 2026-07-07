@@ -38,7 +38,7 @@
     "rs_strength_low": "נמוך (2%)",
     "rs_strength_medium": "בינוני (5%)",
     "rs_strength_high": "גבוה (10%)",
-    "redundancy_info": "קודי QR פגומים שניתן לשחזר: {max_recoverable}/{total}"
+    "redundancy_info": "קודי QR פגומים שניתן לשחזר: ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ הקובץ לא נמצא: '{input_file}'",

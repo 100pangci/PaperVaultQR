@@ -38,7 +38,7 @@
     "rs_strength_low": "ต่ำ (2%)",
     "rs_strength_medium": "ปานกลาง (5%)",
     "rs_strength_high": "สูง (10%)",
-    "redundancy_info": "สามารถกู้คืน QR โค้ดที่เสียหายได้: {max_recoverable}/{total}"
+    "redundancy_info": "สามารถกู้คืน QR โค้ดที่เสียหายได้: ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ ไม่พบไฟล์: '{input_file}'",

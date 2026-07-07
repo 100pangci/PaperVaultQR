@@ -38,7 +38,7 @@
     "rs_strength_low": "Düşük (2%)",
     "rs_strength_medium": "Orta (5%)",
     "rs_strength_high": "Yüksek (10%)",
-    "redundancy_info": "Kurtarılabilir hasarlı QR kodları: {max_recoverable}/{total}"
+    "redundancy_info": "Kurtarılabilir hasarlı QR kodları: ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ Dosya bulunamadı: '{input_file}'",

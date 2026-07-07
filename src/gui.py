@@ -268,7 +268,6 @@ class ModernGUI(ctk.CTk):
             self.settings_card,
             from_=0.02,
             to=0.10,
-            number_of_steps=4,
             variable=self.rs_strength_var,
             command=self.on_rs_strength_change,
             width=150
@@ -502,13 +501,10 @@ class ModernGUI(ctk.CTk):
         label_text = f"{self._text('setting_rs_strength', 'Error Correction Strength')}: {strength_text}"
         self.rs_strength_label.configure(text=label_text)
 
-        # 更新信息标签
+        # 更新信息标签（按实际百分比显示，不虚构块数）
         if enabled:
-            # 计算示例：假设100个块
-            sample_total = 100
-            redundancy_blocks = max(2, int(sample_total * rs_value))
-            max_recoverable = redundancy_blocks
-            info_text = self._text("redundancy_info").format(max_recoverable=max_recoverable, total=sample_total)
+            pct = int(round(rs_value * 100))
+            info_text = self._text("redundancy_info").format(percent=pct)
             self.rs_info_label.configure(text=info_text)
         else:
             self.rs_info_label.configure(text="")

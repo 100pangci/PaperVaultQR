@@ -38,7 +38,7 @@
     "rs_strength_low": "कम (2%)",
     "rs_strength_medium": "मध्यम (5%)",
     "rs_strength_high": "उच्च (10%)",
-    "redundancy_info": "पुनर्प्राप्त करने योग्य क्षतिग्रस्त QR कोड: {max_recoverable}/{total}"
+    "redundancy_info": "पुनर्प्राप्त करने योग्य क्षतिग्रस्त QR कोड: ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ फ़ाइल नहीं मिली: '{input_file}'",
