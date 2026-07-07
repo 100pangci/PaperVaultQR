@@ -34,7 +34,7 @@
     "rs_strength_low": "低 (2%)",
     "rs_strength_medium": "中 (5%)",
     "rs_strength_high": "高 (10%)",
-    "redundancy_info": "可恢复损坏QR码: ~{percent}%",
+    "redundancy_info": "{strength} ~{percent}%",
     "set_default": "恢复默认",
     "invalid_config_number": "参数格式错误：请检查所有二维码参数是否为数字。",
     "invalid_config_range": "参数范围错误：请使用正数（页面边距可为 0）。",

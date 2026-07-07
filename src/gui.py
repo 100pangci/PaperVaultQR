@@ -261,18 +261,15 @@ class ModernGUI(ctk.CTk):
         )
         self.redundancy_checkbox.grid(row=3, column=0, columnspan=2, sticky="w", padx=(15, 6), pady=(0, 10))
 
-        self.rs_strength_label = ctk.CTkLabel(self.settings_card, text="", font=ui_font(11))
-        self.rs_strength_label.grid(row=3, column=2, columnspan=2, sticky="w", padx=(10, 6), pady=(0, 10))
-
         self.rs_strength_slider = ctk.CTkSlider(
             self.settings_card,
             from_=0.02,
             to=0.10,
             variable=self.rs_strength_var,
             command=self.on_rs_strength_change,
-            width=150
+            width=100
         )
-        self.rs_strength_slider.grid(row=3, column=4, columnspan=2, sticky="w", padx=(10, 15), pady=(0, 10))
+        self.rs_strength_slider.grid(row=3, column=2, columnspan=2, sticky="w", padx=(10, 6), pady=(0, 10))
 
         self.rs_info_label = ctk.CTkLabel(
             self.settings_card,
@@ -280,7 +277,7 @@ class ModernGUI(ctk.CTk):
             text_color="gray40",
             font=ui_font(10)
         )
-        self.rs_info_label.grid(row=4, column=0, columnspan=6, sticky="w", padx=15, pady=(0, 10))
+        self.rs_info_label.grid(row=3, column=4, columnspan=2, sticky="w", padx=(0, 15), pady=(0, 10))
 
         self.set_default_btn = ctk.CTkButton(
             self.settings_card,
@@ -489,22 +486,17 @@ class ModernGUI(ctk.CTk):
         state = "normal" if enabled else "disabled"
         self.rs_strength_slider.configure(state=state)
 
-        # 根据滑块值更新标签文本
+        # 更新滑块标签和信息
         rs_value = self.rs_strength_var.get()
-        if rs_value <= 0.03:
-            strength_text = self._text("rs_strength_low", "Low (2%)")
-        elif rs_value <= 0.07:
-            strength_text = self._text("rs_strength_medium", "Medium (5%)")
-        else:
-            strength_text = self._text("rs_strength_high", "High (10%)")
-
-        label_text = f"{self._text('setting_rs_strength', 'Error Correction Strength')}: {strength_text}"
-        self.rs_strength_label.configure(text=label_text)
-
-        # 更新信息标签（按实际百分比显示，不虚构块数）
         if enabled:
+            if rs_value <= 0.03:
+                strength_label = self._text("rs_strength_low", "Low (2%)")
+            elif rs_value <= 0.07:
+                strength_label = self._text("rs_strength_medium", "Medium (5%)")
+            else:
+                strength_label = self._text("rs_strength_high", "High (10%)")
             pct = int(round(rs_value * 100))
-            info_text = self._text("redundancy_info").format(percent=pct)
+            info_text = self._text("redundancy_info").format(strength=strength_label, percent=pct)
             self.rs_info_label.configure(text=info_text)
         else:
             self.rs_info_label.configure(text="")

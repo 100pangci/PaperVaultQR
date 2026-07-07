@@ -38,7 +38,7 @@
     "rs_strength_low": "དམའ་བ། (2%)",
     "rs_strength_medium": "འབྲིང་བ། (5%)",
     "rs_strength_high": "མཐོ་བ། (10%)",
-    "redundancy_info": "སླར་གསོ་བྱེད་ཐུབ་པའི་སྡེབ་གཅིག་གི་QRསྐད་འཕྲིན་རྒྱབ་འཁྲུལ། ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ ཡིག་ཆ་མ་རྙེད་: '{input_file}'",

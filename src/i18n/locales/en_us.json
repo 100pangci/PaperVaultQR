@@ -34,7 +34,7 @@
     "rs_strength_low": "Low (2%)",
     "rs_strength_medium": "Medium (5%)",
     "rs_strength_high": "High (10%)",
-    "redundancy_info": "Recoverable damaged QR codes: ~{percent}%",
+    "redundancy_info": "{strength} ~{percent}%",
     "set_default": "Restore Defaults",
     "invalid_config_number": "Invalid numeric setting. Please check all QR settings.",
     "invalid_config_range": "Invalid setting range. Use positive values (page margin can be 0).",

@@ -38,7 +38,7 @@
     "rs_strength_low": "تۆۋەن (2%)",
     "rs_strength_medium": "ئوتتۇرا (5%)",
     "rs_strength_high": "يۇقىرى (10%)",
-    "redundancy_info": "ئەسلىگە كەلتۈرگىلى بولىدىغان بۇزۇلغان QR كودى: ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ ھۆججەت تېپىلمىدى: '{input_file}'",

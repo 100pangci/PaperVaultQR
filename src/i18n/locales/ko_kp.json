@@ -38,7 +38,7 @@
     "rs_strength_low": "낮음 (2%)",
     "rs_strength_medium": "중간 (5%)",
     "rs_strength_high": "높음 (10%)",
-    "redundancy_info": "복구 가능한 손상된 QR 코드: ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ 귀중한 파일을 잃어버렸습니다: '{input_file}' (책임자는 즉시 자아비판을 진행하라!)",

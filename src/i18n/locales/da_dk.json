@@ -38,7 +38,7 @@
     "rs_strength_low": "Lav (2%)",
     "rs_strength_medium": "Medium (5%)",
     "rs_strength_high": "Høj (10%)",
-    "redundancy_info": "Gendannelige beskadigede QR-koder: ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ Kan ikke finde filen '{input_file}'",

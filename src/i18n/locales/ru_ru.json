@@ -38,7 +38,7 @@
     "rs_strength_low": "Низкий (2%)",
     "rs_strength_medium": "Средний (5%)",
     "rs_strength_high": "Высокий (10%)",
-    "redundancy_info": "Восстанавливаемые поврежденные QR-коды: ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ Файл не найден: '{input_file}'",

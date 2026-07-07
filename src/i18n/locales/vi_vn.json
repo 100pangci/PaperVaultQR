@@ -38,7 +38,7 @@
     "rs_strength_low": "Thấp (2%)",
     "rs_strength_medium": "Trung bình (5%)",
     "rs_strength_high": "Cao (10%)",
-    "redundancy_info": "Mã QR hỏng có thể khôi phục: ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%"
   },
   "auto_split_qr": {
     "missing_input": "❌ Không tìm thấy tệp: '{input_file}'",
