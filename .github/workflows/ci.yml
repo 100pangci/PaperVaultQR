@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install flake8 pyzbar Pillow segno python-docx customtkinter numpy
+          python -m pip install flake8 pyzbar Pillow segno python-docx customtkinter numpy reedsolo
 
       - name: Syntax check (compile)
         run: |
