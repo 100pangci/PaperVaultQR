@@ -1,6 +1,6 @@
 # PaperVaultQR
 
-> 中文文档 [README.zh.md](README.zh.md) | 日本語 [README.jp.md](README.jp.md) | 조선어 (주체혁명판) [README.ko_kp.md](README.ko_kp.md) 
+> 中文文档 [README.zh.md](README.zh.md) | 日本語 [README.jp.md](README.jp.md) | 조선어 (주체혁명판) [README.ko_kp.md](README.ko_kp.md) | Русский [README.ru.md](README.ru.md)
 
 PaperVaultQR splits text files into multiple QR codes, generates a printable Word document, and restores the original content from a folder of scanned QR images. It is designed for offline paper backups of high-entropy encrypted data.
 
