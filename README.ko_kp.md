@@ -239,13 +239,13 @@ python -m flake8 src/ --max-line-length=120
 
 ## 주체적 미래 계획 (Roadmap)
 
-> TODO：장차 배치 스캔, Web UI, CLI 전용 경량 건설 등의 혁명적 계획을 이곳에 기록할 예정입니다.
+> 
 
 ---
 
 ## 혁명적 문답 (FAQ)
 
-> TODO：동지들이 자주 묻는 질문들을 이곳에 추가할 것입니다.
+> 
 
 ---
 
@@ -261,8 +261,8 @@ python -m flake8 src/ --max-line-length=120
 - [python-docx](https://github.com/python-openxml/python-docx) — Word 문서 창조
 - [customtkinter](https://github.com/TomSchimansky/CustomTkinter) — 현대적 GUI 무장
 - [pyzbar](https://github.com/NaturalHistoryMuseum/pyzbar) — QR / 바코드 해독
-- [reedsolo](https://github.com/tomerfiliba-org/reedsolo) — Reed-Solomon 오류 정정
-- [Pillow](https://python-pillow.org/) — 그림 가공
+- [reedsolo](https://pypi.org/project/reedsolo/) — Reed-Solomon 오류 정정
+- [Pillow](https://pypi.org/project/pillow/) — 그림 가공
 - [NumPy](https://numpy.org/) — 수치 련산
 
 ---

@@ -231,13 +231,13 @@ python -m flake8 src/ --max-line-length=120
 
 ## Roadmap
 
-> TODO：可在此处列出未来计划，例如批量扫描、Web UI 或纯 CLI 轻量构建等。
+> 
 
 ---
 
 ## FAQ
 
-> TODO：常见问题可在此处补充。
+> 
 
 ---
 
@@ -253,6 +253,6 @@ python -m flake8 src/ --max-line-length=120
 - [python-docx](https://github.com/python-openxml/python-docx) — Word 文档创建
 - [customtkinter](https://github.com/TomSchimansky/CustomTkinter) — 现代 GUI 工具包
 - [pyzbar](https://github.com/NaturalHistoryMuseum/pyzbar) — QR / 条码解码
-- [reedsolo](https://github.com/tomerfiliba-org/reedsolo) — Reed-Solomon 纠错
-- [Pillow](https://python-pillow.org/) — 图像处理
+- [reedsolo](https://pypi.org/project/reedsolo/) — Reed-Solomon 纠错
+- [Pillow](https://pypi.org/project/pillow/) — 图像处理
 - [NumPy](https://numpy.org/) — 数值计算

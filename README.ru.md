@@ -232,13 +232,13 @@ python -m flake8 src/ --max-line-length=120
 
 ## Roadmap
 
-> TODO: Здесь можно перечислить планы — пакетное сканирование, веб-интерфейс, облегчённая CLI-сборка и т.д.
+> 
 
 ---
 
 ## FAQ
 
-> TODO: Часто задаваемые вопросы можно добавить здесь.
+> 
 
 ---
 
@@ -254,6 +254,6 @@ python -m flake8 src/ --max-line-length=120
 - [python-docx](https://github.com/python-openxml/python-docx) — создание документов Word
 - [customtkinter](https://github.com/TomSchimansky/CustomTkinter) — современный GUI-тулкит
 - [pyzbar](https://github.com/NaturalHistoryMuseum/pyzbar) — декодирование QR/штрих-кодов
-- [reedsolo](https://github.com/tomerfiliba-org/reedsolo) — коррекция ошибок Рида-Соломона
-- [Pillow](https://python-pillow.org/) — обработка изображений
+- [reedsolo](https://pypi.org/project/reedsolo/) — коррекция ошибок Рида-Соломона
+- [Pillow](https://pypi.org/project/pillow/) — обработка изображений
 - [NumPy](https://numpy.org/) — численные расчёты

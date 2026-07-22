@@ -231,13 +231,13 @@ python -m flake8 src/ --max-line-length=120
 
 ## Roadmap
 
-> TODO：今後の計画（バッチスキャン、Web UI、CLI 専用軽量ビルドなど）はこちらに記載予定。
+> 
 
 ---
 
 ## FAQ
 
-> TODO：よくある質問はこちらに追加予定。
+> 
 
 ---
 
@@ -253,6 +253,6 @@ python -m flake8 src/ --max-line-length=120
 - [python-docx](https://github.com/python-openxml/python-docx) — Word 文書作成
 - [customtkinter](https://github.com/TomSchimansky/CustomTkinter) — モダン GUI ツールキット
 - [pyzbar](https://github.com/NaturalHistoryMuseum/pyzbar) — QR / バーコードデコード
-- [reedsolo](https://github.com/tomerfiliba-org/reedsolo) — Reed-Solomon 誤り訂正
-- [Pillow](https://python-pillow.org/) — 画像処理
+- [reedsolo](https://pypi.org/project/reedsolo/) — Reed-Solomon 誤り訂正
+- [Pillow](https://pypi.org/project/pillow/) — 画像処理
 - [NumPy](https://numpy.org/) — 数値演算
