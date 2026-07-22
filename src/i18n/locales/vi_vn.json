@@ -38,7 +38,11 @@
     "rs_strength_low": "Thấp (2%)",
     "rs_strength_medium": "Trung bình (5%)",
     "rs_strength_high": "Cao (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "Chủ đề",
+    "theme_system": "Hệ thống",
+    "theme_light": "Sáng",
+    "theme_dark": "Tối"
   },
   "auto_split_qr": {
     "missing_input": "❌ Không tìm thấy tệp: '{input_file}'",

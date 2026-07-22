@@ -38,7 +38,11 @@
     "rs_strength_low": "Низький (2%)",
     "rs_strength_medium": "Середній (5%)",
     "rs_strength_high": "Високий (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "Тема",
+    "theme_system": "Система",
+    "theme_light": "Світла",
+    "theme_dark": "Темна"
   },
   "auto_split_qr": {
     "missing_input": "❌ Файл не знайдено: '{input_file}'",

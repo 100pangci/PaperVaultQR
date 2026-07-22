@@ -38,7 +38,11 @@
     "rs_strength_low": "נמוך (2%)",
     "rs_strength_medium": "בינוני (5%)",
     "rs_strength_high": "גבוה (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "ערכת נושא",
+    "theme_system": "מערכת",
+    "theme_light": "בהיר",
+    "theme_dark": "כהה"
   },
   "auto_split_qr": {
     "missing_input": "❌ הקובץ לא נמצא: '{input_file}'",

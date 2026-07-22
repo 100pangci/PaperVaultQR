@@ -38,7 +38,11 @@
     "rs_strength_low": "낮음 (2%)",
     "rs_strength_medium": "중간 (5%)",
     "rs_strength_high": "높음 (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "테마",
+    "theme_system": "시스템",
+    "theme_light": "밝게",
+    "theme_dark": "어둡게"
   },
   "auto_split_qr": {
     "missing_input": "❌ 파일을 찾을 수 없습니다: '{input_file}'",

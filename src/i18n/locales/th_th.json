@@ -38,7 +38,11 @@
     "rs_strength_low": "ต่ำ (2%)",
     "rs_strength_medium": "ปานกลาง (5%)",
     "rs_strength_high": "สูง (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "ธีม",
+    "theme_system": "ระบบ",
+    "theme_light": "สว่าง",
+    "theme_dark": "มืด"
   },
   "auto_split_qr": {
     "missing_input": "❌ ไม่พบไฟล์: '{input_file}'",

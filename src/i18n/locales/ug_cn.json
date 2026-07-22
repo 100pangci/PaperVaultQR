@@ -38,7 +38,11 @@
     "rs_strength_low": "تۆۋەن (2%)",
     "rs_strength_medium": "ئوتتۇرا (5%)",
     "rs_strength_high": "يۇقىرى (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "تېما",
+    "theme_system": "سىستېما",
+    "theme_light": "يورۇق",
+    "theme_dark": "قاراڭغۇ"
   },
   "auto_split_qr": {
     "missing_input": "❌ ھۆججەت تېپىلمىدى: '{input_file}'",

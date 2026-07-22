@@ -38,7 +38,11 @@
     "set_default": "Restore Defaults",
     "invalid_config_number": "Invalid numeric setting. Please check all QR settings.",
     "invalid_config_range": "Invalid setting range. Use positive values (page margin can be 0).",
-    "invalid_config_qr_error": "Invalid QR error level. Allowed values: {choices}."
+    "invalid_config_qr_error": "Invalid QR error level. Allowed values: {choices}.",
+    "theme": "Theme",
+    "theme_system": "System",
+    "theme_light": "Light",
+    "theme_dark": "Dark"
   },
   "auto_split_qr": {
     "missing_input": "❌ File not found: '{input_file}'",

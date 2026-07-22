@@ -38,7 +38,11 @@
     "rs_strength_low": "Niedrig (2%)",
     "rs_strength_medium": "Mittel (5%)",
     "rs_strength_high": "Hoch (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "Thema",
+    "theme_system": "System",
+    "theme_light": "Hell",
+    "theme_dark": "Dunkel"
   },
   "auto_split_qr": {
     "missing_input": "❌ Datei nicht gefunden: '{input_file}'",

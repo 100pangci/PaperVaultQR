@@ -21,6 +21,7 @@ from i18n.ui_texts import (
     get_gui_text,
     get_gui_texts,
 )
+from config import load_config, save_config
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_POLL_MS = 100
@@ -33,7 +34,8 @@ def resource_path(*parts):
     return os.path.join(base_dir, *parts)
 
 
-ctk.set_appearance_mode("System")
+_app_cfg = load_config()
+ctk.set_appearance_mode(_app_cfg.get("appearance_mode", "System"))
 ctk.set_default_color_theme("blue")
 
 
@@ -130,7 +132,13 @@ class ModernGUI(ctk.CTk):
             self._language_label_to_code[code] = code
 
         self.lang_var = ctk.StringVar(value=AUTO_LANGUAGE_VALUE)
+
+        saved_lang = _app_cfg.get("language", "")
+        if saved_lang and saved_lang in self._language_label_to_code:
+            self.lang_var.set(saved_lang)
+
         self.lang_var.trace_add("write", self.update_ui_texts)
+        self.lang_var.trace_add("write", self._on_lang_changed)
 
         self.log_q = queue.Queue()
         self.default_qr_config = auto_split_qr.DEFAULT_CONFIG
@@ -141,6 +149,8 @@ class ModernGUI(ctk.CTk):
         self.config_font_size_var = ctk.StringVar(value=str(self.default_qr_config.font_size_label))
         self.config_cols_var = ctk.StringVar(value=str(self.default_qr_config.cols_per_page))
         self.config_margin_var = ctk.StringVar(value=str(self.default_qr_config.page_margin))
+
+        self._appearance_mode = _app_cfg.get("appearance_mode", "System")
         self._running = False
         self._task_failed = False
         self._status_key = "status_ready"
@@ -184,6 +194,21 @@ class ModernGUI(ctk.CTk):
             width=160,
         )
         self.lang_combo.pack(side="left")
+
+        self.theme_label = ctk.CTkLabel(self.toolbar_frame, text="", font=ui_font(12, "bold"))
+        self.theme_label.pack(side="left", padx=(20, 10))
+
+        self._theme_mode_values = ["System", "Light", "Dark"]
+        self._theme_mode_display = {m: m for m in self._theme_mode_values}
+        self.theme_var = ctk.StringVar(value=self._appearance_mode)
+        self.theme_combo = ctk.CTkOptionMenu(
+            self.toolbar_frame,
+            variable=self.theme_var,
+            values=list(self._theme_mode_display.values()),
+            width=120,
+            command=self._on_theme_changed,
+        )
+        self.theme_combo.pack(side="left")
 
         self.clear_btn = ctk.CTkButton(
             self.toolbar_frame,
@@ -267,7 +292,17 @@ class ModernGUI(ctk.CTk):
             self.settings_card, width=90, textvariable=self.config_rs_strength_var
         )
         self.setting_rs_entry.grid(row=3, column=1, columnspan=5, sticky="ew", padx=(0, 15), pady=(0, 6))
-        self._set_rs_entry(self.default_qr_config.enable_redundancy, self.default_qr_config.rs_block_ratio)
+
+        self.config_chunk_size_var.set(str(_app_cfg.get("chunk_size", self.default_qr_config.chunk_size)))
+        self.config_qr_error_var.set(_app_cfg.get("qr_error", self.default_qr_config.qr_error))
+        self.config_qr_width_var.set(str(_app_cfg.get("qr_width_cm", self.default_qr_config.qr_width_cm)))
+        self.config_font_size_var.set(str(_app_cfg.get("font_size_label", self.default_qr_config.font_size_label)))
+        self.config_cols_var.set(str(_app_cfg.get("cols_per_page", self.default_qr_config.cols_per_page)))
+        self.config_margin_var.set(str(_app_cfg.get("page_margin", self.default_qr_config.page_margin)))
+        self._set_rs_entry(
+            _app_cfg.get("rs_strength", 0) > 0,
+            _app_cfg.get("rs_strength", 0) / 100.0,
+        )
 
         self.set_default_btn = ctk.CTkButton(
             self.settings_card,
@@ -334,6 +369,7 @@ class ModernGUI(ctk.CTk):
 
         self.update_ui_texts()
         self.after(LOG_POLL_MS, self._poll_log)
+        self.protocol("WM_DELETE_WINDOW", self._on_close)
 
     def _selected_lang_code(self):
         selection = self.lang_var.get()
@@ -410,6 +446,44 @@ class ModernGUI(ctk.CTk):
         self._update_window_icon()
         self.after(1000, self._sync_window_icon)
 
+    def _on_theme_changed(self, display_label):
+        for mode, display in self._theme_mode_display.items():
+            if display == display_label:
+                self._appearance_mode = mode
+                break
+        else:
+            self._appearance_mode = "System"
+        ctk.set_appearance_mode(self._appearance_mode)
+        self._update_window_icon()
+        self._save_config()
+
+    def _on_lang_changed(self, *args):
+        self._save_config()
+
+    def _save_config(self):
+        try:
+            cfg = {
+                "appearance_mode": self._appearance_mode,
+                "language": self.lang_var.get(),
+                "chunk_size": int(self.config_chunk_size_var.get().strip()),
+                "qr_error": self.config_qr_error_var.get().strip().upper(),
+                "qr_width_cm": float(self.config_qr_width_var.get().strip()),
+                "font_size_label": int(self.config_font_size_var.get().strip()),
+                "cols_per_page": int(self.config_cols_var.get().strip()),
+                "page_margin": float(self.config_margin_var.get().strip()),
+                "rs_strength": int(self.config_rs_strength_var.get().strip()),
+            }
+        except ValueError:
+            cfg = {
+                "appearance_mode": self._appearance_mode,
+                "language": self.lang_var.get(),
+            }
+        save_config(cfg)
+
+    def _on_close(self):
+        self._save_config()
+        self.destroy()
+
     def update_ui_texts(self, *args):
         base_title = self._text("title", "PaperVaultQR")
         self.title(f"{base_title} — {get_app_version()}")
@@ -430,6 +504,14 @@ class ModernGUI(ctk.CTk):
         self.setting_margin_label.configure(text=self._text("setting_page_margin"))
         self.setting_rs_label.configure(text=self._text("setting_rs_strength"))
         self.set_default_btn.configure(text=self._text("set_default"))
+        self.theme_label.configure(text=self._text("theme", "Theme"))
+        self._theme_mode_display = {}
+        for mode in self._theme_mode_values:
+            key = f"theme_{mode.lower()}"
+            self._theme_mode_display[mode] = self._text(key, mode)
+        self.theme_combo.configure(values=list(self._theme_mode_display.values()))
+        current_display = self._theme_mode_display.get(self._appearance_mode, self._appearance_mode)
+        self.theme_var.set(current_display)
         self.project_link_label.configure(text=PROJECT_URL)
         self.status_label.configure(text=self._text(self._status_key))
         self.path_label.configure(
@@ -441,6 +523,7 @@ class ModernGUI(ctk.CTk):
     def _set_controls_enabled(self, enabled):
         state = "normal" if enabled else "disabled"
         self.lang_combo.configure(state=state)
+        self.theme_combo.configure(state=state)
         self.file_btn.configure(state=state)
         self.folder_btn.configure(state=state)
         self.clear_btn.configure(state=state)
@@ -557,6 +640,7 @@ class ModernGUI(ctk.CTk):
         self.config_cols_var.set(str(cfg.cols_per_page))
         self.config_margin_var.set(str(cfg.page_margin))
         self._set_rs_entry(cfg.enable_redundancy, cfg.rs_block_ratio)
+        self._save_config()
 
     def _build_qr_config_from_ui(self) -> QrLayoutConfig | None:
         lang = self._ui_lang()
@@ -670,6 +754,8 @@ class ModernGUI(ctk.CTk):
         if config is None:
             self._set_controls_enabled(True)
             return
+
+        self._save_config()
 
         worker = threading.Thread(
             target=run_task_in_thread,

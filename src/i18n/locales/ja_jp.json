@@ -38,7 +38,11 @@
     "rs_strength_low": "低 (2%)",
     "rs_strength_medium": "中 (5%)",
     "rs_strength_high": "高 (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "テーマ",
+    "theme_system": "システム",
+    "theme_light": "ライト",
+    "theme_dark": "ダーク"
   },
   "auto_split_qr": {
     "missing_input": "❌ ファイルが見つかりません: '{input_file}'",

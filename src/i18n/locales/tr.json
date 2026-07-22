@@ -38,7 +38,11 @@
     "rs_strength_low": "Düşük (2%)",
     "rs_strength_medium": "Orta (5%)",
     "rs_strength_high": "Yüksek (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "Tema",
+    "theme_system": "Sistem",
+    "theme_light": "Açık",
+    "theme_dark": "Koyu"
   },
   "auto_split_qr": {
     "missing_input": "❌ Dosya bulunamadı: '{input_file}'",

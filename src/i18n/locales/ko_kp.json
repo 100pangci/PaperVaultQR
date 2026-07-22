@@ -38,7 +38,11 @@
     "rs_strength_low": "낮음 (2%)",
     "rs_strength_medium": "중간 (5%)",
     "rs_strength_high": "높음 (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "주제",
+    "theme_system": "체제",
+    "theme_light": "빛",
+    "theme_dark": "어둠"
   },
   "auto_split_qr": {
     "missing_input": "❌ 귀중한 파일을 잃어버렸습니다: '{input_file}' (책임자는 즉시 자아비판을 진행하라!)",

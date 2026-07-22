@@ -38,7 +38,11 @@
     "rs_strength_low": "Faible (2%)",
     "rs_strength_medium": "Moyen (5%)",
     "rs_strength_high": "Élevé (10%)",
-    "redundancy_info": "{strength} ~{percent}%"
+    "redundancy_info": "{strength} ~{percent}%",
+    "theme": "Thème",
+    "theme_system": "Système",
+    "theme_light": "Clair",
+    "theme_dark": "Sombre"
   },
   "auto_split_qr": {
     "missing_input": "❌ Fichier introuvable : '{input_file}'",
